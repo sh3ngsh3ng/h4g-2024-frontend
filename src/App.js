@@ -18,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
+        {/* authentication */}
         <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
       <Footer />

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
+import { Button } from '@chakra-ui/react';
 const LoginPage = () => {
     const [user, setUser] = useState({
         email: '',
@@ -37,9 +36,11 @@ const LoginPage = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit">Login</button>
+                <Button colorScheme='teal' size='md'>
+                    Login
+                </Button>
+                <h2>Signup now using Google</h2>
             </form>
-            <Link to="/register">Register</Link>
         </>
     );
 }
