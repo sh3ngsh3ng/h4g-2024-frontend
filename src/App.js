@@ -1,13 +1,14 @@
-import React from 'react'
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Pages
 import LandingPage from "../src/pages/landing-page/LandingPage";
-import ErrorPage from "../src/pages/error-page/ErrorPage"
+import ErrorPage from "../src/pages/error-page/ErrorPage";
+import LoginPage from "./pages/authentication/login-page/LoginPage";
 
 // Components
-import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
       <Footer />
     </React.Fragment>
