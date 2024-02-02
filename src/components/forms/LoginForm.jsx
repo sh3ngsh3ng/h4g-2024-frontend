@@ -5,7 +5,6 @@ import {
     Input,
     Button,
     Container,
-    Heading,
     FormControl,
     FormHelperText
 } from '@chakra-ui/react'

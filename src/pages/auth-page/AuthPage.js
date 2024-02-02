@@ -1,7 +1,8 @@
 import LoginForm from "../../components/forms/LoginForm";
 import SignUpForm from "../../components/forms/SignUpForm";
 import Carousel from "../../components/utilities/Carousel"
-import { useRadioGroup, Box, HStack, useRadio, Container, Grid, GridItem, Flex } from "@chakra-ui/react";
+import { useRadioGroup, Box, HStack, useRadio, Flex, Container } from "@chakra-ui/react";
+import { Show, Hide } from '@chakra-ui/react'
 import { useState } from "react";
 
 function RadioCard(props) {
@@ -80,8 +81,9 @@ export default function AuthPage() {
         <>
             <Flex>
                 {/* hide if phone */}
-                <Box w="50%" padding={5}><Carousel /></Box>
-                <Box w="50%" padding={5}>
+                <Show above="lg"><Box w="50%" padding={5}><Carousel /></Box></Show>
+
+                <Box w={{ base: "100%", lg: "50%" }} padding={5}>
                     <RadioToggle />
                     {renderForm()}
                 </Box>
