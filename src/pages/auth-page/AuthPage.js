@@ -1,74 +1,92 @@
 import LoginForm from "../../components/forms/LoginForm";
 import SignUpForm from "../../components/forms/SignUpForm";
-import { Radio, RadioGroup, useRadioGroup, Box, HStack, useRadio } from "@chakra-ui/react";
+import Carousel from "../../components/utilities/Carousel"
+import { useRadioGroup, Box, HStack, useRadio, Container, Grid, GridItem, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 
 function RadioCard(props) {
-  const { getInputProps, getRadioProps } = useRadio(props);
+    const { getInputProps, getRadioProps } = useRadio(props);
 
-  const input = getInputProps();
-  const checkbox = getRadioProps();
+    const input = getInputProps();
+    const checkbox = getRadioProps();
 
-  return (
-    <Box as="label">
-      <input {...input} />
-      <Box
-        {...checkbox}
-        cursor="pointer"
-        borderWidth="1px"
-        borderRadius="md"
-        boxShadow="md"
-        _checked={{
-          bg: "red.600",
-          color: "white",
-          borderColor: "red.600",
-        }}
-        _focus={{
-          boxShadow: "outline",
-        }}
-        px={5}
-        py={3}
-      >
-        {props.children}
-      </Box>
-    </Box>
-  );
+    return (
+        <Box as="label">
+            <input {...input} />
+            <Box
+                {...checkbox}
+                cursor="pointer"
+                borderWidth="1px"
+                borderRadius="md"
+                boxShadow="md"
+                _checked={{
+                    bg: "red.600",
+                    color: "white",
+                    borderColor: "red.600",
+                }}
+                _focus={{
+                    boxShadow: "outline",
+                }}
+                px={5}
+                py={3}
+            >
+                {props.children}
+            </Box>
+        </Box>
+    );
 }
 
-function Example() {
-  const options = ["Login", "Sign Up"];
-
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    name: "framework",
-    defaultValue: "react",
-    onChange: console.log,
-  });
-
-  const group = getRootProps();
-
-  return (
-    <HStack {...group}>
-      {options.map((value) => {
-        const radio = getRadioProps({ value });
-        return (
-          <RadioCard key={value} {...radio}>
-            {value}
-          </RadioCard>
-        );
-      })}
-    </HStack>
-  );
-}
 
 export default function AuthPage() {
-  return (
-    <>
-      <h1>Auth Page</h1>
-      <div>Carousel Component</div>
-      <button>Toggle Forms - Radio Button</button>
-      {/* if mode = signup  */}
-      <SignUpForm />
-      <LoginForm />
-      <Example />
-    </>
-  );
+
+
+    const [formMode, setFormMode] = useState("Login")
+
+    function renderForm() {
+        if (formMode == "Login") {
+            return <LoginForm />
+        } else if (formMode == "SignUp") {
+            return <SignUpForm />
+        }
+    }
+
+    function RadioToggle() {
+        const options = ["Login", "SignUp"];
+
+        const { getRootProps, getRadioProps } = useRadioGroup({
+            name: "authMode",
+            defaultValue: "Login",
+            onChange: (value) => setFormMode(value),
+        });
+
+        const group = getRootProps();
+
+        return (
+            <HStack {...group}>
+                {options.map((value) => {
+                    const radio = getRadioProps({ value });
+                    return (
+                        <RadioCard key={value} {...radio}>
+                            {value}
+                        </RadioCard>
+                    );
+                })}
+            </HStack>
+        );
+    }
+
+    return (
+
+        <>
+            <Flex>
+                {/* hide if phone */}
+                <Box w="50%" padding={5}><Carousel /></Box>
+                <Box w="50%" padding={5}>
+                    <RadioToggle />
+                    {renderForm()}
+                </Box>
+            </Flex>
+        </>
+
+    );
 }

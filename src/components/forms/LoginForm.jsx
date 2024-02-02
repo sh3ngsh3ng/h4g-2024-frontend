@@ -15,36 +15,38 @@ export default function LoginForm() {
         <>
             <Container>
                 <FormControl>
-                    <Input 
+                    <Input
+                        id="login-email"
                         m="10px"
-                        type='text' 
+                        type='text'
                         placeholder='Email Address'
-                        name = 'email'
+                        name='email'
                         borderColor={'gray.400'}
                         focusBorderColor='red.600'
                     />
-                    <Input 
+                    <Input
+                        id="login-pwd"
                         m="10px"
-                        type='password' 
-                        placeholder='Password' 
-                        name = 'password'
+                        type='password'
+                        placeholder='Password'
+                        name='password'
                         borderColor={'gray.400'}
                         focusBorderColor='red.600'
                     />
                     <FormHelperText textAlign={'center'}>
-                    <Link to = "/login"
-                        style = {{
-                            color:"red",
-                        }}>
+                        <Link to="/login"
+                            style={{
+                                color: "red",
+                            }}>
                             Forget Password?
-                    </Link>
+                        </Link>
                     </FormHelperText>
-                    <Button 
+                    <Button
                         m="10px"
                         colorScheme='red'
                         width="full"
                         variant="solid"
-                        >
+                    >
                         Login
                     </Button>
                 </FormControl>
