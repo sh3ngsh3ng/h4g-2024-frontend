@@ -1,28 +1,35 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+// UI
+import { ChakraProvider } from "@chakra-ui/react";
+
 // Pages
 import LandingPage from "../src/pages/landing-page/LandingPage";
 import ErrorPage from "../src/pages/error-page/ErrorPage";
-import LoginPage from "./pages/authentication/login-page/LoginPage";
+import LoginPage from "./pages/auth-page/LoginPage";
 
 // Components
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import RegisterPage from "./pages/auth-page/RegisterPage";
 
 function App() {
   return (
-    <React.Fragment>
+    <ChakraProvider>
       <Navbar />
       {/* pages */}
-      <Routes>
-        <Route path="/" element={<LandingPage />}></Route>
-        <Route path="*" element={<ErrorPage />}></Route>
-        {/* authentication */}
-        <Route path="/login" element={<LoginPage />}></Route>
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<LandingPage />}></Route>
+          <Route path="*" element={<ErrorPage />}></Route>
+          {/* authentication */}
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route>
+        </Routes>
+      </main>
       <Footer />
-    </React.Fragment>
+    </ChakraProvider>
   );
 }
 
