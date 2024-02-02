@@ -8,6 +8,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import LandingPage from "../src/pages/landing-page/LandingPage";
 import ErrorPage from "../src/pages/error-page/ErrorPage"
 import LoginPage from './pages/auth-page/LoginPage';
+import AuthPage from './pages/auth-page/AuthPage';
 
 // Components
 import Navbar from './components/navbar/Navbar';
@@ -20,12 +21,13 @@ function App() {
       <Navbar />
       {/* pages */}
       <main>
-      <Routes>
-        <Route path="/" element={<LandingPage />}></Route>
-        <Route path="*" element={<ErrorPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/register" element={<RegisterPage/>}></Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<LandingPage />}></Route>
+          <Route path="*" element={<ErrorPage />}></Route>
+          <Route path="/signup" element={<AuthPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route>
+        </Routes>
       </main>
       <Footer />
     </ChakraProvider>

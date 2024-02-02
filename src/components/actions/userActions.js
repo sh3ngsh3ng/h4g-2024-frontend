@@ -7,7 +7,7 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from "../constants/user";
-import { auth,} from "../../firebase/firebase";
+import { auth, } from "../../firebase/firebase";
 import firebase from "firebase/compat/app";
 
 export const loginUser = () => async (dispatch) => {
@@ -62,6 +62,7 @@ export const registerUser = () => async (dispatch) => {
         "Content-type": "application/json",
       },
     };
+
     const { data } = await axios.post(
       "/api/register",
       // { email: email, password: password },
