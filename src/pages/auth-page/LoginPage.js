@@ -3,27 +3,31 @@ import { loginUser } from "../../components/actions/userActions";
 import { useEffect } from "react";
 import { auth, firebase } from "../../firebase/firebase";
 
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 function LoginPage(props) {
-
   const dispatch = useDispatch();
-  const userLogin = useSelector(state => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin);
   const { loading, user, error } = userLogin;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(loginUser());
-  }
+  };
 
   useEffect(() => {
     console.log(loading);
-  }, [userLogin])
+  }, [userLogin]);
 
-  return <>
-  TEST LOGIN PAGE
-  <Button colorScheme='blue' onClick={handleSubmit}>Button</Button>
-  </>
+  return (
+    <>
+      <h1>Login</h1>
+      TEST LOGIN PAGE
+      <Button colorScheme="blue" onClick={handleSubmit}>
+        Button
+      </Button>
+    </>
+  );
 }
 
-export default LoginPage
+export default LoginPage;
