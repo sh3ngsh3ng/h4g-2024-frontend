@@ -13,7 +13,6 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { Field, Form, Formik } from "formik";
 import { useState, useEffect } from "react";
 import {
   redButtonActive,
@@ -153,9 +152,9 @@ export default function SignUpForm() {
             backgroundColor={redButtonActive}
             color={white}
             sx={{
-                ":hover": { backgroundColor: redButtonHover },
-                ":focus": { backgroundColor: redButtonFocus },
-              }}
+              ":hover": { backgroundColor: redButtonHover },
+              ":focus": { backgroundColor: redButtonFocus },
+            }}
             onClick={onCreateAccount}
           >
             Create Account
