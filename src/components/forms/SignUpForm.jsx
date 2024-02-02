@@ -13,6 +13,9 @@ import {
   Select,
 } from "@chakra-ui/react";
 
+import { registerUserWithEmailAndPassword } from "../../components/actions/userActions"
+import { useDispatch } from "react-redux";
+
 import { useState, useEffect } from "react";
 import {
   redButtonActive,
@@ -23,6 +26,7 @@ import {
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -33,6 +37,7 @@ export default function SignUpForm() {
   const [interest, setInterest] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emergencyContact, setEmergencyContact] = useState("");
+  const dispatch = useDispatch();
 
   // Handle when email is invalid, show warning text
   useEffect(() => {
@@ -49,15 +54,18 @@ export default function SignUpForm() {
   };
 
   const onCreateAccount = (event) => {
+    console.log("called")
     event.preventDefault();
-    console.log({
-      firstName,
-      lastName,
-      age,
-      gender,
-      phoneNumber,
-      emergencyContact,
-    });
+    console.log("email n password", email, password)
+    dispatch(registerUserWithEmailAndPassword(email, password))
+    // console.log({
+    //   firstName,
+    //   lastName,
+    //   age,
+    //   gender,
+    //   phoneNumber,
+    //   emergencyContact,
+    // });
   };
 
   return (
@@ -70,6 +78,12 @@ export default function SignUpForm() {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             {isEmpty && (
               <FormErrorMessage>
@@ -84,14 +98,14 @@ export default function SignUpForm() {
               ":hover": { backgroundColor: redButtonHover },
               ":focus": { backgroundColor: redButtonFocus },
             }}
-            onClick={onContinue}
+            onClick={onCreateAccount}
           >
             Continue
           </Button>
         </>
       )}
 
-      {isCheck && (
+      {/* {isCheck && (
         <>
           <FormControl isInvalid={isEmpty}>
             <Grid templateColumns="repeat(2,1fr)">
@@ -160,7 +174,7 @@ export default function SignUpForm() {
             Create Account
           </Button>
         </>
-      )}
+      )} */}
     </>
   );
 }

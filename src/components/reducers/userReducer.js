@@ -3,8 +3,8 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
 
-  USER_REGISTER_REQUEST, 
-  USER_REGISTER_SUCCESS, 
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL
 } from "../constants/user";
 
@@ -33,7 +33,7 @@ export const userRegisterReducers = (state = {}, action) => {
       return { loading: true };
 
     case USER_REGISTER_SUCCESS:
-      return { loading: false, user: action.payload };
+      return { loading: false, uid: action.payload.uid, email: action.payload.email };
 
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
