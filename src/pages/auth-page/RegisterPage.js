@@ -20,8 +20,8 @@ function RegisterPage(props) {
   }, [userLogin])
 
   return <>
-  TEST Register PAGE
-  <Button colorScheme='blue' onClick={handleSubmit}>Button</Button>
+    TEST Register PAGE
+    <Button colorScheme='blue' onClick={handleSubmit}>Button</Button>
   </>
 }
 
