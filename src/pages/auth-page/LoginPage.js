@@ -16,7 +16,7 @@ function LoginPage(props) {
     dispatch(loginUser());
   }
 
-  useEffect(() => {
+  useEffect((user) => {
     console.log(loading);
   }, [userLogin])
 
