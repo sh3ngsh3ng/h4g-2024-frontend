@@ -9,6 +9,7 @@ import LandingPage from "../src/pages/landing-page/LandingPage";
 import ErrorPage from "../src/pages/error-page/ErrorPage";
 import AuthPage from "./pages/auth-page/AuthPage";
 import UserPage from "./pages/user-page/UserPage";
+import { PrivateRoutes } from "./components/utilities/PrivateRoutes";
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
           <Route path="/signup" element={<AuthPage />}></Route>
-          <Route path="/user" element={<UserPage />}></Route>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/user" element={<UserPage />}></Route>
+          </Route>
         </Routes>
       </Box>
     </ChakraProvider>
