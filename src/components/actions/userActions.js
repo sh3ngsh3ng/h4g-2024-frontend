@@ -154,7 +154,7 @@ export const registerUserWithEmailAndPassword =
           type: USER_FIREBASE_REGISTER_SUCCESS,
           payload: { uid: credentials.user.uid, email: credentials.user.email },
         });
-        console.log(credentials.user.multiFactor.user.accessToken);
+        // console.log(credentials.user.multiFactor.user.accessToken);
         localStorage.setItem(
           "@user",
           credentials.user.multiFactor.user.accessToken
@@ -170,39 +170,39 @@ export const registerUserWithEmailAndPassword =
 
 export const registerUser =
   ({ firstName, lastName, age, gender, phoneNumber, emergencyContact }) =>
-  async (dispatch) => {
-    try {
-      // in future might want to reset this
-      // dispatch({ type: USER_LOGOUT_RESET });
+    async (dispatch) => {
+      try {
+        // in future might want to reset this
+        // dispatch({ type: USER_LOGOUT_RESET });
 
-      dispatch({
-        type: USER_REGISTER_REQUEST,
-      });
+        dispatch({
+          type: USER_REGISTER_REQUEST,
+        });
 
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("@user"),
+          },
+        };
 
-      const { data } = await axios.post(
-        "/api/register",
-        { firstName, lastName, age, gender, phoneNumber, emergencyContact },
-        config
-      );
+        const { data } = await axios.post(
+          "/api/register",
+          { firstName, lastName, age, gender, phoneNumber, emergencyContact },
+          config
+        );
 
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: USER_REGISTER_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+        dispatch({
+          type: USER_REGISTER_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: USER_REGISTER_FAIL,
+          payload: error.response,
+        });
+      }
+    };
 
 // cg version
 // export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
