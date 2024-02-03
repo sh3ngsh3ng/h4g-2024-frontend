@@ -84,15 +84,14 @@ export const registerUser = () => async (dispatch) => {
   }
 };
 
-
 export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
   try {
-
     dispatch({
       type: USER_REGISTER_REQUEST,
     });
 
-    const credentials = await auth.createUserWithEmailAndPassword(email, password)
+    const credentials = await auth.createUserWithEmailAndPassword(email, password);
+    console.log(credentials.user.multiFactor.user.accessToken);
 
     if (credentials.user) {
       dispatch({
@@ -100,21 +99,21 @@ export const registerUserWithEmailAndPassword = (email, password) => async (disp
         payload: { uid: credentials.user.uid, email: credentials.user.email },
       });
     }
-    // localStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("user", credentials.user.multiFactor.user.accessToken);
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload: error.response.data
+      payload: error.response.data,
     });
   }
-}
+};
 
 export const test = () => async (dispatch) => {
   try {
     const config = {
       headers: {
         "Content-type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("@token")
+        Authorization: "Bearer " + localStorage.getItem("@token"),
       },
     };
     const { data } = await axios.get("/test", config);
