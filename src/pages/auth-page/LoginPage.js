@@ -16,7 +16,6 @@ function LoginPage(props) {
   };
 
   useEffect((user) => {
-    console.log(loading);
   }, [userLogin]);
 
   return (
