@@ -8,7 +8,7 @@ export default function Carousel() {
         <Container
             bg='#BA333A'
             maxW="full"
-            maxH="full"
+            h="100%"
             borderRadius="lg"
             p={4}
             m={0}
