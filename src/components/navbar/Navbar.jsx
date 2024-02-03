@@ -1,21 +1,24 @@
 import './Navbar.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Navbar() {
     return (
-        <div className="navbar">
-            <div className="navbar__left">
-                <img
-                    src="https://www.flaticon.com/svg/vstatic/svg/174/174857.svg?token=exp=1619464538~hmac=5e4f4e6a9b0d3c9b3d3f7f9e4b2f0e5d"
-                    alt="logo"
-                />
-                <h2>Opportunities</h2>
+        <nav className="navbar">
+            <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand" href="#">
+                    <img src="" alt="logo.." />
+                </a>
+                <div id="search-bar-div" className="input-group">
+                    <span id="search-icon" className="input-group-text"><img alt="icon..." /></span>
+                    <input id="search-input" type="text" class="form-control" placeholder="Type search here" />
+                </div>
+                <div id="profile-icon">
+                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.7999 13C25.7999 16.3947 24.4513 19.6505 22.0508 22.0509C19.6504 24.4514 16.3946 25.8 12.9999 25.8C9.6051 25.8 6.34937 24.4514 3.94891 22.0509C1.54844 19.6505 0.199875 16.3947 0.199875 13C0.199875 9.60518 1.54844 6.34945 3.94891 3.94898C6.34937 1.54852 9.6051 0.199951 12.9999 0.199951C16.3946 0.199951 19.6504 1.54852 22.0508 3.94898C24.4513 6.34945 25.7999 9.60518 25.7999 13ZM16.1999 8.19995C16.1999 9.04865 15.8627 9.86258 15.2626 10.4627C14.6625 11.0628 13.8486 11.4 12.9999 11.4C12.1512 11.4 11.3373 11.0628 10.7371 10.4627C10.137 9.86258 9.79988 9.04865 9.79988 8.19995C9.79988 7.35126 10.137 6.53733 10.7371 5.93721C11.3373 5.33709 12.1512 4.99995 12.9999 4.99995C13.8486 4.99995 14.6625 5.33709 15.2626 5.93721C15.8627 6.53733 16.1999 7.35126 16.1999 8.19995ZM12.9999 14.6C11.468 14.5996 9.96832 15.0391 8.67894 15.8662C7.38956 16.6933 6.36475 17.8731 5.72628 19.2656C6.62656 20.3129 7.74271 21.1532 8.99819 21.7287C10.2537 22.3043 11.6188 22.6015 12.9999 22.6C14.381 22.6015 15.7461 22.3043 17.0016 21.7287C18.257 21.1532 19.3732 20.3129 20.2735 19.2656C19.635 17.8731 18.6102 16.6933 17.3208 15.8662C16.0314 15.0391 14.5317 14.5996 12.9999 14.6Z" fill="white" />
+                    </svg>
+
+                </div>
             </div>
-            <div className="navbar__right">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <a href="#login">Login</a>
-            </div>
-        </div>
+        </nav>
     )
 }
