@@ -13,12 +13,12 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { registerUserWithEmailAndPassword } from "../../components/actions/userActions";
+import { registerUser, registerUserWithEmailAndPassword } from "../../components/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useState, useEffect,} from "react";
+import { useState, useEffect } from "react";
 import {
-    grey,
+  grey,
   redButtonActive,
   redButtonFocus,
   redButtonHover,
@@ -26,12 +26,13 @@ import {
 } from "../constants/color";
 import MyDivider from "../utilities/MyDivider";
 import { LinkIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isCheck, setIsCheck] = useState(false);
+  const [isCheck, setIsCheck] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -41,9 +42,13 @@ export default function SignUpForm() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emergencyContact, setEmergencyContact] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const userRegister = useSelector(state => state.userRegister);
-  const { loading, uid, email:firebaseEmail} = userRegister;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading:userRegisterLoading, success, error } = userRegister;
+
+  const userFirebaseRegister = useSelector(state => state.userFirebaseRegister);
+  const { loading, uid, email: firebaseEmail } = userRegister;
 
   // Handle when email is invalid, show warning text
   useEffect(() => {
@@ -55,28 +60,27 @@ export default function SignUpForm() {
   }, [email]);
 
   useEffect(() => {
-    console.log(firebaseEmail)
+    console.log(firebaseEmail);
     if (firebaseEmail) {
-        setIsCheck(true);
+      setIsCheck(true);
     }
-  }, [userRegister])
+  }, [userRegister]);
+
+  useEffect(() => {
+    if (success) {
+        navigate("/")
+    }
+  },[userRegister])
 
   const onContinue = (event) => {
     event.preventDefault();
+    dispatch(registerUserWithEmailAndPassword(email, password));
     setIsCheck(true);
   };
 
   const onCreateAccount = (event) => {
     event.preventDefault();
-    dispatch(registerUserWithEmailAndPassword(email, password));
-    // console.log({
-    //   firstName,
-    //   lastName,
-    //   age,
-    //   gender,
-    //   phoneNumber,
-    //   emergencyContact,
-    // });
+    dispatch(registerUser({firstName, lastName, age, gender, skill, interest, phoneNumber, emergencyContact}))
   };
 
   return (
@@ -151,39 +155,53 @@ export default function SignUpForm() {
 
       {loading && <></>}
 
-      {/* {isCheck && (
+      {isCheck && (
         <>
           <FormControl isInvalid={isEmpty}>
             <Grid templateColumns="repeat(2,1fr)">
-              <GridItem w="90%" h="10" mb={2} mr={2} ml={2}>
+              <GridItem w="90%" h="10" mb={5} mr={2}>
                 <Input
                   type="firstName"
                   placeholder="First Name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  borderColor={"gray.400"}
+                  focusBorderColor="red.600"
+                  height="48px"
+                  
                 />
               </GridItem>
-              <GridItem w="90%" h="10" mb={2} mr={2} ml={2}>
+              <GridItem w="90%" h="10" mb={5}>
                 <Input
                   type="lastName"
                   placeholder="Last Name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  borderColor={"gray.400"}
+                  focusBorderColor="red.600"
+                  height="48px"
                 />
               </GridItem>
-              <GridItem w="90%" h="10" mb={2} mr={2} ml={2}>
+              <GridItem w="90%" h="10" mb={5} mr={2} >
                 <Input
                   type="age"
                   placeholder="Age"
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
+                  borderColor={"gray.400"}
+                  focusBorderColor="red.600"
+                  height="48px"
                 />
               </GridItem>
-              <GridItem w="90%" h="10" mb={2} mr={2} ml={2}>
+              <GridItem w="90%" h="10" mb={5} >
                 <Select
                   placeholder="Gender"
                   value={gender}
+                  color="grey"
                   onChange={(e) => setGender(e.target.value)}
+                  borderColor={"gray.400"}
+                  focusBorderColor="red.600"
+                  height="48px"
                 >
                   <option>Male</option>
                   <option>Female</option>
@@ -195,8 +213,10 @@ export default function SignUpForm() {
               placeholder="Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              mx={2}
-              mb={2}
+              borderColor={"gray.400"}
+              focusBorderColor="red.600"
+              height="48px"
+              mb={3}
             />
 
             <Input
@@ -204,23 +224,30 @@ export default function SignUpForm() {
               placeholder="Emergency Contact"
               value={emergencyContact}
               onChange={(e) => setEmergencyContact(e.target.value)}
-              mx={2}
-              mb={2}
+              borderColor={"gray.400"}
+              focusBorderColor="red.600"
+              height="48px"
+              mb={5}
             />
           </FormControl>
           <Button
+            mt={5}
             backgroundColor={redButtonActive}
             color={white}
             sx={{
-              ":hover": { backgroundColor: redButtonHover },
-              ":focus": { backgroundColor: redButtonFocus },
+              ":hover": {
+                backgroundColor: redButtonHover,
+                ":focus": { backgroundColor: redButtonFocus },
+              },
             }}
+            width="full"
+            height="48px"
             onClick={onCreateAccount}
           >
             Create Account
           </Button>
         </>
-      )} */}
+      )}
     </>
   );
 }

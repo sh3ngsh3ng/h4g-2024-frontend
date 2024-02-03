@@ -23,8 +23,6 @@ function RadioCard(props) {
   const input = getInputProps();
   const checkbox = getRadioProps();
 
-  
-
   return (
     <Box as="label">
       <input {...input} />
@@ -54,7 +52,7 @@ function RadioCard(props) {
 export default function AuthPage() {
   const [formMode, setFormMode] = useState("Login");
 
-  const userRegister = useSelector(state => state.userRegister);
+  const userRegister = useSelector((state) => state.userRegister);
   const { loading } = userRegister;
 
   function renderForm() {
@@ -93,7 +91,7 @@ export default function AuthPage() {
   return (
     <>
       {/* Webpage design */}
-<Show above="lg">
+      <Show above="lg">
         <Grid templateColumns="repeat(10, 1fr)">
           <GridItem colSpan={5}>
             <Carousel />
@@ -110,6 +108,18 @@ export default function AuthPage() {
             </Box>
           </GridItem>
         </Grid>
+      </Show>
+
+      {/* Phone design */}
+      <Show below="lg">
+        <Box height="50%" pt={20} width="80%" m="auto">
+          <Center mb={8}>
+            {" "}
+            <RadioToggle />
+          </Center>
+
+          {renderForm()}
+        </Box>
       </Show>
     </>
   );

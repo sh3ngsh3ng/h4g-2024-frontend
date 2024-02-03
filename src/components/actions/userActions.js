@@ -6,6 +6,10 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+
+  USER_FIREBASE_REGISTER_REQUEST,
+  USER_FIREBASE_REGISTER_SUCCESS,
+  USER_FIREBASE_REGISTER_FAIL,
 } from "../constants/user";
 import { auth } from "../../firebase/firebase";
 import firebase from "firebase/compat/app";
@@ -49,6 +53,32 @@ export const loginUser = () => async (dispatch) => {
   }
 };
 
+export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
+  try {
+
+    dispatch({
+      type: USER_FIREBASE_REGISTER_REQUEST,
+    });
+
+    const credentials = await auth.createUserWithEmailAndPassword(email, password)
+    console.log(credentials)
+
+    if (credentials.user) {
+      dispatch({
+        type: USER_FIREBASE_REGISTER_SUCCESS,
+        payload: { uid: credentials.user.uid, email: credentials.user.email },
+      });
+      console.log(credentials.user.multiFactor.user.accessToken)
+      localStorage.setItem("@user", credentials.user.multiFactor.user.accessToken);
+    }
+  } catch (error) {
+    dispatch({
+      type: USER_FIREBASE_REGISTER_FAIL,
+      payload: error.response.data
+    });
+  }
+}
+
 export const registerUser = ({firstName, lastName, age, gender, phoneNumber, emergencyContact}) => async (dispatch) => {
   try {
     // in future might want to reset this
@@ -61,7 +91,7 @@ export const registerUser = ({firstName, lastName, age, gender, phoneNumber, eme
     const config = {
       headers: {
         "Content-type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("@token")
+        "Authorization": "Bearer " + localStorage.getItem("@user")
       },
     };
 
@@ -75,8 +105,6 @@ export const registerUser = ({firstName, lastName, age, gender, phoneNumber, eme
       type: USER_REGISTER_SUCCESS,
       payload: data,
     });
-
-    localStorage.setItem("@user", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -125,31 +153,7 @@ export const registerUser = ({firstName, lastName, age, gender, phoneNumber, eme
 //   }
 // }
 
-export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
-  try {
 
-    dispatch({
-      type: USER_REGISTER_REQUEST,
-    });
-
-    const credentials = await auth.createUserWithEmailAndPassword(email, password)
-    console.log(credentials)
-
-    if (credentials.user) {
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: { uid: credentials.user.uid, email: credentials.user.email },
-      });
-      console.log(credentials.user.multiFactor.user.accessToken)
-      localStorage.setItem("@user", credentials.user.multiFactor.user.accessToken);
-    }
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload: error.response.data
-    });
-  }
-}
 
 export const test = () => async (dispatch) => {
   try {
