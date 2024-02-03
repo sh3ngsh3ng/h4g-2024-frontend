@@ -27,6 +27,7 @@ import {
 import MyDivider from "../utilities/MyDivider";
 import { LinkIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router";
+import { displaySuccess } from "../../services/alertServices";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -45,10 +46,10 @@ export default function SignUpForm() {
   const navigate = useNavigate();
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { loading:userRegisterLoading, success, error } = userRegister;
+  const { loading: userRegisterLoading, success, error } = userRegister;
 
   const userFirebaseRegister = useSelector(state => state.userFirebaseRegister);
-  const { loading, uid, email: firebaseEmail, success:firebaseSuccess } = userFirebaseRegister;
+  const { loading, uid, email: firebaseEmail, success: firebaseSuccess } = userFirebaseRegister;
 
   // Handle when email is invalid, show warning text
   useEffect(() => {
@@ -67,9 +68,9 @@ export default function SignUpForm() {
 
   useEffect(() => {
     if (success) {
-        navigate("/")
+      navigate("/")
     }
-  },[userRegister])
+  }, [userRegister])
 
   const onContinue = (event) => {
     event.preventDefault();
@@ -83,7 +84,7 @@ export default function SignUpForm() {
 
   const onCreateAccount = (event) => {
     event.preventDefault();
-    dispatch(registerUser({firstName, lastName, age, gender, skill, interest, phoneNumber, emergencyContact}))
+    dispatch(registerUser({ firstName, lastName, age, gender, skill, interest, phoneNumber, emergencyContact }))
   };
 
   return (
@@ -172,7 +173,7 @@ export default function SignUpForm() {
                   borderColor={"gray.400"}
                   focusBorderColor="red.600"
                   height="48px"
-                  
+
                 />
               </GridItem>
               <GridItem w="90%" h="10" mb={5}>

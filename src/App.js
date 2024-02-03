@@ -1,8 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import "./App.css"
 
 // UI
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import { ChakraProvider, Box, Center, AbsoluteCenter } from "@chakra-ui/react";
 
 // Pages
 import LandingPage from "../src/pages/landing-page/LandingPage";
@@ -17,28 +18,30 @@ function App() {
   return (
     <ChakraProvider>
       {/* pages */}
-      <Box h="100vh" w="100vw" bg="#FEDDDC">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<LandingPage />}></Route>
-          <Route path="*" element={<ErrorPage />}></Route>
-          <Route path="/signup" element={<AuthPage />}></Route>
-          <Route element={<PrivateRoutes />}>
-            <Route path="/user" element={<UserPage />}></Route>
-          </Route>
-        </Routes>
+      <Box h="100vh" w="100vw" bg="#FFFFFF">
+        <div id="main-div">
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          <ToastContainer />
+          <Routes>
+            <Route path="/" element={<LandingPage />}></Route>
+            <Route path="*" element={<ErrorPage />}></Route>
+            <Route path="/signup" element={<AuthPage />}></Route>
+            <Route element={<PrivateRoutes />}>
+              <Route path="/user" element={<UserPage />}></Route>
+            </Route>
+          </Routes>
+        </div>
       </Box>
     </ChakraProvider>
   );

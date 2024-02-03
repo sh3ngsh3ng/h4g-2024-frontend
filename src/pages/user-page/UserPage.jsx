@@ -4,7 +4,10 @@ import { Box } from "@chakra-ui/react"
 
 export default function UserPage() {
 
-    console.log(auth.currentUser)
+    // Retrieve data from backend 
+    // 1) Volunteering events
+    // 2) User data - experience, volunteer hours, name, etc
+
 
     return (
         <Box p={3}>
