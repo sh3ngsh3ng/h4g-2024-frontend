@@ -8,9 +8,8 @@ export default function UserPage() {
     // 1) Volunteering events
     // 2) User data - experience, volunteer hours, name, etc
 
-
     return (
-        <Box p={3}>
+        <Box h="100%" w="100%" p={3}>
             <Navbar />
         </Box>
     )
