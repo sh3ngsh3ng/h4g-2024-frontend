@@ -5,3 +5,8 @@ const firebaseConfig = {} // from firebase console
 
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
+
+
+auth.onAuthStateChanged((user) => {
+    console.log("current user: ", user)
+})
