@@ -57,7 +57,7 @@ export const userFirebaseRegisterReducers = (state = {loading: false}, action) =
       return { loading: true };
 
     case USER_FIREBASE_REGISTER_SUCCESS:
-      return { loading: false, uid: action.payload.uid, email: action.payload.email };
+      return { loading: false, uid: action.payload.uid, email: action.payload.email, success: true };
       // return {};
 
     case USER_FIREBASE_REGISTER_FAIL:

@@ -1,6 +1,6 @@
 import "./LoginForm.css";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Input,
   Button,
@@ -22,15 +22,38 @@ import {
   grey,
 } from "../constants/color";
 import MyDivider from "../utilities/MyDivider";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, loginUserWithEmailAndPassword } from "../actions/userActions";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, user, error } = userLogin;
 
   const handleLogin = (event) => {
     event.preventDefault();
-    console.log(email, password);
+    dispatch(loginUserWithEmailAndPassword(email, password));
   };
+
+  const handleLoginWithGoogle = (event) => {
+    event.preventDefault();
+    dispatch(loginUser());
+  };
+
+  useEffect(() => {
+    if (user) {
+        navigate("/");
+    }
+
+    if (error) {
+        window.confirm(error);
+    }
+  }, [userLogin])
+
   return (
     <>
       <FormControl>
@@ -39,6 +62,8 @@ export default function LoginForm() {
           type="text"
           placeholder="Email Address"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           m="10px"
           borderColor={"gray.400"}
           focusBorderColor="red.600"
@@ -50,6 +75,8 @@ export default function LoginForm() {
           type="password"
           placeholder="Password"
           name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           borderColor={"gray.400"}
           focusBorderColor="red.600"
           height="48px"
@@ -77,30 +104,32 @@ export default function LoginForm() {
           }}
           width="full"
           height="48px"
+          onClick={handleLogin}
         >
           Login
         </Button>
       </FormControl>
 
-      <MyDivider/>
+      <MyDivider />
 
       <Button
-          backgroundColor={white}
-          borderColor={grey}
-          color={grey}
-          variant="outline"
-          sx={{
-            ":hover": {
-              backgroundColor: white,
-              ":focus": { backgroundColor: white },
-            },
-          }}
-          width="full"
-          height="36px"
-          leftIcon={<LinkIcon/>}
-        >
-          Log In With Google
-        </Button>
+        backgroundColor={white}
+        borderColor={grey}
+        color={grey}
+        variant="outline"
+        sx={{
+          ":hover": {
+            backgroundColor: white,
+            ":focus": { backgroundColor: white },
+          },
+        }}
+        width="full"
+        height="36px"
+        leftIcon={<LinkIcon />}
+        onClick={handleLoginWithGoogle}
+      >
+        Log In With Google
+      </Button>
     </>
   );
 }

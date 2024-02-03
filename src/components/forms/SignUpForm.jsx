@@ -13,7 +13,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { registerUser, registerUserWithEmailAndPassword } from "../../components/actions/userActions";
+import { registerUser, registerUserWithEmailAndPassword, registerUserWithGoogle } from "../../components/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useState, useEffect } from "react";
@@ -32,7 +32,7 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isCheck, setIsCheck] = useState(true);
+  const [isCheck, setIsCheck] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -48,7 +48,7 @@ export default function SignUpForm() {
   const { loading:userRegisterLoading, success, error } = userRegister;
 
   const userFirebaseRegister = useSelector(state => state.userFirebaseRegister);
-  const { loading, uid, email: firebaseEmail } = userRegister;
+  const { loading, uid, email: firebaseEmail, success:firebaseSuccess } = userFirebaseRegister;
 
   // Handle when email is invalid, show warning text
   useEffect(() => {
@@ -60,11 +60,10 @@ export default function SignUpForm() {
   }, [email]);
 
   useEffect(() => {
-    console.log(firebaseEmail);
-    if (firebaseEmail) {
+    if (firebaseSuccess) {
       setIsCheck(true);
     }
-  }, [userRegister]);
+  }, [userFirebaseRegister]);
 
   useEffect(() => {
     if (success) {
@@ -75,7 +74,11 @@ export default function SignUpForm() {
   const onContinue = (event) => {
     event.preventDefault();
     dispatch(registerUserWithEmailAndPassword(email, password));
-    setIsCheck(true);
+  };
+
+  const onContinueWithGoogle = (event) => {
+    event.preventDefault();
+    dispatch(registerUserWithGoogle());
   };
 
   const onCreateAccount = (event) => {
@@ -85,7 +88,7 @@ export default function SignUpForm() {
 
   return (
     <>
-      {!isCheck && !loading && (
+      {!isCheck && (
         <>
           <FormControl /*isInvalid={isEmpty}*/>
             <Input
@@ -126,7 +129,7 @@ export default function SignUpForm() {
             }}
             width="full"
             height="48px"
-            onClick={onCreateAccount}
+            onClick={onContinue}
           >
             Continue
           </Button>
@@ -147,6 +150,7 @@ export default function SignUpForm() {
             width="full"
             height="36px"
             leftIcon={<LinkIcon />}
+            onClick={onContinueWithGoogle}
           >
             Sign Up With Google
           </Button>
@@ -157,7 +161,7 @@ export default function SignUpForm() {
 
       {isCheck && (
         <>
-          <FormControl isInvalid={isEmpty}>
+          <FormControl >
             <Grid templateColumns="repeat(2,1fr)">
               <GridItem w="90%" h="10" mb={5} mr={2}>
                 <Input
