@@ -7,9 +7,11 @@ export default function Carousel() {
     return (
         <Container
             bg='#BA333A'
-            h="100%" // height 100% of parent
+            maxW="full"
+            maxH="full"
             borderRadius="lg"
             p={4}
+            m={0}
         >
             <Box h="10%" display="flex" justifyContent="flex-start"> Logo </Box>
             <Box >
