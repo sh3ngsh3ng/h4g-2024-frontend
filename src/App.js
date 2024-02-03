@@ -2,34 +2,44 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // UI
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Box } from "@chakra-ui/react";
 
 // Pages
 import LandingPage from "../src/pages/landing-page/LandingPage";
 import ErrorPage from "../src/pages/error-page/ErrorPage";
-import LoginPage from "./pages/auth-page/LoginPage";
 import AuthPage from "./pages/auth-page/AuthPage";
+import UserPage from "./pages/user-page/UserPage";
+import { PrivateRoutes } from "./components/utilities/PrivateRoutes";
 
-// Components
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
-import RegisterPage from "./pages/auth-page/RegisterPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <ChakraProvider>
-      <main>
-      <Navbar />
       {/* pages */}
+      <Box h="100vh" w="100vw" bg="#FEDDDC">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
           <Route path="/signup" element={<AuthPage />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/user" element={<UserPage />}></Route>
+          </Route>
         </Routes>
-      </main>
-      <Footer />
+      </Box>
     </ChakraProvider>
   );
 }
