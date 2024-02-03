@@ -49,8 +49,9 @@ export const loginUser = () => async (dispatch) => {
   }
 };
 
-export const registerUser = () => async (dispatch) => {
+export const registerUser = ({firstName, lastName, age, gender, phoneNumber, emergencyContact}) => async (dispatch) => {
   try {
+    // in future might want to reset this
     // dispatch({ type: USER_LOGOUT_RESET });
 
     dispatch({
@@ -60,13 +61,13 @@ export const registerUser = () => async (dispatch) => {
     const config = {
       headers: {
         "Content-type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("@token")
       },
     };
 
     const { data } = await axios.post(
       "/api/register",
-      // { email: email, password: password },
-      { test: "test" },
+      {firstName, lastName, age, gender, phoneNumber, emergencyContact},
       config
     );
 
@@ -75,7 +76,7 @@ export const registerUser = () => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("@user", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
