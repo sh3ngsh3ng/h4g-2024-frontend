@@ -86,6 +86,45 @@ export const registerUser = ({firstName, lastName, age, gender, phoneNumber, eme
 };
 
 
+// cg version
+// export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
+//   try {
+
+//     dispatch({
+//       type: USER_REGISTER_REQUEST,
+//     });
+
+//     const credentials = await auth.createUserWithEmailAndPassword(email, password)
+//       .then( async userCredential => {
+//         console.log(userCredential)
+//         const authByFirebase = await userCredential.user.multiFactor.user;
+
+//         if (authByFirebase.uid && authByFirebase.email) {
+//           dispatch({
+//             type: USER_REGISTER_SUCCESS,
+//             payload: { uid: authByFirebase.uid, email: authByFirebase.email },
+//           });
+//         }
+//       })
+//     // const authByFirebase = credentials.user.multiFactor.user.auth
+//     // // console.log(authByFirebase)
+//     // if (credentials.user) {
+//     //   dispatch({
+//     //     type: USER_REGISTER_SUCCESS,
+//     //     payload: { uid: authByFirebase.uid, email: authByFirebase.email },
+//     //   });
+//     // }
+
+//     // console.log(authByFirebase)
+//     // localStorage.setItem("@user", authByFirebase.accessToken);
+//   } catch (error) {
+//     dispatch({
+//       type: USER_REGISTER_FAIL,
+//       payload: error.response.data
+//     });
+//   }
+// }
+
 export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
   try {
 
@@ -94,14 +133,16 @@ export const registerUserWithEmailAndPassword = (email, password) => async (disp
     });
 
     const credentials = await auth.createUserWithEmailAndPassword(email, password)
+    console.log(credentials)
 
     if (credentials.user) {
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: { uid: credentials.user.uid, email: credentials.user.email },
       });
+      console.log(credentials.user.multiFactor.user.accessToken)
+      localStorage.setItem("@user", credentials.user.multiFactor.user.accessToken);
     }
-    // localStorage.setItem("user", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

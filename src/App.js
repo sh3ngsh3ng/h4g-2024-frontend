@@ -18,9 +18,9 @@ import RegisterPage from "./pages/auth-page/RegisterPage";
 function App() {
   return (
     <ChakraProvider>
+      <main>
       <Navbar />
       {/* pages */}
-      <main>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>

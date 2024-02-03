@@ -27,13 +27,14 @@ export const userLoginReducers = (state = {}, action) => {
   }
 };
 
-export const userRegisterReducers = (state = {}, action) => {
+export const userRegisterReducers = (state = {loading: false}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };
 
     case USER_REGISTER_SUCCESS:
       return { loading: false, uid: action.payload.uid, email: action.payload.email };
+      // return {};
 
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };

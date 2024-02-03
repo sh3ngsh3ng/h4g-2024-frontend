@@ -13,16 +13,19 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { registerUserWithEmailAndPassword } from "../../components/actions/userActions"
-import { useDispatch } from "react-redux";
+import { registerUserWithEmailAndPassword } from "../../components/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect,} from "react";
 import {
+    grey,
   redButtonActive,
   redButtonFocus,
   redButtonHover,
   white,
 } from "../constants/color";
+import MyDivider from "../utilities/MyDivider";
+import { LinkIcon } from "@chakra-ui/icons";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -39,6 +42,9 @@ export default function SignUpForm() {
   const [emergencyContact, setEmergencyContact] = useState("");
   const dispatch = useDispatch();
 
+  const userRegister = useSelector(state => state.userRegister);
+  const { loading, uid, email:firebaseEmail} = userRegister;
+
   // Handle when email is invalid, show warning text
   useEffect(() => {
     if (email === "") {
@@ -48,16 +54,21 @@ export default function SignUpForm() {
     }
   }, [email]);
 
+  useEffect(() => {
+    console.log(firebaseEmail)
+    if (firebaseEmail) {
+        setIsCheck(true);
+    }
+  }, [userRegister])
+
   const onContinue = (event) => {
     event.preventDefault();
     setIsCheck(true);
   };
 
   const onCreateAccount = (event) => {
-    console.log("called")
     event.preventDefault();
-    console.log("email n password", email, password)
-    dispatch(registerUserWithEmailAndPassword(email, password))
+    dispatch(registerUserWithEmailAndPassword(email, password));
     // console.log({
     //   firstName,
     //   lastName,
@@ -70,40 +81,75 @@ export default function SignUpForm() {
 
   return (
     <>
-      {!isCheck && (
+      {!isCheck && !loading && (
         <>
-          <FormControl isInvalid={isEmpty}>
+          <FormControl /*isInvalid={isEmpty}*/>
             <Input
               type="email"
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              m="10px"
+              borderColor={"gray.400"}
+              focusBorderColor="red.600"
+              height="48px"
             />
+            {/* {isEmpty && (
+              <FormErrorMessage>
+                Email is required in correct format.
+              </FormErrorMessage>
+            )} */}
             <Input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              m="10px"
+              borderColor={"gray.400"}
+              focusBorderColor="red.600"
+              height="48px"
             />
-            {isEmpty && (
-              <FormErrorMessage>
-                Email is required in correct format.
-              </FormErrorMessage>
-            )}
           </FormControl>
           <Button
+            mt={5}
             backgroundColor={redButtonActive}
             color={white}
             sx={{
-              ":hover": { backgroundColor: redButtonHover },
-              ":focus": { backgroundColor: redButtonFocus },
+              ":hover": {
+                backgroundColor: redButtonHover,
+                ":focus": { backgroundColor: redButtonFocus },
+              },
             }}
+            width="full"
+            height="48px"
             onClick={onCreateAccount}
           >
             Continue
           </Button>
+
+          <MyDivider />
+
+          <Button
+            backgroundColor={white}
+            borderColor={grey}
+            color={grey}
+            variant="outline"
+            sx={{
+              ":hover": {
+                backgroundColor: white,
+                ":focus": { backgroundColor: white },
+              },
+            }}
+            width="full"
+            height="36px"
+            leftIcon={<LinkIcon />}
+          >
+            Sign Up With Google
+          </Button>
         </>
       )}
+
+      {loading && <></>}
 
       {/* {isCheck && (
         <>
