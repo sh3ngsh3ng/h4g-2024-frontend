@@ -1,19 +1,19 @@
-import React from 'react'
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // UI
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider } from "@chakra-ui/react";
 
 // Pages
 import LandingPage from "../src/pages/landing-page/LandingPage";
-import ErrorPage from "../src/pages/error-page/ErrorPage"
-import LoginPage from './pages/auth-page/LoginPage';
-import AuthPage from './pages/auth-page/AuthPage';
+import ErrorPage from "../src/pages/error-page/ErrorPage";
+import LoginPage from "./pages/auth-page/LoginPage";
+import AuthPage from "./pages/auth-page/AuthPage";
 
 // Components
-import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
-import RegisterPage from './pages/auth-page/RegisterPage';
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
+import RegisterPage from "./pages/auth-page/RegisterPage";
 
 function App() {
   return (
