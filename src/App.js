@@ -11,11 +11,26 @@ import AuthPage from "./pages/auth-page/AuthPage";
 import UserPage from "./pages/user-page/UserPage";
 import { PrivateRoutes } from "./components/utilities/PrivateRoutes";
 
+import { ToastContainer } from "react-toastify";
+
 function App() {
   return (
     <ChakraProvider>
       {/* pages */}
       <Box h="100vh" w="100vw" bg="#FEDDDC">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>

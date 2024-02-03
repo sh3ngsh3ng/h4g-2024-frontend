@@ -23,6 +23,7 @@ import {
   redButtonHover,
   white,
 } from "../constants/color";
+import { displaySuccess } from "../../services/alertServices";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -58,6 +59,7 @@ export default function SignUpForm() {
     event.preventDefault();
     console.log("email n password", email, password)
     dispatch(registerUserWithEmailAndPassword(email, password))
+    displaySuccess("You have signed up successfully!")
     // console.log({
     //   firstName,
     //   lastName,
