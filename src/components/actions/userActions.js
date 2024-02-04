@@ -90,7 +90,7 @@ export const registerUserWithGoogle = () => async (dispatch) => {
           //6 - dispatch reducer to show success
           dispatch({
             type: USER_FIREBASE_REGISTER_SUCCESS,
-            payload: {}
+            payload: {},
           });
         }
       },
@@ -106,103 +106,89 @@ export const registerUserWithGoogle = () => async (dispatch) => {
   }
 };
 
-export const loginUserWithEmailAndPassword =
-  (email, password) => async (dispatch) => {
-    try {
+export const loginUserWithEmailAndPassword = (email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_LOGIN_REQUEST,
+    });
+
+    const credentials = await auth.signInWithEmailAndPassword(email, password);
+
+    if (credentials.user) {
       dispatch({
-        type: USER_LOGIN_REQUEST,
+        type: USER_LOGIN_SUCCESS,
+        payload: { uid: credentials.user.uid, email: credentials.user.email },
       });
 
-      const credentials = await auth.signInWithEmailAndPassword(
-        email,
-        password
-      );
-
-      if (credentials.user) {
-        dispatch({
-          type: USER_LOGIN_SUCCESS,
-          payload: { uid: credentials.user.uid, email: credentials.user.email },
-        });
-
-        localStorage.setItem(
-          "@user",
-          credentials.user.multiFactor.user.accessToken
-        );
-      }
-    } catch (error) {
-      dispatch({
-        type: USER_LOGIN_FAIL,
-        payload: error.response,
-      });
+      localStorage.setItem("@user", credentials.user.multiFactor.user.accessToken);
     }
-  };
+  } catch (error) {
+    dispatch({
+      type: USER_LOGIN_FAIL,
+      payload: error.response,
+    });
+  }
+};
 
-export const registerUserWithEmailAndPassword =
-  (email, password) => async (dispatch) => {
-    try {
+export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_FIREBASE_REGISTER_REQUEST,
+    });
+
+    const credentials = await auth.createUserWithEmailAndPassword(email, password);
+
+    if (credentials.user) {
       dispatch({
-        type: USER_FIREBASE_REGISTER_REQUEST,
+        type: USER_FIREBASE_REGISTER_SUCCESS,
+        payload: { uid: credentials.user.uid, email: credentials.user.email },
       });
-
-      const credentials = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      if (credentials.user) {
-        dispatch({
-          type: USER_FIREBASE_REGISTER_SUCCESS,
-          payload: { uid: credentials.user.uid, email: credentials.user.email },
-        });
-        // console.log(credentials.user.multiFactor.user.accessToken);
-        localStorage.setItem(
-          "@user",
-          credentials.user.multiFactor.user.accessToken
-        );
-      }
-    } catch (error) {
-      dispatch({
-        type: USER_FIREBASE_REGISTER_FAIL,
-        payload: error.response,
-      });
+      // console.log(credentials.user.multiFactor.user.accessToken);
+      localStorage.setItem("@user", credentials.user.multiFactor.user.accessToken);
     }
-  };
+  } catch (error) {
+    dispatch({
+      type: USER_FIREBASE_REGISTER_FAIL,
+      payload: error.response,
+    });
+  }
+};
 
 export const registerUser =
   ({ firstName, lastName, age, gender, phoneNumber, emergencyContact }) =>
-    async (dispatch) => {
-      try {
-        // in future might want to reset this
-        // dispatch({ type: USER_LOGOUT_RESET });
+  async (dispatch) => {
+    try {
+      // in future might want to reset this
+      // dispatch({ type: USER_LOGOUT_RESET });
 
-        dispatch({
-          type: USER_REGISTER_REQUEST,
-        });
+      dispatch({
+        type: USER_REGISTER_REQUEST,
+      });
 
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("@user"),
-          },
-        };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@user"),
+        },
+      };
 
-        const { data } = await axios.post(
-          "/api/register",
-          { firstName, lastName, age, gender, phoneNumber, emergencyContact },
-          config
-        );
+      const { data } = await axios.post(
+        "/api/register",
+        { firstName, lastName, age, gender, phoneNumber, emergencyContact },
+        config
+      );
 
-        dispatch({
-          type: USER_REGISTER_SUCCESS,
-          payload: data,
-        });
-      } catch (error) {
-        dispatch({
-          type: USER_REGISTER_FAIL,
-          payload: error.response,
-        });
-      }
-    };
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload: error.response,
+      });
+    }
+  };
 
 // cg version
 // export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
@@ -241,7 +227,7 @@ export const registerUser =
 //       payload: error.response.data
 //     });
 //   }
-// }
+// };
 
 export const test = () => async (dispatch) => {
   try {
