@@ -31,7 +31,7 @@ export default function UserPage() {
                     </Flex>
                 </Tabs>
 
-                <EventCard />
+                {/* <EventCard /> */}
             </Box>
         </>
     )

@@ -1,6 +1,6 @@
 
 import Navbar from "../../components/navbar/Navbar"
-import { Box, Stack, Button, Tabs, TabList, Tab, Flex } from "@chakra-ui/react"
+import { Box, Stack, Button, Tabs, TabList, Tab, Flex, Grid, GridItem, SimpleGrid } from "@chakra-ui/react"
 import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE } from "../../components/constants/admin"
@@ -12,6 +12,31 @@ export default function AdminPage() {
 
     const adminDashboardMode = useSelector((state) => state.adminDashboard.mode)
 
+    // save all events on redux
+    const testEvents = [
+        {
+            name: "Help the Homeless",
+            organization: "Red Cross",
+            skills: ["communication", "leadership", "teamwork"],
+            month: "Feb",
+            day: "14",
+        },
+        {
+            name: "Help the Homemore",
+            organization: "Yellow Cross",
+            skills: ["leadership", "teamwork"],
+            month: "Mar",
+            day: "20",
+        },
+        {
+            name: "Help the Homeequal",
+            organization: "Green Cross",
+            skills: ["teamwork"],
+            month: "Dec",
+            day: "31",
+        }
+    ]
+
     const goToNewEventForm = () => {
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_CREATE))
     }
@@ -20,10 +45,25 @@ export default function AdminPage() {
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_READ))
     }
 
+    const goToEditEventForm = () => {
+        // set events to edit here before changing to events form
+        dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_UPDATE))
+    }
 
     const renderDashboard = () => {
         if (adminDashboardMode == ADMIN_DASHBOARD_MODE_READ) {
-            return <h1>READ</h1> // list render all events here
+            return (
+                <SimpleGrid columns={[1, 2, 3]} justifyItems="center">
+                    {
+                        testEvents.map((event) => {
+                            return (
+                                <EventCard data={event} type="admin" action={goToEditEventForm} />
+                            )
+                        })
+                    }
+                </SimpleGrid>
+
+            )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {

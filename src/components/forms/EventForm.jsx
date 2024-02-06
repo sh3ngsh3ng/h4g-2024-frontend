@@ -2,14 +2,19 @@ import { FormControl, Text, Input, Textarea } from "@chakra-ui/react"
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { useDropzone } from 'react-dropzone';
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import "./EventForm.css"
 
 export default function EventsForm({ type }) {
+    // form is either create or edit
+    // if type == edit, load editing event from redux into formData
+    const [formData, setFormData] = useState({})
+
     const onDrop = useCallback(acceptedFiles => {
-        console.log("loaded: ", acceptedFiles)
         if (acceptedFiles.length === 0) {
             alert("Only images")
+        } else {
+            console.log("display image")
         }
     }, [])
 
@@ -24,6 +29,14 @@ export default function EventsForm({ type }) {
             {file.name} - {file.size} bytes
         </li>
     )); // temp to show uploaded images
+
+    const onInputChange = (event) => {
+        const { name, value } = event.target
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+    }
 
     return (
         <>
