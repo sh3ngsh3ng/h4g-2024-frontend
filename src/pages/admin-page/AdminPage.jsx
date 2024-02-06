@@ -5,6 +5,7 @@ import { ArrowDownIcon } from "@chakra-ui/icons"
 import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE } from "../../components/constants/admin"
+import EventsForm from "../../components/forms/EventForm"
 
 export default function AdminPage() {
 
@@ -36,8 +37,7 @@ export default function AdminPage() {
                     </Button>
                 </Stack>
                 {renderDashboard()}
-
-                <EventCard />
+                <EventsForm />
             </Box>
         </>
     )
