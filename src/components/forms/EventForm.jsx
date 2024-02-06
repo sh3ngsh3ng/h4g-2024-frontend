@@ -1,8 +1,24 @@
 import { FormControl, Text, Input, Textarea } from "@chakra-ui/react"
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import { useDropzone } from 'react-dropzone';
+import { useCallback } from "react";
+import "./EventForm.css"
 
 export default function EventsForm({ type }) {
+    const onDrop = useCallback(acceptedFiles => {
+        console.log("loaded: ", acceptedFiles)
+        if (acceptedFiles.length === 0) {
+            alert("Only images")
+        }
+    }, [])
+
+    const accept = {
+        'image/jpeg': ['.jpeg', '.png']
+    }
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept })
+
     return (
         <>
             <FormControl>
@@ -20,6 +36,14 @@ export default function EventsForm({ type }) {
 
             </FormControl>
             <ReactQuill />
+            <div {...getRootProps({ className: 'drop-zone' })}>
+                <input {...getInputProps()} />
+                {
+                    isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                }
+            </div>
         </>
     )
 
