@@ -67,7 +67,14 @@ export default function AdminPage() {
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
-            return <EventsForm /> // pass in a single event if it is update
+            let editData = {
+                name: "Help the Homeequal",
+                organization: "Green Cross",
+                skills: ["teamwork"],
+                month: "Dec",
+                day: "31",
+            }
+            return <EventsForm type="edit" data={editData} /> // pass in a single event if it is update
         }
     }
 
@@ -77,7 +84,7 @@ export default function AdminPage() {
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
             return (
                 <Stack direction="row">
-                    <Button bgColor="white">Cancel</Button>
+                    <Button onClick={exitEventForm} bgColor="white">Cancel</Button>
                     <Button bgColor="red">Save</Button>
                 </Stack>
             )

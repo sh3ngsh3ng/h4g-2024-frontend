@@ -2,13 +2,25 @@ import { FormControl, Text, Input, Textarea } from "@chakra-ui/react"
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { useDropzone } from 'react-dropzone';
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import "./EventForm.css"
 
-export default function EventsForm({ type }) {
+export default function EventsForm({ type, data }) {
     // form is either create or edit
     // if type == edit, load editing event from redux into formData
-    const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({
+        name: "",
+        organization: "",
+        skills: [],
+        month: "",
+        day: "",
+    })
+
+    useEffect(() => {
+        if (type == "edit") {
+            setFormData(data)
+        }
+    }, [])
 
     const onDrop = useCallback(acceptedFiles => {
         if (acceptedFiles.length === 0) {
@@ -41,18 +53,32 @@ export default function EventsForm({ type }) {
     return (
         <>
             <FormControl>
-                <Text label="Name" variant="outlined" />
-                <Text label="Organiser" variant="outlined" />
-                <Input placeholder="Name" />
-                <Input placeholder="Organizer" />
-                <Input type="datetime-local" disabled />
+                <Input
+                    placeholder="Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={onInputChange}
+                />
+                <Input
+                    placeholder="Organizer"
+                    name="organization"
+                    value={formData.organization}
+                    onChange={onInputChange}
+                />
+                <Input
+                    type="datetime-local"
+                    disabled
+                    value={`${formData.month}-${formData.day}`}
+                    onChange={onInputChange}
+                />
                 <Input
                     placeholder="Select Date and Time"
                     size="md"
                     type="datetime-local"
+                    name="datetime"
+                    value={""}
+                    onChange={onInputChange}
                 />
-                {/* <Textarea label="Event Description" rowsMin={3} placeholder="Event Description" /> */}
-
             </FormControl>
             <ReactQuill />
             <div {...getRootProps({ className: 'drop-zone' })}>
