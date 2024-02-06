@@ -37,6 +37,7 @@ export default function AdminPage() {
                     </Button>
                 </Stack>
                 {renderDashboard()}
+                <EventsForm />
             </Box>
         </>
     )

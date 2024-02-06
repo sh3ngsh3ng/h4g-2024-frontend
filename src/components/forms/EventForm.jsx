@@ -17,7 +17,13 @@ export default function EventsForm({ type }) {
         'image/jpeg': ['.jpeg', '.png']
     }
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept })
+    const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept })
+
+    const files = acceptedFiles.map(file => (
+        <li key={file.name}>
+            {file.name} - {file.size} bytes
+        </li>
+    )); // temp to show uploaded images
 
     return (
         <>
@@ -44,6 +50,7 @@ export default function EventsForm({ type }) {
                         <p>Drag 'n' drop some files here, or click to select files</p>
                 }
             </div>
+            <ul>{files}</ul>
         </>
     )
 
