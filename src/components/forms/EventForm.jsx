@@ -1,4 +1,6 @@
 import { FormControl, Text, Input, Textarea } from "@chakra-ui/react"
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 export default function EventsForm({ type }) {
     return (
@@ -17,6 +19,7 @@ export default function EventsForm({ type }) {
                 {/* <Textarea label="Event Description" rowsMin={3} placeholder="Event Description" /> */}
 
             </FormControl>
+            <ReactQuill />
         </>
     )
 
