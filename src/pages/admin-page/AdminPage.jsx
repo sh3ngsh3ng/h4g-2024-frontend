@@ -1,6 +1,6 @@
 
 import Navbar from "../../components/navbar/Navbar"
-import { Box, Stack, Button, Tabs, TabList, Tab } from "@chakra-ui/react"
+import { Box, Stack, Button, Tabs, TabList, Tab, Flex } from "@chakra-ui/react"
 import { ArrowDownIcon } from "@chakra-ui/icons"
 import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
@@ -24,9 +24,13 @@ export default function AdminPage() {
             <Box h="100%" w="100%" p={3}>
                 <Navbar />
                 <Tabs variant='enclosed'>
-                    <TabList>
-                        <Tab>All Events</Tab>
-                    </TabList>
+                    <Flex justifyContent="space-between" alignItems="center">
+                        <TabList>
+                            <Tab>All Events</Tab>
+                        </TabList>
+                        {/* Add a Button component at the end of the TabList */}
+                        <Button colorScheme="blue">Create Event</Button>
+                    </Flex>
                 </Tabs>
                 <Stack direction="row" spacing={4}>
                     <Button rightIcon={<ArrowDownIcon />} bgColor="pink">
