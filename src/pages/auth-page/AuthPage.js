@@ -13,8 +13,9 @@ import {
   Grid,
   GridItem,
   AbsoluteCenter,
+  Show,
+  Hide,
 } from "@chakra-ui/react";
-import { Show, Hide } from "@chakra-ui/react";
 import { useState } from "react";
 
 function RadioCard(props) {
@@ -56,9 +57,9 @@ export default function AuthPage() {
   const { loading } = userRegister;
 
   function renderForm() {
-    if (formMode == "Login") {
+    if (formMode === "Login") {
       return <LoginForm />;
-    } else if (formMode == "SignUp") {
+    } else if (formMode === "SignUp") {
       return <SignUpForm />;
     }
   }
