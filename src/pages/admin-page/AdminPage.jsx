@@ -1,19 +1,32 @@
 
 import Navbar from "../../components/navbar/Navbar"
-import { Box, Stack, Button, Icon } from "@chakra-ui/react"
+import { Box, Stack, Button, Tabs, TabList, Tab } from "@chakra-ui/react"
 import { ArrowDownIcon } from "@chakra-ui/icons"
 import EventCard from "../../components/utilities/EventCard"
+import { useDispatch, useSelector } from "react-redux"
+import { ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE } from "../../components/constants/admin"
 
 export default function AdminPage() {
 
-    // Retrieve data from backend 
-    // 1) Volunteering events
-    // 2) User data - experience, volunteer hours, name, etc
+    const adminDashboardMode = useSelector((state) => state.adminDashboard.mode)
+
+    const renderDashboard = () => {
+        if (adminDashboardMode == ADMIN_DASHBOARD_MODE_READ) {
+            return <h1>READ</h1>
+        } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
+            return <h1>update</h1>
+        }
+    }
 
     return (
         <>
             <Box h="100%" w="100%" p={3}>
                 <Navbar />
+                <Tabs variant='enclosed'>
+                    <TabList>
+                        <Tab>All Events</Tab>
+                    </TabList>
+                </Tabs>
                 <Stack direction="row" spacing={4}>
                     <Button rightIcon={<ArrowDownIcon />} bgColor="pink">
                         Sort
@@ -22,6 +35,8 @@ export default function AdminPage() {
                         Filter
                     </Button>
                 </Stack>
+                {renderDashboard()}
+
                 <EventCard />
             </Box>
         </>
