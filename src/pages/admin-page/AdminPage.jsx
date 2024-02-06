@@ -73,6 +73,7 @@ export default function AdminPage() {
                 skills: ["teamwork"],
                 month: "Dec",
                 day: "31",
+                description: "This is cool!"
             }
             return <EventsForm type="edit" data={editData} /> // pass in a single event if it is update
         }

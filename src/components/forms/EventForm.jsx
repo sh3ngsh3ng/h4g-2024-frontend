@@ -14,6 +14,7 @@ export default function EventsForm({ type, data }) {
         skills: [],
         month: "",
         day: "",
+        description: ""
     })
 
     useEffect(() => {
@@ -50,6 +51,13 @@ export default function EventsForm({ type, data }) {
         })
     }
 
+    const onDescriptionChange = (content) => {
+        setFormData({
+            ...formData,
+            description: content
+        })
+    }
+
     return (
         <>
             <FormControl>
@@ -80,7 +88,7 @@ export default function EventsForm({ type, data }) {
                     onChange={onInputChange}
                 />
             </FormControl>
-            <ReactQuill />
+            <ReactQuill value={formData.description} name="description" onChange={onDescriptionChange} />
             <div {...getRootProps({ className: 'drop-zone' })}>
                 <input {...getInputProps()} />
                 {
