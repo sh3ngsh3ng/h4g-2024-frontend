@@ -1,10 +1,10 @@
-import { auth } from "../../firebase/firebase"
+
 import Navbar from "../../components/navbar/Navbar"
 import { Box, Stack, Button, Icon } from "@chakra-ui/react"
 import { ArrowDownIcon } from "@chakra-ui/icons"
 import EventCard from "../../components/utilities/EventCard"
 
-export default function UserPage() {
+export default function AdminPage() {
 
     // Retrieve data from backend 
     // 1) Volunteering events
