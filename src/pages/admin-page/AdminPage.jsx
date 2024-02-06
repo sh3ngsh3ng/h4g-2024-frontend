@@ -20,6 +20,7 @@ export default function AdminPage() {
             skills: ["communication", "leadership", "teamwork"],
             month: "Feb",
             day: "14",
+            description: "No one should have less"
         },
         {
             name: "Help the Homemore",
@@ -27,6 +28,7 @@ export default function AdminPage() {
             skills: ["leadership", "teamwork"],
             month: "Mar",
             day: "20",
+            description: "We want more"
         },
         {
             name: "Help the Homeequal",
@@ -34,6 +36,7 @@ export default function AdminPage() {
             skills: ["teamwork"],
             month: "Dec",
             day: "31",
+            description: "We want equality"
         }
     ]
 

@@ -18,7 +18,8 @@ export default function EventsForm({ type, data }) {
     })
 
     useEffect(() => {
-        if (type == "edit") {
+        if (type === "edit") {
+            console.log("called ")
             setFormData(data)
         }
     }, [])
@@ -53,7 +54,6 @@ export default function EventsForm({ type, data }) {
 
     const onDescriptionChange = (content) => {
         setFormData({
-            ...formData,
             description: content
         })
     }
@@ -88,7 +88,7 @@ export default function EventsForm({ type, data }) {
                     onChange={onInputChange}
                 />
             </FormControl>
-            <ReactQuill value={formData.description} name="description" onChange={onDescriptionChange} />
+            <ReactQuill value={formData.description} onChange={onDescriptionChange} />
             <div {...getRootProps({ className: 'drop-zone' })}>
                 <input {...getInputProps()} />
                 {

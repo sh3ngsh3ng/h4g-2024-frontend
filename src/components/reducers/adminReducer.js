@@ -20,3 +20,9 @@ export const adminDashboardReducers = (state = { mode: ADMIN_DASHBOARD_MODE_READ
             return state
     }
 }
+
+export const adminEventsReducers = (state = { tempEvent: {} }, action) => {
+    switch (action.type) {
+
+    }
+}
