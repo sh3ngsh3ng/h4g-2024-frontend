@@ -13,9 +13,9 @@ export default function AdminPage() {
 
     const renderDashboard = () => {
         if (adminDashboardMode == ADMIN_DASHBOARD_MODE_READ) {
-            return <h1>READ</h1>
+            return <h1>READ</h1> // list render all events here
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
-            return <h1>update</h1>
+            return <EventsForm /> // pass in a single event if it is update
         }
     }
 
@@ -37,7 +37,6 @@ export default function AdminPage() {
                     </Button>
                 </Stack>
                 {renderDashboard()}
-                <EventsForm />
             </Box>
         </>
     )
