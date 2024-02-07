@@ -1,16 +1,15 @@
-import { FormControl, Input } from "@chakra-ui/react"
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
-import { useDropzone } from 'react-dropzone';
-import { useCallback, useState, useEffect } from "react";
 import "./EventForm.css"
+import 'react-quill/dist/quill.snow.css';
+import { FormControl, Input } from "@chakra-ui/react"
 import { useSelector, useDispatch } from "react-redux";
-import { onEditingForm, setEditForm } from "../actions/adminActions";
+import { onEditingForm } from "../actions/adminActions";
+import { useDropzone } from 'react-dropzone';
+import { useCallback } from "react";
+import ReactQuill from "react-quill";
 
 export default function EventsForm({ type, data }) {
     const dispatch = useDispatch()
     const formToEdit = useSelector(state => state.adminEvents.formToEdit)
-
 
     const onDrop = useCallback(acceptedFiles => {
         if (acceptedFiles.length === 0) {
@@ -82,5 +81,4 @@ export default function EventsForm({ type, data }) {
             <ul>{files}</ul>
         </>
     )
-
 }

@@ -9,14 +9,11 @@ export const changeAdminDashboard = (mode) => async (dispatch) => {
 }
 
 export const onEditingForm = (payload) => {
-    console.log("onEditingForm: ", payload)
     try {
-        return (
-            {
-                type: "ADMIN_EDIT_EVENT_FIELD",
-                payload
-            }
-        )
+        return {
+            type: "ADMIN_EDIT_EVENT_FIELD",
+            payload
+        }
     } catch (e) {
         console.error(e)
     }
