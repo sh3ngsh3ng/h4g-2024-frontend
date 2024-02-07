@@ -13,8 +13,6 @@ import { setEditForm } from "../actions/adminActions";
 
 export const EventCard = ({ data, type, action }) => {
     const dispatch = useDispatch()
-
-    console.log("data in eventcard: ", data)
     return (
         <>
             <Box maxW="xs" borderWidth="1px" height="250px" borderRadius="lg" overflow="hidden" position="relative">
