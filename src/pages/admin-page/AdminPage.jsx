@@ -5,7 +5,7 @@ import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE } from "../../components/constants/admin"
 import EventsForm from "../../components/forms/EventForm"
-import { changeAdminDashboard } from "../../components/actions/adminActions"
+import { changeAdminDashboard, setEditForm } from "../../components/actions/adminActions"
 
 export default function AdminPage() {
     const dispatch = useDispatch()
@@ -50,6 +50,7 @@ export default function AdminPage() {
 
     const goToEditEventForm = () => {
         // set events to edit here before changing to events form
+        // dispatch(setEditForm(testEvents[0]))
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_UPDATE))
     }
 
@@ -70,15 +71,8 @@ export default function AdminPage() {
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
-            let editData = {
-                name: "Help the Homeequal",
-                organization: "Green Cross",
-                skills: ["teamwork"],
-                month: "Dec",
-                day: "31",
-                description: "This is cool!"
-            }
-            return <EventsForm type="edit" data={editData} /> // pass in a single event if it is update
+            dispatch(setEditForm(testEvents[1]))
+            return <EventsForm type="edit" /> // pass in a single event if it is update
         }
     }
 

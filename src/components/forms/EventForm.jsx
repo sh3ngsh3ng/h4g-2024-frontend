@@ -1,28 +1,16 @@
-import { FormControl, Text, Input, Textarea } from "@chakra-ui/react"
+import { FormControl, Input } from "@chakra-ui/react"
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { useDropzone } from 'react-dropzone';
 import { useCallback, useState, useEffect } from "react";
 import "./EventForm.css"
+import { useSelector, useDispatch } from "react-redux";
+import { onEditingForm, setEditForm } from "../actions/adminActions";
 
 export default function EventsForm({ type, data }) {
-    // form is either create or edit
-    // if type == edit, load editing event from redux into formData
-    const [formData, setFormData] = useState({
-        name: "",
-        organization: "",
-        skills: [],
-        month: "",
-        day: "",
-        description: ""
-    })
+    const dispatch = useDispatch()
+    const formToEdit = useSelector(state => state.adminEvents.formToEdit)
 
-    useEffect(() => {
-        if (type === "edit") {
-            console.log("called ")
-            setFormData(data)
-        }
-    }, [])
 
     const onDrop = useCallback(acceptedFiles => {
         if (acceptedFiles.length === 0) {
@@ -45,17 +33,11 @@ export default function EventsForm({ type, data }) {
     )); // temp to show uploaded images
 
     const onInputChange = (event) => {
-        const { name, value } = event.target
-        setFormData({
-            ...formData,
-            [name]: value
-        })
+        dispatch(onEditingForm({ field: event.target.name, value: event.target.value }))
     }
 
     const onDescriptionChange = (content) => {
-        setFormData({
-            description: content
-        })
+
     }
 
     return (
@@ -64,19 +46,19 @@ export default function EventsForm({ type, data }) {
                 <Input
                     placeholder="Name"
                     name="name"
-                    value={formData.name}
+                    value={formToEdit?.name}
                     onChange={onInputChange}
                 />
                 <Input
                     placeholder="Organizer"
                     name="organization"
-                    value={formData.organization}
+                    value={formToEdit?.organization}
                     onChange={onInputChange}
                 />
                 <Input
                     type="datetime-local"
                     disabled
-                    value={`${formData.month}-${formData.day}`}
+                    value={`${formToEdit?.month}-${formToEdit?.day}`}
                     onChange={onInputChange}
                 />
                 <Input
@@ -88,7 +70,7 @@ export default function EventsForm({ type, data }) {
                     onChange={onInputChange}
                 />
             </FormControl>
-            <ReactQuill value={formData.description} onChange={onDescriptionChange} />
+            <ReactQuill value={formToEdit?.description} onChange={onDescriptionChange} />
             <div {...getRootProps({ className: 'drop-zone' })}>
                 <input {...getInputProps()} />
                 {
