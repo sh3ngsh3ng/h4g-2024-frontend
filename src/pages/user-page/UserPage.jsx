@@ -1,7 +1,19 @@
 import { auth } from "../../firebase/firebase"
 import Navbar from "../../components/navbar/Navbar"
-import { Box, Stack, Button, Tabs, TabList, Tab, Flex } from "@chakra-ui/react"
-import { ArrowDownIcon } from "@chakra-ui/icons"
+import { 
+    Box, 
+    Stack, 
+    Button, 
+    Tabs, 
+    TabList, 
+    Tab, 
+    Flex,
+    MenuButton,
+    Menu,
+    MenuItem,
+    MenuList,
+} from "@chakra-ui/react"
+import { ArrowDownIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import EventCard from "../../components/utilities/EventCard"
 
 export default function UserPage() {
@@ -47,12 +59,19 @@ export default function UserPage() {
                             <Tab>Past</Tab>
                         </TabList>
                         <Stack direction="row" spacing={4}>
-                            <Button rightIcon={<ArrowDownIcon />} bgColor="pink">
+                            <Button rightIcon={<ArrowDownIcon />} bgColor="red.100">
                                 Sort
                             </Button>
-                            <Button>
-                                Filter
-                            </Button>
+                            <Menu>
+                                <MenuButton as = {Button} rightIcon={<ArrowDownIcon/>} bgColor="red.100">
+                                    Filter
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem icon={<ChevronDownIcon/>}>Event Type</MenuItem>
+                                    <MenuItem icon={<ChevronDownIcon/>}>Skills</MenuItem>
+                                    <MenuItem icon={<ChevronDownIcon/>}>Category</MenuItem>
+                                </MenuList>
+                            </Menu>
                         </Stack>
                     </Flex>
                 </Tabs>
