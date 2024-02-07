@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import stock from "../../static/Images/event-image/stock.png";
 import Logo from "../../static/Images/big-at-heart-logo/logo.png";
+import { red } from "@mui/material/colors";
 
 export const EventCard = ({ data, type, action }) => {
     return (
@@ -76,11 +77,12 @@ export const EventCard = ({ data, type, action }) => {
                     ))}
                 </Stack>
                 <div style={{width: "150px:",height: "150px", backgroundImage: `url(${stock})`}}>
-                    
+                    <Box size="5px" borderWidth={1} borderColor="red">
+                        <Text>
+                            {data.month} {data.day}
+                        </Text>
+                    </Box>
                 </div>
-                <Text>
-                    {data.month} {data.day}
-                </Text>
                     </Box>
         </>
     )
