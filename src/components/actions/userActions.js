@@ -12,6 +12,7 @@ import {
 } from "../constants/user";
 import { auth } from "../../firebase/firebase";
 import firebase from "firebase/compat/app";
+import { retrieveAllEvents } from "./eventsAction";
 
 export const loginUser = () => async (dispatch) => {
   try {
