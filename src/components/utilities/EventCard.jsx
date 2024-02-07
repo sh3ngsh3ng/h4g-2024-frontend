@@ -1,64 +1,26 @@
 import {
     Box,
     Heading,
-    SimpleGrid,
     Text,
     Flex,
     Button,
     Stack,
     Tag,
-    Image,
-    Card,
-    CardHeader,
-    CardBody
 } from "@chakra-ui/react";
 import stock from "../../static/Images/event-image/stock.png";
-import Logo from "../../static/Images/big-at-heart-logo/logo.png";
-import { red } from "@mui/material/colors";
 
 export const EventCard = ({ data, type, action }) => {
     return (
         <>
-            {/*<Card maxHeight={350}>
-                <CardHeader>
-                    <Flex>
-                        <Box paddingRight="40px">
-                            <Heading as='h1' size='md'>
-                                {data.name}
-                            </Heading>
-                            <Text>
-                                by {data.organization}
-                            </Text>
-                        </Box>
-                        <Box padding="10px">
-                            {
-                                type == "admin" ? <Button colorScheme="red" onClick={action}>Edit</Button> : <Button colorScheme="red" onClick={action}>Join</Button>
-                            }
-
-                        </Box>
-                    </Flex>
-                    <Stack direction="row">
-                    {data.skills.map((skill) => (
-                        <Tag color="red" bgColor="pink.100" borderRadius="full">
-                            {skill}
-                        </Tag>
-                    ))}
-                    </Stack>
-                </CardHeader>
-                <CardBody>
-                    <Image src={stock} alt="stock" />
-                    <Text>
-                        {data.month} {data.day}
-                    </Text>
-                </CardBody>
-            </Card>*/}
-            <Box maxW="xs" height="250px" borderWidth="1px" borderRadius="lg" overflow="hidden">
-                <Flex>
-                    <Box paddingRight="40px">
+            <Box maxW="xs" borderWidth="1px" height="250px" borderRadius="lg" overflow="hidden" position="relative">
+                <Flex justifyContent="space-between">
+                    <Box 
+                        lineHeight={0} 
+                        padding="10px">
                         <Heading as='h1' size='md'>
                             {data.name}
                         </Heading>
-                        <Text>
+                        <Text fontSize="sm">
                             by {data.organization}
                         </Text>
                     </Box>
@@ -69,21 +31,41 @@ export const EventCard = ({ data, type, action }) => {
 
                     </Box>
                 </Flex>
-                <Stack direction="row">
+                <Stack direction="row" padding="10px">
                     {data.skills.map((skill) => (
-                        <Tag color="red" bgColor="pink.100" borderRadius="full">
+                        <Tag color="red" bgColor="red.100" borderRadius="full">
                             {skill}
                         </Tag>
                     ))}
                 </Stack>
-                <div style={{width: "150px:",height: "150px", backgroundImage: `url(${stock})`}}>
-                    <Box size="5px" borderWidth={1} borderColor="red">
-                        <Text>
-                            {data.month} {data.day}
-                        </Text>
-                    </Box>
+                <div 
+                    style={{height: "160px", backgroundImage: `url(${stock})`}} 
+                    position="relative">
                 </div>
-                    </Box>
+                <Box
+                    position="absolute"
+                    bottom="10px"
+                    right="10px"
+                    backgroundColor="rgba(255,255,255,1)"
+                    padding="10px"
+                    borderRadius="lg"
+                    borderColor="red"
+                    borderWidth="2px"
+                    width="55px"
+                    height="55px"
+                    justifyContent="center"
+                    alignItems="center">
+                    <Text 
+                        color="red" 
+                        lineHeight="1" 
+                        align="center" 
+                        fontWeight="bold">
+                        {data.month}
+                            <br/> 
+                        {data.day}
+                    </Text>
+                </Box>
+            </Box>
         </>
     )
 }
