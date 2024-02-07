@@ -48,6 +48,7 @@ export default function LoginForm() {
     if (user) {
         navigate("/");
     }
+  
 
     if (error) {
         window.confirm(error);
