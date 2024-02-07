@@ -4,7 +4,7 @@ import {
     ADMIN_DASHBOARD_MODE_UPDATE
 } from "../constants/admin"
 
-let initialForm = {
+const initialForm = {
     name: "",
     organization: "",
     skills: [],
@@ -44,6 +44,9 @@ export const adminEventsReducers = (state = { formToEdit: initialForm }, action)
             }
         case "ADMIN_EDIT_EVENT":
             return { ...state, formToEdit: { ...action.formToEdit } }
+
+        case "CLEAR_FORM":
+            return { ...state, formToEdit: { initialForm } }
         default:
             return state
     }

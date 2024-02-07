@@ -29,3 +29,13 @@ export const setEditForm = (formToEdit) => {
         console.error(e)
     }
 }
+
+export const clearForm = () => {
+    try {
+        return {
+            type: "CLEAR_FORM"
+        }
+    } catch (e) {
+        console.error(e)
+    }
+}

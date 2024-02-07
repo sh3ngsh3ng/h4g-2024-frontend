@@ -5,7 +5,7 @@ import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE } from "../../components/constants/admin"
 import EventsForm from "../../components/forms/EventForm"
-import { changeAdminDashboard, setEditForm } from "../../components/actions/adminActions"
+import { changeAdminDashboard, clearForm, setEditForm } from "../../components/actions/adminActions"
 
 export default function AdminPage() {
     const dispatch = useDispatch()
@@ -45,6 +45,7 @@ export default function AdminPage() {
     }
 
     const exitEventForm = () => {
+        dispatch(clearForm())
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_READ))
     }
 
@@ -69,6 +70,7 @@ export default function AdminPage() {
 
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
+            dispatch(clearForm())
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
             dispatch(setEditForm(testEvents[1]))
