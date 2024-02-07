@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { ArrowDownIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import EventCard from "../../components/utilities/EventCard"
+import PastEventCard from "../../components/utilities/PastEventCard"
 
 export default function UserPage() {
 
@@ -44,6 +45,13 @@ export default function UserPage() {
             description: "We want equality"
         }
     ]
+
+    const Aevent = {
+        name: "Event Name",
+        organization: "Organiser",
+        skills: ["Skill1", "Skill2", "Skill3"],
+        date: "10 December 2023"
+    }
 
     // Retrieve data from backend 
     // 1) Volunteering events
@@ -76,7 +84,8 @@ export default function UserPage() {
                     </Flex>
                 </Tabs>
 
-                {/*<EventCard />*/}
+                {/*<PastEventCard 
+                    event = {Aevent}/>*/}
             </Box>
         </>
     )
