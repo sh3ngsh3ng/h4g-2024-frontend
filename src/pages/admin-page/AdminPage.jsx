@@ -13,7 +13,7 @@ export default function AdminPage() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // retrieve all events on admin page loaded
+        // retrieve all events on admin page loaded (move to login)
         dispatch(retrieveAllEvents())
     }, [])
 
