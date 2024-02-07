@@ -31,6 +31,7 @@ export default function AdminPage() {
 
     const goToEditEventForm = () => {
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_UPDATE))
+        console.log(allEvents)
     }
 
     const renderDashboard = () => {
@@ -38,7 +39,7 @@ export default function AdminPage() {
             return (
                 <SimpleGrid columns={[1, 2, 3]} justifyItems="center">
                     {
-                        allEvents?.map((event) => {
+                        allEvents?.map((event, idx) => {
                             return (
                                 <EventCard data={event} type="admin" action={goToEditEventForm} />
                             )
@@ -51,7 +52,6 @@ export default function AdminPage() {
             dispatch(clearForm())
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
-            dispatch(setEditForm(allEvents[1]))
             return <EventsForm type="edit" /> // pass in a single event if it is update
         }
     }
