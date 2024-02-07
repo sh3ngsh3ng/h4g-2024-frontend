@@ -37,7 +37,7 @@ export default function EventsForm({ type, data }) {
     }
 
     const onDescriptionChange = (content) => {
-
+        dispatch(onEditingForm({ field: "description", value: content }))
     }
 
     return (
@@ -70,7 +70,7 @@ export default function EventsForm({ type, data }) {
                     onChange={onInputChange}
                 />
             </FormControl>
-            <ReactQuill value={formToEdit?.description} onChange={onDescriptionChange} />
+            <ReactQuill value={formToEdit?.description} onChange={text => onDescriptionChange(text)} />
             <div {...getRootProps({ className: 'drop-zone' })}>
                 <input {...getInputProps()} />
                 {
