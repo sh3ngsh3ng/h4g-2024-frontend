@@ -1,41 +1,174 @@
+import {
+  EVENT_ATTENDANCE_FAIL,
+  EVENT_ATTENDANCE_REQUEST,
+  EVENT_ATTENDANCE_SUCCESS,
+
+  MARK_EVENT_ATTENDANCE_FAIL,
+  MARK_EVENT_ATTENDANCE_REQUEST,
+  MARK_EVENT_ATTENDANCE_SUCCESS,
+
+  GENERATE_EVENT_QR_FAIL,
+  GENERATE_EVENT_QR_REQUEST,
+  GENERATE_EVENT_QR_SUCCESS,
+} from "../constants/admin";
+import axios from "axios";
+
 export const changeAdminDashboard = (mode) => async (dispatch) => {
-    try {
-        dispatch({
-            type: mode
-        })
-    } catch (e) {
-        console.error(e)
-    }
-}
+  try {
+    dispatch({
+      type: mode,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const onEditingForm = (payload) => {
-    try {
-        return {
-            type: "ADMIN_EDIT_EVENT_FIELD",
-            payload
-        }
-    } catch (e) {
-        console.error(e)
-    }
-}
+  try {
+    return {
+      type: "ADMIN_EDIT_EVENT_FIELD",
+      payload,
+    };
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const setEditForm = (formToEdit) => {
-    try {
-        return {
-            type: "ADMIN_EDIT_EVENT",
-            formToEdit
-        }
-    } catch (e) {
-        console.error(e)
-    }
-}
+  try {
+    return {
+      type: "ADMIN_EDIT_EVENT",
+      formToEdit,
+    };
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const clearForm = () => {
+  try {
+    return {
+      type: "CLEAR_FORM",
+    };
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const listEventAttendance = ({slug}) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EVENT_ATTENDANCE_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/event/${slug}/listAttendance`,
+      config
+    );
+
+    dispatch({
+      type: EVENT_ATTENDANCE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EVENT_ATTENDANCE_FAIL,
+      payload: error.response,
+    });
+  }
+};
+
+export const adminMarkAttendance = ({slug, uid}) => async (dispatch) => {
     try {
-        return {
-            type: "CLEAR_FORM"
-        }
-    } catch (e) {
-        console.error(e)
+      dispatch({
+        type: MARK_EVENT_ATTENDANCE_REQUEST,
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@user"),
+        },
+      };
+  
+      const { data } = await axios.post(
+        `/api/event/${slug}/listAttendance/mark`,
+        {uid},
+        config
+      );
+  
+      dispatch({
+        type: MARK_EVENT_ATTENDANCE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: MARK_EVENT_ATTENDANCE_FAIL,
+        payload: error.response,
+      });
     }
-}
+  };
+
+  export const adminUnmarkAttendance = ({slug, uid}) => async (dispatch) => {
+    try {
+      dispatch({
+        type: MARK_EVENT_ATTENDANCE_REQUEST,
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@user"),
+        },
+      };
+  
+      const { data } = await axios.post(
+        `/api/event/${slug}/listAttendance/unmark`,
+        {uid},
+        config
+      );
+  
+      dispatch({
+        type: MARK_EVENT_ATTENDANCE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: MARK_EVENT_ATTENDANCE_FAIL,
+        payload: error.response,
+      });
+    }
+  };
+
+  export const adminGenerateQr = ({slug}) => async (dispatch) => {
+    try {
+      dispatch({
+        type: GENERATE_EVENT_QR_REQUEST,
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@user"),
+        },
+      };
+  
+      const { data } = await axios.get(
+        `/api/event/${slug}/listAttendance/generate`,
+        config
+      );
+  
+      dispatch({
+        type: GENERATE_EVENT_QR_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GENERATE_EVENT_QR_FAIL,
+        payload: error.response,
+      });
+    }
+  };
