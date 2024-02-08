@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import {
   userDashboardReducers,
   userFirebaseRegisterReducers,
@@ -6,7 +7,7 @@ import {
   userRegisterReducers,
   userEventsReducers,
 } from "../components/reducers/userReducer";
-import { adminDashboardReducers, adminEventsReducers } from "../components/reducers/adminReducer";
+import { adminDashboardReducers, adminEventsReducers, eventAttendanceReducers, generateEventQrReducers, markEventAttendanceReducers } from "../components/reducers/adminReducer";
 import { eventsReducers } from "../components/reducers/eventsReducer";
 
 export const store = configureStore({
@@ -19,5 +20,8 @@ export const store = configureStore({
     userEvents: userEventsReducers,
     adminEvents: adminEventsReducers,
     events: eventsReducers,
+    eventAttendance: eventAttendanceReducers,
+    markEventAttendance: markEventAttendanceReducers,
+    generateEventQr: generateEventQrReducers,
   },
 });
