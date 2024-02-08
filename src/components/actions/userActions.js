@@ -12,6 +12,7 @@ import {
 } from "../constants/user";
 import { auth } from "../../firebase/firebase";
 import firebase from "firebase/compat/app";
+import { retrieveAllEvents } from "./eventsAction";
 
 export const loginUser = () => async (dispatch) => {
   try {
@@ -239,3 +240,13 @@ export const test = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const changeUserDashboard = (mode) => async (dispatch) => {
+  try {
+    dispatch({
+      type: mode
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}

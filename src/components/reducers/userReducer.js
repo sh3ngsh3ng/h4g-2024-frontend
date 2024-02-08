@@ -31,14 +31,14 @@ export const userLoginReducers = (state = {}, action) => {
   }
 };
 
-export const userRegisterReducers = (state = {loading: false}, action) => {
+export const userRegisterReducers = (state = { loading: false }, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };
 
     case USER_REGISTER_SUCCESS:
       return { loading: false, success: true };
-      // return {};
+    // return {};
 
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
@@ -51,14 +51,14 @@ export const userRegisterReducers = (state = {loading: false}, action) => {
   }
 };
 
-export const userFirebaseRegisterReducers = (state = {loading: false}, action) => {
+export const userFirebaseRegisterReducers = (state = { loading: false }, action) => {
   switch (action.type) {
     case USER_FIREBASE_REGISTER_REQUEST:
       return { loading: true };
 
     case USER_FIREBASE_REGISTER_SUCCESS:
       return { loading: false, uid: action.payload.uid, email: action.payload.email, success: true };
-      // return {};
+    // return {};
 
     case USER_FIREBASE_REGISTER_FAIL:
       return { loading: false, error: action.payload };
@@ -70,3 +70,20 @@ export const userFirebaseRegisterReducers = (state = {loading: false}, action) =
       return state;
   }
 };
+
+export const userDashboardReducers = (state = { mode: "USER_DASHBOARD_READ_CURRENT" }, action) => {
+  switch (action.type) {
+
+    case "USER_DASHBOARD_READ_CURRENT":
+      return { mode: action.type }
+
+    case "USER_DASHBOARD_READ_PAST":
+      return { mode: action.type }
+
+    case "USER_DASHBOARD_READ_DETAILS":
+      return { mode: action.type }
+
+    default:
+      return state
+  }
+}
