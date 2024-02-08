@@ -16,7 +16,8 @@ import {
   Show,
   Hide,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 function RadioCard(props) {
   const { getInputProps, getRadioProps } = useRadio(props);
@@ -52,13 +53,21 @@ function RadioCard(props) {
 
 export default function AuthPage() {
   const [formMode, setFormMode] = useState("Login");
+  const [event, setEvent] = useState("");
+  const [token, setToken] = useState("");
 
   const userRegister = useSelector((state) => state.userRegister);
   const { loading } = userRegister;
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setEvent(params.get("event"));
+    setToken(params.get("token"));
+  }, [window.location.search]);
+
   function renderForm() {
     if (formMode === "Login") {
-      return <LoginForm />;
+      return <LoginForm token={token} event={event} />;
     } else if (formMode === "SignUp") {
       return <SignUpForm />;
     }

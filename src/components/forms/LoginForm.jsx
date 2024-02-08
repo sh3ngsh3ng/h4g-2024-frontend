@@ -25,7 +25,7 @@ import MyDivider from "../utilities/MyDivider";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, loginUserWithEmailAndPassword } from "../actions/userActions";
 
-export default function LoginForm() {
+export default function LoginForm({event, token}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -45,6 +45,11 @@ export default function LoginForm() {
   };
 
   useEffect(() => {
+    if (event && token && user) {
+      console.log("here");
+      navigate(`/event/${event}/markAttendance/${token}`)
+    }
+
     if (user) {
         navigate("/");
     }

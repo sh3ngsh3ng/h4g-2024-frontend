@@ -41,6 +41,10 @@ export default function AttendancePage() {
     dispatch(adminGenerateQr({ slug: param.slug }));
   };
 
+  const handleRefreshTable = () => {
+    dispatch({ type: EVENT_ATTENDANCE_RESET });
+  };
+
   useEffect(() => {
     if (success) {
       dispatch({ type: EVENT_ATTENDANCE_RESET });
@@ -69,6 +73,7 @@ export default function AttendancePage() {
               width="20%"
               mr={2}
               handleGenerateQr={handleGenerateQr}
+              handleRefreshTable={handleRefreshTable}
             ></AttendanceHelper>
           </Show>
 
@@ -77,6 +82,7 @@ export default function AttendancePage() {
               width="full"
               mb={2}
               handleGenerateQr={handleGenerateQr}
+              handleRefreshTable={handleRefreshTable}
             ></AttendanceHelper>
           </Show>
           <AttendanceTable data={data} eventName={eventName} />
