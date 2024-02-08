@@ -1,17 +1,18 @@
 import {
     ADMIN_DASHBOARD_MODE_CREATE,
     ADMIN_DASHBOARD_MODE_READ,
-    ADMIN_DASHBOARD_MODE_UPDATE
+    ADMIN_DASHBOARD_MODE_UPDATE,
+    EVENT_FORM_TEMPLATE
 } from "../constants/admin"
 
-const initialForm = {
-    name: "",
-    organization: "",
-    skills: [],
-    month: "",
-    day: "",
-    description: ""
-}
+// const initialForm = {
+//     name: "",
+//     organization: "",
+//     skills: [],
+//     month: "",
+//     day: "",
+//     description: ""
+// }
 
 export const adminDashboardReducers = (state = { mode: ADMIN_DASHBOARD_MODE_READ }, action) => {
     switch (action.type) {
@@ -30,7 +31,7 @@ export const adminDashboardReducers = (state = { mode: ADMIN_DASHBOARD_MODE_READ
     }
 }
 
-export const adminEventsReducers = (state = { formToEdit: initialForm }, action) => {
+export const adminEventsReducers = (state = { formToEdit: EVENT_FORM_TEMPLATE }, action) => {
     switch (action.type) {
         case "ADMIN_EDIT_EVENT_FIELD":
             const { field, value } = action.payload
@@ -44,9 +45,8 @@ export const adminEventsReducers = (state = { formToEdit: initialForm }, action)
             }
         case "ADMIN_EDIT_EVENT":
             return { ...state, formToEdit: { ...action.formToEdit } }
-
         case "CLEAR_FORM":
-            return { ...state, formToEdit: { initialForm } }
+            return { ...state, formToEdit: { ...EVENT_FORM_TEMPLATE } }
         default:
             return state
     }

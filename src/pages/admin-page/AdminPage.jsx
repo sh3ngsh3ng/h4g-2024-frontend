@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar/Navbar"
 import { Box, Stack, Button, Tabs, TabList, Tab, Flex, Grid, GridItem, SimpleGrid } from "@chakra-ui/react"
 import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
-import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE } from "../../components/constants/admin"
+import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE, EVENT_FORM_TEMPLATE } from "../../components/constants/admin"
 import EventsForm from "../../components/forms/EventForm"
 import { changeAdminDashboard, clearForm, setEditForm } from "../../components/actions/adminActions"
 import { retrieveAllEvents } from "../../components/actions/eventsAction"
@@ -24,6 +24,11 @@ export default function AdminPage() {
     const goToNewEventForm = () => {
         dispatch(clearForm())
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_CREATE))
+    }
+
+    // send new event form to backend
+    const createNewEvent = () => {
+
     }
 
     // exit event form back to all events 
@@ -52,9 +57,10 @@ export default function AdminPage() {
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
             dispatch(clearForm())
+            // dispatch(setEditForm(EVENT_FORM_TEMPLATE))
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
-            return <EventsForm type="edit" /> // pass in a single event if it is update
+            return <EventsForm type="edit" />
         }
     }
 
@@ -69,7 +75,12 @@ export default function AdminPage() {
                 </Stack>
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
-            return <Button bgColor="white" onClick={exitEventForm}>Cancel</Button>
+            return (
+                <Stack direction="row">
+                    <Button onClick={exitEventForm} bgColor="white">Cancel</Button>
+                    <Button bgColor="green">Save</Button>
+                </Stack>
+            )
         }
     }
 
