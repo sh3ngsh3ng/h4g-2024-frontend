@@ -17,7 +17,7 @@ export const PastEventCard = ({event}) => {
                 <Box>
                     <Stack direction="row" justifyContent="center" alignItems="center" >
                         <Heading as='h1' size='md' padding="10px">
-                            {event.name}
+                            {event.name} 
                         </Heading>
                         <Text fontSize="sm" paddingTop="10px">
                             by {event.organization}
