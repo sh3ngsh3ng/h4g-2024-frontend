@@ -14,24 +14,36 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { paleRed, primaryRed, tertiaryRed, white } from "../constants/color";
+import { useDispatch, useSelector } from "react-redux";
+import { adminMarkAttendance, adminUnmarkAttendance } from "../actions/adminActions";
+import { useParams } from "react-router";
 
-export default function AttendanceTable() {
-  const data = [
-    { name: "test", school: "test", age: "test", isAttend: "test" },
-    { name: "test", school: "test", age: "test", isAttend: "test" },
-    { name: "test", school: "test", age: "test", isAttend: "test" },
-  ];
+export default function AttendanceTable({data, eventName}) {
+  const dispatch = useDispatch();
+  const param = useParams();
+
+
+  const handleMarkButton = (uid) => {
+    dispatch(adminMarkAttendance({ slug: param.slug, uid}))
+  }
+
+  const handleUnmarkButton = (uid) => {
+    dispatch(adminUnmarkAttendance({ slug: param.slug, uid}))
+  }
+
   return (
-    <Box m={5} backgroundColor="white" borderRadius={8}>
+    <>
+    {data && (<Box m={5} backgroundColor="white" borderRadius={8}>
       <TableContainer borderRadius={8}>
         <Box height={10} p={2} mr={2} ml={2} fontSize="18px" fontWeight="500">
-          Event Name
+          {eventName && eventName}
         </Box>
         <Table variant="simple">
           <TableCaption mt={0}>Attendance List of ##event name##</TableCaption>
           <Thead backgroundColor={tertiaryRed} sx={{ color: primaryRed }}>
             <Tr>
               <Th color={white}>Name</Th>
+              <Th color={white}>Email</Th>
               <Th color={white}>School</Th>
               <Th color={white}>Age</Th>
               <Th color={white}>Is Attend?</Th>
@@ -43,10 +55,11 @@ export default function AttendanceTable() {
           <Tbody>
             {data.map((item) => (
               <Tr>
-                <Td>{item.name}</Td>
-                <Td>{item.school}</Td>
-                <Td width="15%">{item.age}</Td>
-                <Td width="15%">{item.isAttend}</Td>
+                <Td width="25%">{item.name}</Td>
+                <Td width="20%">{item.email}</Td>
+                <Td width="20%">{item.school}</Td>
+                <Td width="10%">{item.age}</Td>
+                <Td width="10%">{item.isAttend ? "Yes" : "No"}</Td>
                 <Td isNumeric width="10%">
                   <Flex justifyContent="flex-end">
                     <Box
@@ -62,6 +75,7 @@ export default function AttendanceTable() {
                         mr={1}
                         mb={1}
                         sx={{ ":hover": { cursor: "pointer" } }}
+                        onClick={() => handleUnmarkButton(item.user)}
                       />
                     </Box>
                     <Box
@@ -75,6 +89,7 @@ export default function AttendanceTable() {
                         mb={0.5}
                         mr={0.2}
                         sx={{ ":hover": { cursor: "pointer" } }}
+                        onClick={() => handleMarkButton(item.user)}
                       />
                     </Box>
                   </Flex>
@@ -84,6 +99,7 @@ export default function AttendanceTable() {
           </Tbody>
         </Table>
       </TableContainer>
-    </Box>
+    </Box>)}
+    </>
   );
 }
