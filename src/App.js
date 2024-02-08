@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css"
+import "./App.css";
 
 // UI
 import { ChakraProvider, Box, Center, AbsoluteCenter } from "@chakra-ui/react";
@@ -10,13 +10,13 @@ import LandingPage from "../src/pages/landing-page/LandingPage";
 import ErrorPage from "../src/pages/error-page/ErrorPage";
 import AuthPage from "./pages/auth-page/AuthPage";
 import UserPage from "./pages/user-page/UserPage";
-import AdminPage from "./pages/admin-page/AdminPage"
+import AdminPage from "./pages/admin-page/AdminPage";
 import { PrivateRoutes } from "./components/utilities/PrivateRoutes";
-import { Chart as ChartJS, defaults} from "chart.js/auto";
+import { Chart as ChartJS, defaults } from "chart.js/auto";
 
 import { ToastContainer } from "react-toastify";
 import { AdminRoutes } from "./components/utilities/AdminRoute";
-
+import EventViewPage from "./pages/event-page/EventViewPage";
 import TestingPage from "./pages/landing-page/TestingPage";
 
 // Charts Set Up defaults
@@ -28,7 +28,6 @@ defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = "black";
 
 function App() {
-
   return (
     <ChakraProvider>
       {/* pages */}
@@ -52,6 +51,7 @@ function App() {
             <Route path="*" element={<ErrorPage />}></Route>
             <Route path="/signup" element={<AuthPage />}></Route>
             <Route path="/test" element={<TestingPage />}></Route>
+            <Route path="/event" element={<EventViewPage />}></Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/user" element={<UserPage />}></Route>
             </Route>

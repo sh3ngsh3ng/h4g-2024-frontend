@@ -20,8 +20,10 @@ import EventCard from "../../components/utilities/EventCard"
 import PastEventCard from "../../components/utilities/PastEventCard"
 import { useEffect } from "react"
 import { retrieveAllEvents } from "../../components/actions/eventsAction"
+import { USER_DASHBOARD_READ_DETAILS } from "../../components/constants/user"
 import { useDispatch, useSelector } from "react-redux"
 import { changeUserDashboard } from "../../components/actions/userActions"
+import EventViewPage from "../event-page/EventViewPage"
 
 export default function UserPage() {
     const dispatch = useDispatch()
@@ -31,38 +33,9 @@ export default function UserPage() {
         dispatch(retrieveAllEvents())
     }, [])
 
-    const testEvents = [
-        {
-            name: "Help the Homeless",
-            organization: "Red Cross",
-            skills: ["communication", "leadership", "teamwork"],
-            month: "Feb",
-            day: "14",
-            description: "No one should have less"
-        },
-        {
-            name: "Help the Homemore",
-            organization: "Yellow Cross",
-            skills: ["leadership", "teamwork"],
-            month: "Mar",
-            day: "20",
-            description: "We want more"
-        },
-        {
-            name: "Help the Homeequal",
-            organization: "Green Cross",
-            skills: ["teamwork"],
-            month: "Dec",
-            day: "31",
-            description: "We want equality"
-        }
-    ]
-
-    const Aevent = {
-        name: "Event Name",
-        organization: "Organiser",
-        skills: ["Skill1", "Skill2", "Skill3"],
-        date: "10 December 2023"
+    // go to view event
+    const goToEventDetailsPage = () => {
+        dispatch(changeUserDashboard(USER_DASHBOARD_READ_DETAILS))
     }
 
     const userDashboardMode = useSelector((state) => state.userDashboard.mode)
@@ -76,7 +49,7 @@ export default function UserPage() {
                     {
                         currentEvents?.map((event) => {
                             return (
-                                <EventCard data={event} type="user" action={""} />
+                                <EventCard data={event} type="user" action={goToEventDetailsPage} />
                             )
                         })
                     }
@@ -92,6 +65,9 @@ export default function UserPage() {
                     )
                 })
             )
+        } else if (userDashboardMode == "USER_DASHBOARD_READ_DETAILS") {
+            //const event = 
+            return <EventViewPage />
         }
     }
 
