@@ -23,7 +23,7 @@ import { retrieveAllEvents } from "../../components/actions/eventsAction"
 import { USER_DASHBOARD_READ_DETAILS } from "../../components/constants/user"
 import { useDispatch, useSelector } from "react-redux"
 import { changeUserDashboard } from "../../components/actions/userActions"
-import EventViewPage from "../event-page/EventViewPage"
+import EventDetails from "../../components/utilities/EventDetails"
 
 export default function UserPage() {
     const dispatch = useDispatch()
@@ -66,8 +66,7 @@ export default function UserPage() {
                 })
             )
         } else if (userDashboardMode == "USER_DASHBOARD_READ_DETAILS") {
-            //const event = 
-            return <EventViewPage />
+            return <EventDetails />
         }
     }
 

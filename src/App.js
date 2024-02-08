@@ -16,7 +16,6 @@ import { Chart as ChartJS, defaults } from "chart.js/auto";
 
 import { ToastContainer } from "react-toastify";
 import { AdminRoutes } from "./components/utilities/AdminRoute";
-import EventViewPage from "./pages/event-page/EventViewPage";
 import TestingPage from "./pages/landing-page/TestingPage";
 
 // Charts Set Up defaults
@@ -51,7 +50,6 @@ function App() {
             <Route path="*" element={<ErrorPage />}></Route>
             <Route path="/signup" element={<AuthPage />}></Route>
             <Route path="/test" element={<TestingPage />}></Route>
-            <Route path="/event" element={<EventViewPage />}></Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/user" element={<UserPage />}></Route>
             </Route>

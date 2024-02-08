@@ -91,7 +91,10 @@ export const userDashboardReducers = (state = { mode: "USER_DASHBOARD_READ_CURRE
 };
 
 export const userEventsReducers = (state = { eventToView: {} }, action) => {
-  if (action.type == "USER_VIEW_EVENT") {
-    return { ...state, eventToView: { ...action.eventToView } };
+  switch (action.type) {
+    case "USER_VIEW_EVENT":
+      return { ...state, eventToView: { ...action.eventToView } };
+    default:
+      return state;
   }
 };
