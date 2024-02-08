@@ -13,25 +13,28 @@ export default function AdminPage() {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        // retrieve all events on admin page loaded (move to login)
         dispatch(retrieveAllEvents())
     }, [])
-
 
     const adminDashboardMode = useSelector((state) => state.adminDashboard.mode)
     const allEvents = useSelector((state) => state.events.allEvents)
 
+    // go to form to add new event
     const goToNewEventForm = () => {
+        dispatch(clearForm())
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_CREATE))
     }
 
+    // exit event form back to all events 
     const exitEventForm = () => {
         dispatch(clearForm())
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_READ))
     }
 
+    // go to edit event
     const goToEditEventForm = () => {
         dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_UPDATE))
-        console.log(allEvents)
     }
 
     const renderDashboard = () => {
@@ -39,14 +42,13 @@ export default function AdminPage() {
             return (
                 <SimpleGrid columns={[1, 2, 3]} justifyItems="center">
                     {
-                        allEvents?.map((event, idx) => {
+                        allEvents?.map((event) => {
                             return (
                                 <EventCard data={event} type="admin" action={goToEditEventForm} />
                             )
                         })
                     }
                 </SimpleGrid>
-
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
             dispatch(clearForm())

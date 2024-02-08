@@ -240,3 +240,13 @@ export const test = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const changeUserDashboard = (mode) => async (dispatch) => {
+  try {
+    dispatch({
+      type: mode
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}
