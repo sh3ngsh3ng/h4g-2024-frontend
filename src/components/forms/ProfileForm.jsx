@@ -14,13 +14,31 @@ import { useState } from "react";
 
 export const ProfileForm = () => {
     const [user, setUser] = useState({
-        name: ""
+        name: "",
+        date: "",
+        gender: "",
+        phone: "",
+        emergency: "",
+        occupation: "",
+        school: "",
+        status: "",
+        canDrive: false,
+        ownVehicle: false,
     })
 
     const handleInputChange = (e) => {
         setUser({
             ...user,
-            name: e.target.value
+            name: e.target.value,
+            date: e.target.value,
+            gender: e.target.value,
+            phone: e.target.value,
+            emergency: e.target.value,
+            occupation: e.target.value,
+            school: e.target.value,
+            status: e.target.value,
+            canDrive: e.target.checked,
+            ownVehicle: e.target.checked,
         })
     }
 
@@ -44,13 +62,13 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Date of Birth
                         </FormLabel>
-                        <Input type="date" background="gray.200"/>
+                        <Input type="date" background="gray.200" value={user.date} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             Gender 
                         </FormLabel>
-                        <Select placeholder="Select option" background="gray.200">
+                        <Select placeholder="Select option" background="gray.200" value={user.gender} onChange={handleInputChange}>
                             <option>Male</option>
                             <option>Female</option>
                             <option>Others</option>
@@ -62,13 +80,13 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Phone Number
                         </FormLabel>
-                        <Input type="tel" background="gray.200"/>
+                        <Input type="tel" background="gray.200"  value={user.phone} onChange={handleInputChange}/>
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             Emergency Contact
                         </FormLabel>
-                        <Input type="tel" background="gray.200"/>
+                        <Input type="tel" background="gray.200"  value={user.emergency} onChange={handleInputChange}/>
                     </Box>
                 </Flex>
                 <Flex direction="row" width="full" marginTop={5}>
@@ -76,27 +94,27 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Occupation
                         </FormLabel>
-                        <Input type="text" background="gray.200"/>
+                        <Input type="text" background="gray.200" value={user.occupation} onChange={handleInputChange}/>
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             School(if applicable)
                         </FormLabel>
-                        <Input type="text" background="gray.200"/>
+                        <Input type="text" background="gray.200"  value={user.school} onChange={handleInputChange}/>
                     </Box>
                 </Flex>
                 <FormLabel>
                     Immigration Status
                 </FormLabel>
-                <Select placeholder="Select option" background="gray.200">
+                <Select placeholder="Select option" background="gray.200" value={user.status} onChange={handleInputChange}>
                     <option>Citizen</option>
                     <option>Permanent Resident</option>
                     <option>Foreigner</option>
                 </Select>
-                <Checkbox padding={3} colorScheme="yellow">
+                <Checkbox padding={3} colorScheme="yellow" value={user.canDrive} onChange={handleInputChange}>
                     I can drive
                 </Checkbox>
-                <Checkbox padding={3} colorScheme="yellow">
+                <Checkbox padding={3} colorScheme="yellow"  value={user.ownVehicle} onChange={handleInputChange}>
                     I own a vehicle
                 </Checkbox>
             </FormControl>
