@@ -56,20 +56,20 @@ export default function EventsForm({ type, data }) {
                     onChange={onInputChange}
                 />
                 <Input
-                    type="datetime-local"
-                    disabled
-                    value={`${formToEdit?.month}-${formToEdit?.day}`}
-                    onChange={onInputChange}
-                />
-                <Input
                     placeholder="Select Date and Time"
                     size="md"
-                    type="datetime-local"
-                    name="datetime"
+                    type="date"
+                    name="startDate"
                     value={""}
                     onChange={onInputChange}
                 />
-                <CheckboxGroup name="skills" onChange={onInputChange}>
+                <Input
+                    type="date"
+                    name="endDate"
+                    value={`${formToEdit?.month}-${formToEdit?.day}`}
+                    onChange={onInputChange}
+                />
+                <CheckboxGroup name="skills" onChange={onInputChange} >
                     <h3>Skills</h3>
                     <VStack alignItems="flex-start">
                         {
