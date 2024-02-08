@@ -17,6 +17,8 @@ import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { ToastContainer } from "react-toastify";
 import { AdminRoutes } from "./components/utilities/AdminRoute";
 import TestingPage from "./pages/landing-page/TestingPage";
+import AttendancePage from "./pages/admin-page/AttendancePage";
+import QrDisplayPage from "./pages/admin-page/QrDisplayPage";
 
 // Charts Set Up defaults
 defaults.maintainAspectRatio = false;
@@ -55,7 +57,10 @@ function App() {
             </Route>
             <Route element={<AdminRoutes />}>
               <Route path="/admin" element={<AdminPage />}></Route>
+              
             </Route>
+            <Route path="/admin/event/:slug/attendance" element={<AttendancePage />}></Route>
+            <Route path="/admin/event/:slug/attendance/qr" element={<QrDisplayPage />}></Route>
           </Routes>
         </div>
       </Box>
