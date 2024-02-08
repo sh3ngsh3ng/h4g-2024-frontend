@@ -8,14 +8,17 @@ import {
     Tag,
 } from "@chakra-ui/react";
 import stock from "../../static/Images/event-image/stock.png";
+import { useDispatch } from "react-redux";
+import { setEditForm } from "../actions/adminActions";
 
 export const EventCard = ({ data, type, action }) => {
+    const dispatch = useDispatch()
     return (
         <>
             <Box maxW="xs" borderWidth="1px" height="250px" borderRadius="lg" overflow="hidden" position="relative">
                 <Flex justifyContent="space-between">
-                    <Box 
-                        lineHeight={0} 
+                    <Box
+                        lineHeight={0}
                         padding="10px">
                         <Heading as='h1' size='md'>
                             {data.name}
@@ -26,7 +29,10 @@ export const EventCard = ({ data, type, action }) => {
                     </Box>
                     <Box padding="10px">
                         {
-                            type == "admin" ? <Button colorScheme="red" onClick={action}>Edit</Button> : <Button colorScheme="red" onClick={action}>Join</Button>
+                            type == "admin" ? <Button colorScheme="red" onClick={() => {
+                                action()
+                                dispatch(setEditForm(data))
+                            }}>Edit</Button> : <Button colorScheme="red" onClick={action}>Join</Button>
                         }
 
                     </Box>
@@ -38,8 +44,8 @@ export const EventCard = ({ data, type, action }) => {
                         </Tag>
                     ))}
                 </Stack>
-                <div 
-                    style={{height: "160px", backgroundImage: `url(${stock})`}} 
+                <div
+                    style={{ height: "160px", backgroundImage: `url(${stock})` }}
                     position="relative">
                 </div>
                 <Box
@@ -55,13 +61,13 @@ export const EventCard = ({ data, type, action }) => {
                     height="55px"
                     justifyContent="center"
                     alignItems="center">
-                    <Text 
-                        color="red" 
-                        lineHeight="1" 
-                        align="center" 
+                    <Text
+                        color="red"
+                        lineHeight="1"
+                        align="center"
                         fontWeight="bold">
                         {data.month}
-                            <br/> 
+                        <br />
                         {data.day}
                     </Text>
                 </Box>
