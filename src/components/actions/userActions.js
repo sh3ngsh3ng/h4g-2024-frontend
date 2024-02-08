@@ -303,3 +303,15 @@ export const userMarkAttendance =
       });
     }
   };
+
+export const setViewEvent = (eventToView) => {
+  try {
+    return {
+      type: "USER_VIEW_EVENT",
+      eventToView,
+    };
+  } catch (e) {
+    console.error(e);
+  }
+};
+
