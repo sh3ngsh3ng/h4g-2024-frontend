@@ -10,6 +10,7 @@ import {
 import stock from "../../static/Images/event-image/stock.png";
 import { useDispatch } from "react-redux";
 import { setEditForm } from "../actions/adminActions";
+import { setViewEvent } from "../actions/userActions";
 
 export const EventCard = ({ data, type, action }) => {
     const dispatch = useDispatch()
@@ -32,7 +33,10 @@ export const EventCard = ({ data, type, action }) => {
                             type == "admin" ? <Button colorScheme="red" onClick={() => {
                                 action()
                                 dispatch(setEditForm(data))
-                            }}>Edit</Button> : <Button colorScheme="red" onClick={action}>Join</Button>
+                            }}>Edit</Button> : <Button colorScheme="red" onClick={() => {
+                                action()
+                                dispatch(setViewEvent(data)) 
+                            }}>Join</Button>
                         }
 
                     </Box>
