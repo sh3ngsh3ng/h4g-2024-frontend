@@ -40,6 +40,18 @@ export default function EventsForm({ type, data }) {
         dispatch(onEditingForm({ field: "description", value: content }))
     }
 
+    const onCheckboxChange = (name, skill) => {
+        let currentArr = [...formToEdit[name]]
+        let updatedArr;
+        if (currentArr.includes(skill)) {
+            updatedArr = currentArr.filter(item => item != skill)
+        } else {
+            currentArr.push(skill)
+            updatedArr = currentArr
+        }
+        dispatch(onEditingForm({ field: name, value: updatedArr }))
+    }
+
     return (
         <>
             <FormControl>
@@ -60,22 +72,22 @@ export default function EventsForm({ type, data }) {
                     size="md"
                     type="date"
                     name="startDate"
-                    value={""}
+                    value={formToEdit?.startDate}
                     onChange={onInputChange}
                 />
                 <Input
                     type="date"
                     name="endDate"
-                    value={`${formToEdit?.month}-${formToEdit?.day}`}
+                    value={formToEdit?.endDate}
                     onChange={onInputChange}
                 />
-                <CheckboxGroup name="skills" onChange={onInputChange} >
+                <CheckboxGroup name="skills">
                     <h3>Skills</h3>
                     <VStack alignItems="flex-start">
                         {
                             SKILLS_LIST.map((skill) => {
                                 return (
-                                    <Checkbox key={skill} isChecked={formToEdit?.skills.includes(skill)}>{skill}</Checkbox>
+                                    <Checkbox name="skills" onChange={(e) => onCheckboxChange(e.target.name, skill)} key={skill} isChecked={formToEdit?.skills.includes(skill)}>{skill}</Checkbox>
                                 )
                             })
                         }
@@ -84,13 +96,13 @@ export default function EventsForm({ type, data }) {
                         </HStack>
                     </VStack>
                 </CheckboxGroup>
-                <CheckboxGroup name="interest" onChange={onInputChange}>
+                <CheckboxGroup name="interest">
                     <h3>Interests</h3>
                     <VStack alignItems="flex-start">
                         {
                             INTERESTS_LIST.map((interest) => {
                                 return (
-                                    <Checkbox key={interest} isChecked={formToEdit?.interest.includes(interest)}>{interest}</Checkbox>
+                                    <Checkbox name="interest" key={interest} onChange={(e) => onCheckboxChange(e.target.name, interest)} isChecked={formToEdit?.interest.includes(interest)}>{interest}</Checkbox>
                                 )
                             })
                         }
