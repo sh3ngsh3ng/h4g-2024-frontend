@@ -18,7 +18,7 @@ import { ToastContainer } from "react-toastify";
 import { AdminRoutes } from "./components/utilities/AdminRoute";
 import TestingPage from "./pages/landing-page/TestingPage";
 import AttendancePage from "./pages/admin-page/AttendancePage";
-import QrDisplayPage from "./pages/admin-page/QrDisplayPage";
+import MarkAttendancePage from "./pages/user-page/MarkAttendancePage";
 
 // Charts Set Up defaults
 defaults.maintainAspectRatio = false;
@@ -60,7 +60,7 @@ function App() {
               
             </Route>
             <Route path="/admin/event/:slug/attendance" element={<AttendancePage />}></Route>
-            <Route path="/admin/event/:slug/attendance/qr" element={<QrDisplayPage />}></Route>
+            <Route path="/event/:slug/markAttendance/:token" element={<MarkAttendancePage />}></Route>
           </Routes>
         </div>
       </Box>
