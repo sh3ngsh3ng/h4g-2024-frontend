@@ -71,7 +71,7 @@ export default function UserPage() {
     } else if (userDashboardMode == "USER_DASHBOARD_READ_DETAILS") {
       return <EventDetails />;
     } else if (userDashboardMode == "USER_PROFILE") {
-      return <ProfileForm />;
+      return <ProfilePage />;
     }
   };
 
