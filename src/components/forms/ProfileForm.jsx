@@ -11,6 +11,7 @@ import {
     Checkbox,
     CheckboxGroup,
     VStack,
+    Button
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
@@ -31,6 +32,7 @@ export const ProfileForm = () => {
 
     const [skills, setSkills] = useState([])
     const [interest, setInterest] = useState([])
+    const [editMode, setEditMode] = useState(false)
 
     const handleInputChange = (e) => {
         const { name, value, checked } = e.target
@@ -71,7 +73,7 @@ export const ProfileForm = () => {
                 Personal Information
             </Heading>
             <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
-            <FormControl padding={3}>
+            <FormControl padding={3} isDisabled={!editMode}>
                 <FormLabel>
                     Full Name
                 </FormLabel>
@@ -142,36 +144,48 @@ export const ProfileForm = () => {
 
             </FormControl>
 
-            <Heading size="md" padding="10px">
-                Interest
-            </Heading>
-            <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
-            <CheckboxGroup>
-                <VStack>
-                    {
-                        INTERESTS_LIST.map((interest) => {
-                            return (
-                                <Checkbox name="interest" key={interest} value={interest} onChange={(e) => handleCheckBox(e)}>{interest}</Checkbox>
-                            )
-                        })
-                    }
-                </VStack>
-            </CheckboxGroup>
-            <Heading size="md" padding="10px">
-                Skills
-            </Heading>
-            <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
-            <CheckboxGroup>
-                <VStack>
-                    {
-                        SKILLS_LIST.map((skills) => {
-                            return (
-                                <Checkbox name="skills" key={skills} value={skills} onChange={(e) => handleCheckBox(e)}>{skills}</Checkbox>
-                            )
-                        })
-                    }
-                </VStack>
-            </CheckboxGroup>
+            <FormControl isDisabled={!editMode}>
+                <Heading size="md" padding="10px">
+                    Interest
+                </Heading>
+                <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
+                <CheckboxGroup>
+                    <VStack>
+                        {
+                            INTERESTS_LIST.map((interest) => {
+                                return (
+                                    <Checkbox name="interest" key={interest} value={interest} onChange={(e) => handleCheckBox(e)}>{interest}</Checkbox>
+                                )
+                            })
+                        }
+                    </VStack>
+                </CheckboxGroup>
+            </FormControl>
+
+            <FormControl isDisabled={!editMode}>
+                <Heading size="md" padding="10px">
+                    Skills
+                </Heading>
+                <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
+                <CheckboxGroup>
+                    <VStack>
+                        {
+                            SKILLS_LIST.map((skills) => {
+                                return (
+                                    <Checkbox name="skills" key={skills} value={skills} onChange={(e) => handleCheckBox(e)}>{skills}</Checkbox>
+                                )
+                            })
+                        }
+                    </VStack>
+                </CheckboxGroup>
+            </FormControl>
+            {
+                !editMode ? <Button onClick={() => setEditMode(true)} bg="red">Edit</Button> : <>
+                    <Button>Save</Button>
+                    <Button>Cancel</Button>
+                </>
+            }
+
         </Box>
     )
 }
