@@ -68,7 +68,7 @@ export default function SignUpForm() {
 
   useEffect(() => {
     if (success) {
-      navigate("/")
+      navigate("/user")
     }
   }, [userRegister])
 

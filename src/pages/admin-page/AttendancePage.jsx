@@ -14,6 +14,7 @@ import {
   adminCompleteEvent,
   adminGenerateQr,
   listEventAttendance,
+  changeAdminDashboard,
 } from "../../components/actions/adminActions";
 import {
   EVENT_ATTENDANCE_RESET,
