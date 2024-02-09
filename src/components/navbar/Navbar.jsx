@@ -30,7 +30,7 @@ export default function Navbar() {
             <a onClick={() => dispatch(changeUserDashboard("USER_PROFILE"))}>My Profile</a>
           </div>
           <div id="logout" >
-            <img onClick={() => window.confirm("test")} src="/images/logout.png" alt="logout" id="logout-icon" />
+            <img onClick={() => localStorage.removeItem("@user")} src="/images/logout.png" alt="logout" id="logout-icon" />
           </div>
         </Box>
       </div>
