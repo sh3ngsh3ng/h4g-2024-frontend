@@ -203,7 +203,10 @@ export const ProfileForm = () => {
             width="150px"
             p={5}
             mt={3}
-            onClick={() => handleSubmit()}
+            onClick={() => {
+              handleSubmit()
+              setEditMode(true)
+            }}
           >
             Save
           </Button>

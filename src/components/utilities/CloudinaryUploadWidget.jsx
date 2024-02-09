@@ -120,7 +120,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         </Button>
       </CloudinaryScriptContext.Provider>
       {!isProfile && <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>}
-      {isProfile && certsArr.map(cert => (<CertHelper url={cert.split("/")[7]} isVerified={cert.isVerified} />))}
+      {isProfile && certsArr?.map(cert => (<CertHelper fullUrl={cert} url={cert.split("/")[7]} isVerified={cert.isVerified} />))}
     </Box>
   );
 }
