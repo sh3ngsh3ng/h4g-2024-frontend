@@ -31,6 +31,7 @@ import {
   white,
 } from "../constants/color";
 import CloudinaryUploadWidget from "../utilities/CloudinaryUploadWidget";
+import { displaySuccess } from "../../services/alertServices";
 
 export const ProfileForm = () => {
   const [user, setUser] = useState({
@@ -105,6 +106,8 @@ export const ProfileForm = () => {
     console.log("edited user: ", editedUser);
     let result = await axios.put("/api/userUpdate", editedUser, config);
     console.log("result: ", result);
+    displaySuccess(result.data.message)
+    setEditMode(false)
   };
 
   const retrieveProfile = async () => {
