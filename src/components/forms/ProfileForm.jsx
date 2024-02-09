@@ -150,7 +150,7 @@ export const ProfileForm = () => {
             skillsArr={skillsArr}
           />
 
-          <CloudinaryUploadWidget actionFn={setSkillCert} imgArr={skillCertArr} />
+          <CloudinaryUploadWidget actionFn={setSkillCert} imgArr={skillCertArr} disabledMode={editMode} />
           {
             skillCertArr.map((cert, idx) => {
               return (

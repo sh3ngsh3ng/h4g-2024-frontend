@@ -14,7 +14,7 @@ import { AbsoluteCenter, Box, Center } from "@chakra-ui/layout";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, disabledMode }) {
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
 
@@ -55,7 +55,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
   }, [images]);
 
   const initializeCloudinaryWidget = () => {
-    if (loaded) {
+    if (disabledMode && loaded) {
       var myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error, result) => {
