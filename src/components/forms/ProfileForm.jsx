@@ -97,13 +97,9 @@ export const ProfileForm = () => {
                 ...result.data
             })
 
-            setSkills({
-                ...result.data.skills
-            })
+            setSkills([...result.data.skills])
 
-            setInterest({
-                ...result.data.interest
-            })
+            setInterest([...result.data.interest])
         } catch (e) {
             console.log(e)
         }
@@ -204,10 +200,9 @@ export const ProfileForm = () => {
                     <VStack>
                         {
                             INTERESTS_LIST.map((interest) => {
-                                console.log("user interes: ", interest)
-                                console.log("check: ", user.interest?.includes(interest))
+                                console.log("user interes: ", interest, interestArr.includes(interest))
                                 return (
-                                    <Checkbox name="interest" key={interest} value={interest} onChange={(e) => handleCheckBox(e)} isChecked={skillsArr?.includes(interest)}>{interest}</Checkbox>
+                                    <Checkbox name="interest" key={interest} onChange={(e) => handleCheckBox(e)} isChecked={interestArr.includes(interest)}>{interest}</Checkbox>
                                 )
                             })
                         }
@@ -225,7 +220,7 @@ export const ProfileForm = () => {
                         {
                             SKILLS_LIST.map((skills) => {
                                 return (
-                                    <Checkbox name="skills" key={skills} value={skills} onChange={(e) => handleCheckBox(e)}>{skills}</Checkbox>
+                                    <Checkbox name="skills" key={skills} onChange={(e) => handleCheckBox(e)} isChecked={skillsArr.includes(skills)}>{skills}</Checkbox>
                                 )
                             })
                         }
@@ -239,7 +234,7 @@ export const ProfileForm = () => {
                 </>
             }
 
-        </Box>
+        </Box >
     )
 }
 
