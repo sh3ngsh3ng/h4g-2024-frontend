@@ -55,7 +55,6 @@ function App() {
             <Route path="/test" element={<TestingPage />}></Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/user" element={<UserPage />}></Route>
-              {/* <Route path="user/profile" element={<ProfilePage />}></Route> */}
             </Route>
             <Route element={<AdminRoutes />}>
               <Route path="/admin" element={<AdminPage />}></Route>
