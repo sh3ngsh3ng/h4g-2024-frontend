@@ -17,7 +17,7 @@ const CloudinaryScriptContext = createContext();
 
 
 function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, isEdit, certsArr }) {
-    console.log(certsArr);
+  console.log(certsArr);
 
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
@@ -120,7 +120,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         </Button>
       </CloudinaryScriptContext.Provider>
       {!isProfile && <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>}
-      {isProfile && certsArr.map(cert => (<CertHelper url={cert.cert.split("/")[7]} isVerified={cert.isVerified}/>))}
+      {isProfile && certsArr.map(cert => (<CertHelper url={cert.split("/")[7]} isVerified={cert.isVerified} />))}
     </Box>
   );
 }
