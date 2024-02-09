@@ -181,8 +181,8 @@ export const ProfileForm = () => {
             </FormControl>
             {
                 !editMode ? <Button onClick={() => setEditMode(true)} bg="red">Edit</Button> : <>
-                    <Button>Save</Button>
-                    <Button>Cancel</Button>
+                    <Button onClick={() => console.log("call backedn")}>Save</Button>
+                    <Button onClick={() => setEditMode(false)}>Cancel</Button>
                 </>
             }
 
