@@ -13,8 +13,9 @@ import {
     VStack,
     Button
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
+import axios from 'axios'
 
 export const ProfileForm = () => {
     const [user, setUser] = useState({
@@ -31,8 +32,19 @@ export const ProfileForm = () => {
         ownVehicle: false,
     })
 
-    const [skills, setSkills] = useState([])
-    const [interest, setInterest] = useState([])
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("@user"),
+        },
+    };
+
+    useEffect(() => {
+        retrieveProfile()
+    }, [])
+
+    const [skillsArr, setSkills] = useState([])
+    const [interestArr, setInterest] = useState([])
     const [editMode, setEditMode] = useState(false)
 
     const handleInputChange = (e) => {
@@ -54,19 +66,48 @@ export const ProfileForm = () => {
         const { name, checked, value } = e.target
         if (checked) {
             if (name === "skills") {
-                setSkills([...skills, value])
+                setSkills([...skillsArr, value])
             } else if (name === "interest") {
-                setInterest([...interest, value])
+                setInterest([...interestArr, value])
             }
         } else {
             if (name === "skills") {
-                setSkills(skills.filter((skill) => skill !== value))
+                setSkills(skillsArr.filter((skill) => skill !== value))
             } else if (name === "interest") {
-                setInterest(interest.filter((interest) => interest !== value))
+                setInterest(interestArr.filter((interest) => interest !== value))
             }
         }
     }
 
+    const handleSubmit = async () => {
+        let editedUser = {
+            ...user,
+            ["skills"]: skillsArr,
+            ["interest"]: interestArr
+        }
+        console.log("edited user: ", editedUser)
+        let result = await axios.put("/api/userUpdate", editedUser, config)
+        console.log("result: ", result)
+    }
+
+    const retrieveProfile = async () => {
+        try {
+            let result = await axios.get("/api/user", config);
+            setUser({
+                ...result.data
+            })
+
+            setSkills({
+                ...result.data.skills
+            })
+
+            setInterest({
+                ...result.data.interest
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <Box borderWidth="2px" borderColor="blue" borderRadius="lg" width="50%">
@@ -141,14 +182,14 @@ export const ProfileForm = () => {
                     Immigration Status
                 </FormLabel>
                 <Select placeholder="Select option" name="immigrationStatus" background="gray.200" value={user.immigrationStatus} onChange={handleInputChange}>
-                    <option>Citizen</option>
-                    <option>Permanent Resident</option>
-                    <option>Foreigner</option>
+                    <option value="Citizen">Citizen</option>
+                    <option value="Permanent Resident">Permanent Resident</option>
+                    <option value="Foreigner">Foreigner</option>
                 </Select>
-                <Checkbox padding={3} name="canDrive" colorScheme="yellow" value={user.canDrive} onChange={handleInputChange}>
+                <Checkbox padding={3} name="canDrive" colorScheme="yellow" value={user.canDrive} onChange={handleInputChange} isChecked={user.canDrive}>
                     I can drive
                 </Checkbox>
-                <Checkbox padding={3} name="ownVehicle" colorScheme="yellow" value={user.ownVehicle} onChange={handleInputChange}>
+                <Checkbox padding={3} name="ownVehicle" colorScheme="yellow" value={user.ownVehicle} onChange={handleInputChange} isChecked={user.ownVehicle}>
                     I own a vehicle
                 </Checkbox>
 
@@ -163,8 +204,10 @@ export const ProfileForm = () => {
                     <VStack>
                         {
                             INTERESTS_LIST.map((interest) => {
+                                console.log("user interes: ", interest)
+                                console.log("check: ", user.interest?.includes(interest))
                                 return (
-                                    <Checkbox name="interest" key={interest} value={interest} onChange={(e) => handleCheckBox(e)}>{interest}</Checkbox>
+                                    <Checkbox name="interest" key={interest} value={interest} onChange={(e) => handleCheckBox(e)} isChecked={skillsArr?.includes(interest)}>{interest}</Checkbox>
                                 )
                             })
                         }
@@ -191,7 +234,7 @@ export const ProfileForm = () => {
             </FormControl>
             {
                 !editMode ? <Button onClick={() => setEditMode(true)} bg="red">Edit</Button> : <>
-                    <Button onClick={() => console.log("call backedn")}>Save</Button>
+                    <Button onClick={() => handleSubmit()}>Save</Button>
                     <Button onClick={() => setEditMode(false)}>Cancel</Button>
                 </>
             }

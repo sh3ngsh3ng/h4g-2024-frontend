@@ -313,4 +313,3 @@ export const setViewEvent = (eventToView) => {
     console.error(e);
   }
 };
-

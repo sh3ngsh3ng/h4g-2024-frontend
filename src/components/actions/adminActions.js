@@ -191,6 +191,7 @@ export const adminCreateEvent = (newEvent) => async (dispatch) => {
     };
 
     const { data } = await axios.post("http://localhost:8000/api/create", newEvent, config)
+
     dispatch({
       type: "NEW_EVENT_CREATED",
       payload: data["event"]
@@ -227,34 +228,34 @@ export const adminUpdateEvent = (newEvent) => async (dispatch) => {
   }
 }
 
-export const adminCompleteEvent= ({ slug }) => async (dispatch) => {
-    try {
-      dispatch({
-        type: EVENT_COMPLETE_REQUEST,
-      });
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
-  
-      const { data } = await axios.get(
-        `/api/event/${slug}/listAttendance/complete`,
-        config
-      );
-  
-      dispatch({
-        type: EVENT_COMPLETE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: EVENT_COMPLETE_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+export const adminCompleteEvent = ({ slug }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EVENT_COMPLETE_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/event/${slug}/listAttendance/complete`,
+      config
+    );
+
+    dispatch({
+      type: EVENT_COMPLETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EVENT_COMPLETE_FAIL,
+      payload: error.response,
+    });
+  }
+};
 
 export const adminAddImage = (imageContent) => {
   return {
