@@ -16,7 +16,7 @@ export const EventCard = ({ data, type, action }) => {
     const dispatch = useDispatch()
     return (
         <>
-            <Box maxW="xs" borderWidth="1px" height="250px" borderRadius="lg" overflow="hidden" position="relative">
+            <Box width="xs" borderWidth="1px" height="250px" borderRadius="lg" overflow="hidden" position="relative">
                 <Flex justifyContent="space-between">
                     <Box
                         lineHeight={0}

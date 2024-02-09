@@ -11,6 +11,7 @@ import ErrorPage from "../src/pages/error-page/ErrorPage";
 import AuthPage from "./pages/auth-page/AuthPage";
 import UserPage from "./pages/user-page/UserPage";
 import AdminPage from "./pages/admin-page/AdminPage";
+import ProfilePage from "./pages/profile-page/ProfilePage";
 import { PrivateRoutes } from "./components/utilities/PrivateRoutes";
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 
@@ -54,10 +55,10 @@ function App() {
             <Route path="/test" element={<TestingPage />}></Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/user" element={<UserPage />}></Route>
+              <Route path="user/profile" element={<ProfilePage />}></Route>
             </Route>
             <Route element={<AdminRoutes />}>
               <Route path="/admin" element={<AdminPage />}></Route>
-              
             </Route>
             <Route path="/admin/event/:slug/attendance" element={<AttendancePage />}></Route>
             <Route path="/event/:slug/markAttendance/:token" element={<MarkAttendancePage />}></Route>
