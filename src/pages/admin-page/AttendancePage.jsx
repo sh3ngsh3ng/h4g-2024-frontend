@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import {
   adminGenerateQr,
   listEventAttendance,
+  changeAdminDashboard,
 } from "../../components/actions/adminActions";
 import {
   EVENT_ATTENDANCE_RESET,
