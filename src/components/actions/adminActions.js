@@ -224,7 +224,7 @@ export const adminUpdateEvent = (newEvent) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(`/api/update/${newEvent.formToEdit.slug}`, newEvent, config)
+    const { data } = await axios.put(`/api/update/${newEvent.slug}`, newEvent, config)
 
     dispatch({
       type: "EVENT_UPDATED",

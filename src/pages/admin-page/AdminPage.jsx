@@ -62,6 +62,7 @@ export default function AdminPage() {
   };
 
   const updateEvent = () => {
+    console.log("form to edit?? :", formToEdit)
     dispatch(adminUpdateEvent(formToEdit));
   };
 
