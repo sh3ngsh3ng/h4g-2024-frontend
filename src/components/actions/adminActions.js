@@ -178,7 +178,6 @@ export const adminCreateEvent = (newEvent) => async (dispatch) => {
     dispatch({
       type: "CREATE_NEW_EVENT"
     })
-    console.log("newEvent to post:", newEvent)
 
     const config = {
       headers: {
@@ -187,10 +186,35 @@ export const adminCreateEvent = (newEvent) => async (dispatch) => {
       },
     };
 
-
     const { data } = await axios.post("http://localhost:8000/api/create", newEvent, config)
     dispatch({
       type: "NEW_EVENT_CREATED",
+      payload: data["event"]
+    })
+
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+
+export const adminUpdateEvent = (newEvent) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "UPDATE_EVENT"
+    })
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const { data } = await axios.put(`http://localhost:8000/api/update/${newEvent.formToEdit.slug}`, newEvent, config)
+
+    dispatch({
+      type: "EVENT_UPDATED",
       payload: data["event"]
     })
 

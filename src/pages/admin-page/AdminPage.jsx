@@ -5,7 +5,7 @@ import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE, EVENT_FORM_TEMPLATE } from "../../components/constants/admin"
 import EventsForm from "../../components/forms/EventForm"
-import { adminCreateEvent, changeAdminDashboard, clearForm, setEditForm } from "../../components/actions/adminActions"
+import { adminCreateEvent, adminUpdateEvent, changeAdminDashboard, clearForm, setEditForm } from "../../components/actions/adminActions"
 import { retrieveAllEvents } from "../../components/actions/eventsAction"
 import { useEffect, useMemo } from "react"
 
@@ -30,9 +30,11 @@ export default function AdminPage() {
     // send new event form to backend
 
     const submitNewEvent = () => {
-
-        console.log("formToEdit in method: ", formToEdit)
         dispatch(adminCreateEvent(formToEdit))
+    }
+
+    const updateEvent = () => {
+        dispatch(adminUpdateEvent(formToEdit))
     }
 
     // exit event form back to all events 
@@ -75,7 +77,7 @@ export default function AdminPage() {
             return (
                 <Stack direction="row">
                     <Button onClick={exitEventForm} bgColor="white">Cancel</Button>
-                    <Button onClick={() => submitNewEvent()} bgColor="red">Save</Button>
+                    <Button onClick={() => updateEvent()} bgColor="red">Update</Button>
                 </Stack>
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
