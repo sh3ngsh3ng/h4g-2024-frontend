@@ -5,7 +5,7 @@ import {
     Tab,
     TabPanel,
     } from "@chakra-ui/react";
-
+import { useDispatch } from "react-redux"
 /**
  * Renders a component with two tabs for authentication.
  *
@@ -15,20 +15,21 @@ import {
  * @param {string} props.tab2 - The label for the second tab.
  * @returns {JSX.Element} The rendered component.
  */
-export const AuthTab = ({tab1, tab2}) =>{
+export const AuthTab = ({changeForm}) =>{
+    // const dispatch = useDispatch();
     return (
       <Tabs align="center" variant="unstyled" defaultIndex={0} color="red">
         <TabList>
-          <Tab _selected={{bg: "red.600", color : "white"}}>Login</Tab>
-          <Tab _selected={{bg: "red.600", color : "white"}}>Sign Up</Tab>
+          <Tab _selected={{bg: "red.600", color : "white"}} onClick={()=>changeForm("Login")}>Login</Tab>
+          <Tab _selected={{bg: "red.600", color : "white"}} onClick={()=>changeForm("SignUp")}>Sign Up</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          {/* <TabPanel>
             {tab1}
-          </TabPanel>
-          <TabPanel>
+          </TabPanel> */}
+          {/* <TabPanel>
             {tab2}
-          </TabPanel>
+          </TabPanel> */}
         </TabPanels>
       </Tabs>
     );

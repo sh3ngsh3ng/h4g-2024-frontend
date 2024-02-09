@@ -12,8 +12,50 @@ import { useDispatch } from "react-redux";
 import { setEditForm } from "../actions/adminActions";
 import { setViewEvent } from "../actions/userActions";
 
+const getMonth = (date) => {
+    const month = date.split("-")[1]
+    switch (month) {
+        case "01":
+            return "Jan"
+        case "02":
+            return "Feb"
+        case "03":
+            return "Mar"
+        case "04":
+            return "Apr"
+        case "05":
+            return "May"
+        case "06":
+            return "Jun"
+        case "07":
+            return "Jul"
+        case "08":
+            return "Aug"
+        case "09":
+            return "Sep"
+        case "10":
+            return "Oct"
+        case "11":
+            return "Nov"
+        default:
+            return "Dec"
+    }
+}
+
+const getDay = (date) => {
+    return date.split("-")[2].slice(0, 2)
+}
+
+const getYear = (date) => {
+    return date.split("-")[0]
+}
+
 export const EventCard = ({ data, type, action }) => {
     const dispatch = useDispatch()
+    console.log(data.startDate)
+    const startMonth = getMonth(data.startDate)
+    const startDay = getDay(data.startDate)
+    const startYear = getYear(data.startDate)
     return (
         <>
             <Box width="xs" borderWidth="1px" height="250px" borderRadius="lg" overflow="hidden" position="relative">
@@ -70,9 +112,9 @@ export const EventCard = ({ data, type, action }) => {
                         lineHeight="1"
                         align="center"
                         fontWeight="bold">
-                        {data.month}
+                        {startMonth}
                         <br />
-                        {data.day}
+                        {startDay}
                     </Text>
                 </Box>
             </Box>
