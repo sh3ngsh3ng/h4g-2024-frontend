@@ -21,6 +21,7 @@ import TestingPage from "./pages/landing-page/TestingPage";
 import AttendancePage from "./pages/admin-page/AttendancePage";
 import MarkAttendancePage from "./pages/user-page/MarkAttendancePage";
 import DummyChartPage from "./pages/admin-page/DummyChartPage";
+import AdminViewCerts from "./pages/admin-page/AdminViewCerts";
 
 // Charts Set Up defaults
 defaults.maintainAspectRatio = false;
@@ -70,6 +71,7 @@ function App() {
               path="/analysis"
               element={<DummyChartPage />}
             ></Route>
+            <Route path="/admin/certs" element={<AdminViewCerts/>}></Route>
           </Routes>
         </div>
       </Box>
