@@ -111,14 +111,15 @@ export const ProfileForm = () => {
     try {
       let result = await axios.get("/api/user", config);
       setUser({
-        ...result.data,
+        ...result.data.user,
       });
+      console.log(result.data);
 
-      setSkills([...result.data.skills]);
+      setSkills([...result.data.user.skills]);
 
-      setInterest([...result.data.interest]);
+      setInterest([...result.data.user.interest]);
 
-      setSkillCert([...result.data.skillCert]);
+      setSkillCert([...result.data.certs]);
     } catch (e) {
       console.log(e);
     }
@@ -158,6 +159,7 @@ export const ProfileForm = () => {
             height="590px"
             isProfile={true}
             isEdit={editMode}
+            certsArr={skillCertArr}
           />
         </GridItem>
       </Grid>
