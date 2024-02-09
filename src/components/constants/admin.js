@@ -11,7 +11,8 @@ export const EVENT_FORM_TEMPLATE = {
     isCompleted: false,
     maxHoursGiven: 10,
     startDate: "",
-    endDate: ""
+    endDate: "",
+    images: []
 }
 
 export const NEW_EVENT = {

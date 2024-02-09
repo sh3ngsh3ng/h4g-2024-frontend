@@ -255,3 +255,10 @@ export const adminCompleteEvent= ({ slug }) => async (dispatch) => {
       });
     }
   };
+
+export const adminAddImage = (imageContent) => {
+  return {
+    type: "ADD_IMAGE_EVENT",
+    payload: imageContent
+  }
+}
