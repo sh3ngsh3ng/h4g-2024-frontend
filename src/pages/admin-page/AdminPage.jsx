@@ -5,20 +5,21 @@ import EventCard from "../../components/utilities/EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { ADMIN_DASHBOARD_MODE_CREATE, ADMIN_DASHBOARD_MODE_READ, ADMIN_DASHBOARD_MODE_UPDATE, EVENT_FORM_TEMPLATE } from "../../components/constants/admin"
 import EventsForm from "../../components/forms/EventForm"
-import { changeAdminDashboard, clearForm, setEditForm } from "../../components/actions/adminActions"
+import { adminCreateEvent, changeAdminDashboard, clearForm, setEditForm } from "../../components/actions/adminActions"
 import { retrieveAllEvents } from "../../components/actions/eventsAction"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 
 export default function AdminPage() {
     const dispatch = useDispatch()
+    const formToEdit = useSelector(state => state.adminEvents)
+    const adminDashboardMode = useSelector((state) => state.adminDashboard.mode)
+    const allEvents = useSelector((state) => state.events.allEvents)
+
 
     useEffect(() => {
         // retrieve all events on admin page loaded (move to login)
         dispatch(retrieveAllEvents())
     }, [])
-
-    const adminDashboardMode = useSelector((state) => state.adminDashboard.mode)
-    const allEvents = useSelector((state) => state.events.allEvents)
 
     // go to form to add new event
     const goToNewEventForm = () => {
@@ -27,8 +28,11 @@ export default function AdminPage() {
     }
 
     // send new event form to backend
-    const createNewEvent = () => {
 
+    const submitNewEvent = () => {
+
+        console.log("formToEdit in method: ", formToEdit)
+        dispatch(adminCreateEvent(formToEdit))
     }
 
     // exit event form back to all events 
@@ -56,7 +60,7 @@ export default function AdminPage() {
                 </SimpleGrid>
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
-            dispatch(clearForm())
+            // dispatch(clearForm())
             // dispatch(setEditForm(EVENT_FORM_TEMPLATE))
             return <EventsForm />
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
@@ -66,19 +70,19 @@ export default function AdminPage() {
 
     const renderAdminActionButtons = () => {
         if (adminDashboardMode == ADMIN_DASHBOARD_MODE_READ) {
-            return <Button onClick={goToNewEventForm} colorScheme="blue">Create Event</Button>
+            return <Button onClick={() => goToNewEventForm()} colorScheme="blue">Create Event</Button>
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
             return (
                 <Stack direction="row">
                     <Button onClick={exitEventForm} bgColor="white">Cancel</Button>
-                    <Button bgColor="red">Save</Button>
+                    <Button onClick={() => submitNewEvent()} bgColor="red">Save</Button>
                 </Stack>
             )
         } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
             return (
                 <Stack direction="row">
                     <Button onClick={exitEventForm} bgColor="white">Cancel</Button>
-                    <Button bgColor="green">Save</Button>
+                    <Button onClick={() => submitNewEvent()} bgColor="green">Save</Button>
                 </Stack>
             )
         }

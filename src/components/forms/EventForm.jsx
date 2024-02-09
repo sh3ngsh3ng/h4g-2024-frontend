@@ -2,7 +2,7 @@ import "./EventForm.css"
 import 'react-quill/dist/quill.snow.css';
 import { Checkbox, CheckboxGroup, FormControl, HStack, Input, Radio, RadioGroup, VStack } from "@chakra-ui/react"
 import { useSelector, useDispatch } from "react-redux";
-import { onEditingForm } from "../actions/adminActions";
+import { clearForm, onEditingForm } from "../actions/adminActions";
 import { useDropzone } from 'react-dropzone';
 import { useCallback } from "react";
 import ReactQuill from "react-quill";
@@ -10,7 +10,7 @@ import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
 
 export default function EventsForm({ type, data }) {
     const dispatch = useDispatch()
-    const formToEdit = useSelector(state => state.adminEvents.formToEdit)
+    var formToEdit = useSelector(state => state.adminEvents.formToEdit)
 
     const onDrop = useCallback(acceptedFiles => {
         if (acceptedFiles.length === 0) {

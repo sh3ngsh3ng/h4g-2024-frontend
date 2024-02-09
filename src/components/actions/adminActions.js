@@ -55,7 +55,7 @@ export const clearForm = () => {
   }
 };
 
-export const listEventAttendance = ({slug}) => async (dispatch) => {
+export const listEventAttendance = ({ slug }) => async (dispatch) => {
   try {
     dispatch({
       type: EVENT_ATTENDANCE_REQUEST,
@@ -84,91 +84,117 @@ export const listEventAttendance = ({slug}) => async (dispatch) => {
   }
 };
 
-export const adminMarkAttendance = ({slug, uid}) => async (dispatch) => {
-    try {
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_REQUEST,
-      });
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
-  
-      const { data } = await axios.post(
-        `/api/event/${slug}/listAttendance/mark`,
-        {uid},
-        config
-      );
-  
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+export const adminMarkAttendance = ({ slug, uid }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: MARK_EVENT_ATTENDANCE_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
 
-  export const adminUnmarkAttendance = ({slug, uid}) => async (dispatch) => {
-    try {
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_REQUEST,
-      });
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
-  
-      const { data } = await axios.post(
-        `/api/event/${slug}/listAttendance/unmark`,
-        {uid},
-        config
-      );
-  
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+    const { data } = await axios.post(
+      `/api/event/${slug}/listAttendance/mark`,
+      { uid },
+      config
+    );
 
-  export const adminGenerateQr = ({slug}) => async (dispatch) => {
-    try {
-      dispatch({
-        type: GENERATE_EVENT_QR_REQUEST,
-      });
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
-  
-      const { data } = await axios.get(
-        `/api/event/${slug}/listAttendance/generate`,
-        config
-      );
-  
-      dispatch({
-        type: GENERATE_EVENT_QR_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: GENERATE_EVENT_QR_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+    dispatch({
+      type: MARK_EVENT_ATTENDANCE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MARK_EVENT_ATTENDANCE_FAIL,
+      payload: error.response,
+    });
+  }
+};
+
+export const adminUnmarkAttendance = ({ slug, uid }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: MARK_EVENT_ATTENDANCE_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const { data } = await axios.post(
+      `/api/event/${slug}/listAttendance/unmark`,
+      { uid },
+      config
+    );
+
+    dispatch({
+      type: MARK_EVENT_ATTENDANCE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MARK_EVENT_ATTENDANCE_FAIL,
+      payload: error.response,
+    });
+  }
+};
+
+export const adminGenerateQr = ({ slug }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GENERATE_EVENT_QR_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/event/${slug}/listAttendance/generate`,
+      config
+    );
+
+    dispatch({
+      type: GENERATE_EVENT_QR_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GENERATE_EVENT_QR_FAIL,
+      payload: error.response,
+    });
+  }
+};
+
+export const adminCreateEvent = (newEvent) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "CREATE_NEW_EVENT"
+    })
+    console.log("newEvent to post:", newEvent)
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+
+    const { data } = await axios.post("http://localhost:8000/api/create", newEvent, config)
+    dispatch({
+      type: "NEW_EVENT_CREATED",
+      payload: data["event"]
+    })
+
+  } catch (e) {
+    console.error(e)
+  }
+}

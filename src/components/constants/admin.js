@@ -8,8 +8,8 @@ export const EVENT_FORM_TEMPLATE = {
     skills: [],
     interest: [],
     description: "",
-    isCompleted: "",
-    maxHoursGiven: "",
+    isCompleted: false,
+    maxHoursGiven: 10,
     startDate: "",
     endDate: ""
 }
