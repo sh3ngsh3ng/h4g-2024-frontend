@@ -103,7 +103,7 @@ export default function EventsForm({ type, data }) {
       <Show above="lg">
         <Grid templateColumns="repeat(10, 1fr)">
           <GridItem colSpan={4}>
-            <CloudinaryUploadWidget action={adminAddImage} form={formToEdit} />
+            <CloudinaryUploadWidget actionFn={adminAddImage} imgArr={formToEdit?.images} />
             {/* <AdvancedImage
                     style={{ maxWidth: "100%" }}
                     cldImg={ }
@@ -142,7 +142,7 @@ export default function EventsForm({ type, data }) {
       </Show>
 
       <Show below="lg">
-        <CloudinaryUploadWidget />
+        <CloudinaryUploadWidget actionFn={adminAddImage} imgArr={formToEdit?.images} />
         {/* <AdvancedImage
                     style={{ maxWidth: "100%" }}
                     cldImg={ }

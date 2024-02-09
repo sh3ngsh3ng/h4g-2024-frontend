@@ -14,14 +14,12 @@ import { AbsoluteCenter, Box, Center } from "@chakra-ui/layout";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function CloudinaryUploadWidget({ action, form }) {
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
 
   // const adminEvents = useSelector((state) => state.adminEvents);
-
-  const formToEdit = form;
-  const { images } = formToEdit;
+  const images = imgArr;
 
   const dispatch = useDispatch();
   const [uwConfig] = useState({
@@ -67,7 +65,15 @@ function CloudinaryUploadWidget({ action, form }) {
             // console.log(result.info.public_id)
             // console.log(result.info.secure_url)
             // dispatch(adminAddImage(result.info.secure_url));
-            dispatch(action(result.info.secure_url))
+            if (reduxMode) {
+              dispatch(actionFn(result.info.secure_url))
+            } else {
+              actionFn([
+                ...imgArr,
+                result.info.secure_url
+              ])
+            }
+
           }
         }
       );
