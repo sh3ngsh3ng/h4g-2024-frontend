@@ -68,6 +68,13 @@ export const adminEventsReducers = (
       return { ...state, formToEdit: { ...action.formToEdit } };
     case "CLEAR_FORM":
       return { ...state, formToEdit: { ...EVENT_FORM_TEMPLATE } };
+    case "ADD_IMAGE_EVENT":
+      return {
+        ...state, formToEdit: {
+          ...state.formToEdit,
+          images: [...state.formToEdit.images, action.payload]
+        }
+      }
     default:
       return state;
   }

@@ -18,14 +18,15 @@ import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
 
 export const ProfileForm = () => {
     const [user, setUser] = useState({
-        name: "",
-        date: "",
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
         gender: "",
-        phone: "",
-        emergency: "",
+        phoneNumber: "",
+        emergencyContact: "",
         occupation: "",
         school: "",
-        status: "",
+        immigrationStatus: "",
         canDrive: false,
         ownVehicle: false,
     })
@@ -74,10 +75,20 @@ export const ProfileForm = () => {
             </Heading>
             <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
             <FormControl padding={3} isDisabled={!editMode}>
-                <FormLabel>
-                    Full Name
-                </FormLabel>
-                <Input type="text" name="name" value={user.name} onChange={handleInputChange} background="gray.200" />
+                <Flex direction="row" width="full" marginTop={5}>
+                    <Box width="50%" paddingRight={2}>
+                        <FormLabel>
+                            First Name
+                        </FormLabel>
+                        <Input type="tel" name="firstName" background="gray.200" value={user.firstName} onChange={handleInputChange} />
+                    </Box>
+                    <Box width="50%" paddingLeft={2}>
+                        <FormLabel>
+                            Last Name
+                        </FormLabel>
+                        <Input type="tel" name="lastName" background="gray.200" value={user.lastName} onChange={handleInputChange} />
+                    </Box>
+                </Flex>
                 <FormHelperText>
                     As in NRIC/FIN/Passport
                 </FormHelperText>
@@ -86,7 +97,7 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Date of Birth
                         </FormLabel>
-                        <Input type="date" name="date" background="gray.200" value={user.date} onChange={handleInputChange} />
+                        <Input type="date" name="dateOfBirth" background="gray.200" value={user.dateOfBirth} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
@@ -95,7 +106,6 @@ export const ProfileForm = () => {
                         <Select placeholder="Select option" name="gender" background="gray.200" value={user.gender} onChange={handleInputChange}>
                             <option>Male</option>
                             <option>Female</option>
-                            <option>Others</option>
                         </Select>
                     </Box>
                 </Flex>
@@ -104,13 +114,13 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Phone Number
                         </FormLabel>
-                        <Input type="tel" name="phone" background="gray.200" value={user.phone} onChange={handleInputChange} />
+                        <Input type="tel" name="phoneNumber" background="gray.200" value={user.phoneNumber} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             Emergency Contact
                         </FormLabel>
-                        <Input type="tel" name="emergency" background="gray.200" value={user.emergency} onChange={handleInputChange} />
+                        <Input type="tel" name="emergencyContact" background="gray.200" value={user.emergencyContact} onChange={handleInputChange} />
                     </Box>
                 </Flex>
                 <Flex direction="row" width="full" marginTop={5}>
@@ -130,7 +140,7 @@ export const ProfileForm = () => {
                 <FormLabel>
                     Immigration Status
                 </FormLabel>
-                <Select placeholder="Select option" name="status" background="gray.200" value={user.status} onChange={handleInputChange}>
+                <Select placeholder="Select option" name="immigrationStatus" background="gray.200" value={user.immigrationStatus} onChange={handleInputChange}>
                     <option>Citizen</option>
                     <option>Permanent Resident</option>
                     <option>Foreigner</option>

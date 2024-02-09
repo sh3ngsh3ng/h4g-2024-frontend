@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import AuthTab from "../../components/utilities/AuthTab";
 
 function RadioCard(props) {
   const { getInputProps, getRadioProps } = useRadio(props);
@@ -111,9 +112,8 @@ export default function AuthPage() {
             <Box height="50%" width="60%" m="auto">
               <Center mb={8}>
                 {" "}
-                <RadioToggle />
+                <AuthTab changeForm={setFormMode} />
               </Center>
-
               {renderForm()}
             </Box>
           </GridItem>
@@ -125,9 +125,8 @@ export default function AuthPage() {
         <Box height="50%" width="80%" m="auto">
           <Center mb={8}>
             {" "}
-            <RadioToggle />
+            <AuthTab changeForm={setFormMode} />
           </Center>
-
           {renderForm()}
         </Box>
       </Show>
