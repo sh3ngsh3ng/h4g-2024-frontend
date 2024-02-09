@@ -1,4 +1,4 @@
-import { displaySuccess } from "../../services/alertServices";
+import { displayError, displaySuccess } from "../../services/alertServices";
 import {
   EVENT_ATTENDANCE_FAIL,
   EVENT_ATTENDANCE_REQUEST,
@@ -224,15 +224,22 @@ export const adminUpdateEvent = (newEvent) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(`http://localhost:8000/api/update/${newEvent.formToEdit.slug}`, newEvent, config)
+    const { data } = await axios.put(`/api/update/${newEvent.formToEdit.slug}`, newEvent, config)
 
     dispatch({
       type: "EVENT_UPDATED",
       payload: data["event"]
     })
 
+    dispatch({
+      type: ADMIN_DASHBOARD_MODE_READ
+    })
+
+    displaySuccess("Successfully updated event!")
+
   } catch (e) {
     console.error(e)
+    displayError(e)
   }
 }
 

@@ -14,13 +14,13 @@ import { AbsoluteCenter, Box, Center } from "@chakra-ui/layout";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function CloudinaryUploadWidget() {
+function CloudinaryUploadWidget({ action, form }) {
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
 
-  const adminEvents = useSelector((state) => state.adminEvents);
+  // const adminEvents = useSelector((state) => state.adminEvents);
 
-  const { formToEdit } = adminEvents;
+  const formToEdit = form;
   const { images } = formToEdit;
 
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ function CloudinaryUploadWidget() {
     uploadPreset: "n5kxxw69",
     theme: "purple",
   });
+
   useEffect(() => {
     // Check if the script is already loaded
     if (!loaded) {
@@ -65,7 +66,8 @@ function CloudinaryUploadWidget() {
             // setPublicId(result.info.public_id);
             // console.log(result.info.public_id)
             // console.log(result.info.secure_url)
-            dispatch(adminAddImage(result.info.secure_url));
+            // dispatch(adminAddImage(result.info.secure_url));
+            dispatch(action(result.info.secure_url))
           }
         }
       );
@@ -107,7 +109,7 @@ function CloudinaryUploadWidget() {
           Upload
         </Button>
       </CloudinaryScriptContext.Provider>
-      <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px"}}/>}</Center></Box>
+      <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>
     </Box>
   );
 }
