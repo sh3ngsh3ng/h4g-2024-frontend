@@ -1,22 +1,18 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import { test } from "../../components/actions/userActions";
-
+import Loading from "../../components/utilities/Loading";
+import { useNavigate } from "react-router";
 export default function LandingPage() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
+  setTimeout(() => {
+    navigate("/signup")
+  }, 3000)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(test());
-  };
   return (
-    <>
-      <h1>Landing Page</h1>
-      
-      <Button colorScheme='blue' onClick={handleSubmit}>Button</Button>
-    </>
+    <div className="d-flex justify-content-center align-items-center vh-100 vw-100">
+      <Loading />
+    </div>
   );
 }
 
