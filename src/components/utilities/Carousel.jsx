@@ -14,8 +14,7 @@ export default function Carousel() {
         mt={5}
       >
         <Box h="10%" >
-          {" "}
-          Logo{" "}
+          <img src="/images/logo.png"/>
         </Box>
         <Box mt={5}>
           <Text fontSize="32px" fontWeight="700" color={paleRed}>

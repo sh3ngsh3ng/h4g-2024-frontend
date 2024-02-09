@@ -10,6 +10,10 @@ import {
   GENERATE_EVENT_QR_FAIL,
   GENERATE_EVENT_QR_REQUEST,
   GENERATE_EVENT_QR_SUCCESS,
+
+  EVENT_COMPLETE_FAIL,
+  EVENT_COMPLETE_REQUEST,
+  EVENT_COMPLETE_SUCCESS,
 } from "../constants/admin";
 import axios from "axios";
 
@@ -222,3 +226,32 @@ export const adminUpdateEvent = (newEvent) => async (dispatch) => {
     console.error(e)
   }
 }
+
+export const adminCompleteEvent= ({ slug }) => async (dispatch) => {
+    try {
+      dispatch({
+        type: EVENT_COMPLETE_REQUEST,
+      });
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@user"),
+        },
+      };
+  
+      const { data } = await axios.get(
+        `/api/event/${slug}/listAttendance/complete`,
+        config
+      );
+  
+      dispatch({
+        type: EVENT_COMPLETE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: EVENT_COMPLETE_FAIL,
+        payload: error.response,
+      });
+    }
+  };

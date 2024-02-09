@@ -15,6 +15,10 @@ import {
   GENERATE_EVENT_QR_FAIL,
   GENERATE_EVENT_QR_SUCCESS,
   GENERATE_EVENT_QR_RESET,
+  EVENT_COMPLETE_REQUEST,
+  EVENT_COMPLETE_FAIL,
+  EVENT_COMPLETE_SUCCESS,
+  EVENT_COMPLETE_RESET,
 } from "../constants/admin";
 
 // const initialForm = {
@@ -130,3 +134,22 @@ export const generateEventQrReducers = (state = {}, action) => {
       return state;
   }
 };
+
+export const completeEventReducers = (state = {}, action) => {
+    switch (action.type) {
+      case EVENT_COMPLETE_REQUEST:
+        return { loading: true };
+  
+      case EVENT_COMPLETE_SUCCESS:
+        return { loading: false, success: true };
+  
+      case EVENT_COMPLETE_FAIL:
+        return { loading: false, error: action.payload.data };
+  
+      case EVENT_COMPLETE_RESET:
+        return {};
+  
+      default:
+        return state;
+    }
+  };
