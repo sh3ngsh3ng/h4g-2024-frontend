@@ -85,6 +85,9 @@ export const userDashboardReducers = (state = { mode: "USER_DASHBOARD_READ_CURRE
     case "USER_DASHBOARD_READ_DETAILS":
       return { mode: action.type };
 
+    case "USER_PROFILE":
+      return { mode: action.type }
+
     default:
       return state;
   }
