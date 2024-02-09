@@ -1,3 +1,4 @@
+import { displaySuccess } from "../../services/alertServices";
 import {
   EVENT_ATTENDANCE_FAIL,
   EVENT_ATTENDANCE_REQUEST,
@@ -14,6 +15,7 @@ import {
   EVENT_COMPLETE_FAIL,
   EVENT_COMPLETE_REQUEST,
   EVENT_COMPLETE_SUCCESS,
+  ADMIN_DASHBOARD_MODE_READ,
 } from "../constants/admin";
 import axios from "axios";
 
@@ -196,6 +198,12 @@ export const adminCreateEvent = (newEvent) => async (dispatch) => {
       type: "NEW_EVENT_CREATED",
       payload: data["event"]
     })
+
+    dispatch({
+      type: ADMIN_DASHBOARD_MODE_READ
+    })
+
+    displaySuccess("Event Successfully Created!")
 
   } catch (e) {
     console.error(e)

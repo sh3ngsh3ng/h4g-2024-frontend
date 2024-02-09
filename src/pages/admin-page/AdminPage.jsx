@@ -35,13 +35,14 @@ import {
   primaryRed,
   tertiaryRed,
 } from "../../components/constants/color";
+import Loading from "../../components/utilities/Loading";
 
 export default function AdminPage() {
   const dispatch = useDispatch();
-  const formToEdit = useSelector((state) => state.adminEvents);
+  const formToEdit = useSelector((state) => state.adminEvents.formToEdit);
   const adminDashboardMode = useSelector((state) => state.adminDashboard.mode);
   const allEvents = useSelector((state) => state.events.allEvents);
-
+  const loading = useSelector((state) => state.events.loading)
   useEffect(() => {
     // retrieve all events on admin page loaded (move to login)
     dispatch(retrieveAllEvents());
@@ -56,6 +57,7 @@ export default function AdminPage() {
   // send new event form to backend
 
   const submitNewEvent = () => {
+    console.log("loading: ", loading)
     dispatch(adminCreateEvent(formToEdit));
   };
 
@@ -94,7 +96,7 @@ export default function AdminPage() {
     } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
       // dispatch(clearForm())
       // dispatch(setEditForm(EVENT_FORM_TEMPLATE))
-      return <EventsForm />;
+      return loading ? <Loading /> : <EventsForm />;
     } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
       return <EventsForm type="edit" />;
     }
@@ -176,6 +178,7 @@ export default function AdminPage() {
 
   return (
     <>
+
       <Box h="100%" w="100%" p={3}>
         <Navbar />
         <Tabs variant="enclosed">
