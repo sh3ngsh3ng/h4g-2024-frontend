@@ -121,13 +121,13 @@ export const ProfileForm = () => {
                         <FormLabel>
                             First Name
                         </FormLabel>
-                        <Input type="tel" name="firstName" background="gray.200" value={user.firstName} onChange={handleInputChange} />
+                        <Input type="text" name="firstName" background="gray.200" value={user.firstName} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             Last Name
                         </FormLabel>
-                        <Input type="tel" name="lastName" background="gray.200" value={user.lastName} onChange={handleInputChange} />
+                        <Input type="text" name="lastName" background="gray.200" value={user.lastName} onChange={handleInputChange} />
                     </Box>
                 </Flex>
                 <FormHelperText>
