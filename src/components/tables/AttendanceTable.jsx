@@ -39,7 +39,7 @@ export default function AttendanceTable({data, eventName}) {
           {eventName && eventName}
         </Box>
         <Table variant="simple">
-          <TableCaption mt={0}>Attendance List of ##event name##</TableCaption>
+          <TableCaption mt={0}>Attendance List of {eventName && eventName}</TableCaption>
           <Thead backgroundColor={tertiaryRed} sx={{ color: primaryRed }}>
             <Tr>
               <Th color={white}>Name</Th>
