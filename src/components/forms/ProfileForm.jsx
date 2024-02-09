@@ -9,8 +9,11 @@ import {
     Select,
     Flex,
     Checkbox,
+    CheckboxGroup,
+    VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
 
 export const ProfileForm = () => {
     const [user, setUser] = useState({
@@ -26,20 +29,39 @@ export const ProfileForm = () => {
         ownVehicle: false,
     })
 
+    const [skills, setSkills] = useState([])
+    const [interest, setInterest] = useState([])
+
     const handleInputChange = (e) => {
-        setUser({
-            ...user,
-            name: e.target.value,
-            date: e.target.value,
-            gender: e.target.value,
-            phone: e.target.value,
-            emergency: e.target.value,
-            occupation: e.target.value,
-            school: e.target.value,
-            status: e.target.value,
-            canDrive: e.target.checked,
-            ownVehicle: e.target.checked,
-        })
+        const { name, value, checked } = e.target
+        if (name == "canDrive" || name == "ownVehicle") {
+            setUser({
+                ...user,
+                [name]: checked
+            })
+        } else {
+            setUser({
+                ...user,
+                [name]: value
+            })
+        }
+    }
+
+    const handleCheckBox = (e) => {
+        const { name, checked, value } = e.target
+        if (checked) {
+            if (name === "skills") {
+                setSkills([...skills, value])
+            } else if (name === "interest") {
+                setInterest([...interest, value])
+            }
+        } else {
+            if (name === "skills") {
+                setSkills(skills.filter((skill) => skill !== value))
+            } else if (name === "interest") {
+                setInterest(interest.filter((interest) => interest !== value))
+            }
+        }
     }
 
 
@@ -53,22 +75,22 @@ export const ProfileForm = () => {
                 <FormLabel>
                     Full Name
                 </FormLabel>
-                <Input type="text" value={user.name} onChange={handleInputChange} background="gray.200"/>
+                <Input type="text" name="name" value={user.name} onChange={handleInputChange} background="gray.200" />
                 <FormHelperText>
-                    As in NRIC/FIN/Passport 
-                </FormHelperText>   
+                    As in NRIC/FIN/Passport
+                </FormHelperText>
                 <Flex direction="row" width="full" marginTop={5}>
                     <Box width="50%" paddingRight={2}>
                         <FormLabel>
                             Date of Birth
                         </FormLabel>
-                        <Input type="date" background="gray.200" value={user.date} onChange={handleInputChange} />
+                        <Input type="date" name="date" background="gray.200" value={user.date} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
-                            Gender 
+                            Gender
                         </FormLabel>
-                        <Select placeholder="Select option" background="gray.200" value={user.gender} onChange={handleInputChange}>
+                        <Select placeholder="Select option" name="gender" background="gray.200" value={user.gender} onChange={handleInputChange}>
                             <option>Male</option>
                             <option>Female</option>
                             <option>Others</option>
@@ -80,13 +102,13 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Phone Number
                         </FormLabel>
-                        <Input type="tel" background="gray.200"  value={user.phone} onChange={handleInputChange}/>
+                        <Input type="tel" name="phone" background="gray.200" value={user.phone} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             Emergency Contact
                         </FormLabel>
-                        <Input type="tel" background="gray.200"  value={user.emergency} onChange={handleInputChange}/>
+                        <Input type="tel" name="emergency" background="gray.200" value={user.emergency} onChange={handleInputChange} />
                     </Box>
                 </Flex>
                 <Flex direction="row" width="full" marginTop={5}>
@@ -94,30 +116,62 @@ export const ProfileForm = () => {
                         <FormLabel>
                             Occupation
                         </FormLabel>
-                        <Input type="text" background="gray.200" value={user.occupation} onChange={handleInputChange}/>
+                        <Input type="text" name="occupation" background="gray.200" value={user.occupation} onChange={handleInputChange} />
                     </Box>
                     <Box width="50%" paddingLeft={2}>
                         <FormLabel>
                             School(if applicable)
                         </FormLabel>
-                        <Input type="text" background="gray.200"  value={user.school} onChange={handleInputChange}/>
+                        <Input type="text" name="school" background="gray.200" value={user.school} onChange={handleInputChange} />
                     </Box>
                 </Flex>
                 <FormLabel>
                     Immigration Status
                 </FormLabel>
-                <Select placeholder="Select option" background="gray.200" value={user.status} onChange={handleInputChange}>
+                <Select placeholder="Select option" name="status" background="gray.200" value={user.status} onChange={handleInputChange}>
                     <option>Citizen</option>
                     <option>Permanent Resident</option>
                     <option>Foreigner</option>
                 </Select>
-                <Checkbox padding={3} colorScheme="yellow" value={user.canDrive} onChange={handleInputChange}>
+                <Checkbox padding={3} name="canDrive" colorScheme="yellow" value={user.canDrive} onChange={handleInputChange}>
                     I can drive
                 </Checkbox>
-                <Checkbox padding={3} colorScheme="yellow"  value={user.ownVehicle} onChange={handleInputChange}>
+                <Checkbox padding={3} name="ownVehicle" colorScheme="yellow" value={user.ownVehicle} onChange={handleInputChange}>
                     I own a vehicle
                 </Checkbox>
+
             </FormControl>
+
+            <Heading size="md" padding="10px">
+                Interest
+            </Heading>
+            <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
+            <CheckboxGroup>
+                <VStack>
+                    {
+                        INTERESTS_LIST.map((interest) => {
+                            return (
+                                <Checkbox name="interest" key={interest} value={interest} onChange={(e) => handleCheckBox(e)}>{interest}</Checkbox>
+                            )
+                        })
+                    }
+                </VStack>
+            </CheckboxGroup>
+            <Heading size="md" padding="10px">
+                Skills
+            </Heading>
+            <div style={{ border: "0.5px solid rgba(128, 128, 128, 0.5)", width: "100%", margin: "0px" }}></div>
+            <CheckboxGroup>
+                <VStack>
+                    {
+                        SKILLS_LIST.map((skills) => {
+                            return (
+                                <Checkbox name="skills" key={skills} value={skills} onChange={(e) => handleCheckBox(e)}>{skills}</Checkbox>
+                            )
+                        })
+                    }
+                </VStack>
+            </CheckboxGroup>
         </Box>
     )
 }
