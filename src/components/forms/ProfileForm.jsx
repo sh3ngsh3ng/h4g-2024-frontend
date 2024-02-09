@@ -122,7 +122,7 @@ export const ProfileForm = () => {
 
       setInterest([...result.data.user.interest]);
 
-      setSkillCert([...result.data.certs]);
+      setSkillCert(result.data.certs);
     } catch (e) {
       console.log(e);
     }
@@ -162,7 +162,7 @@ export const ProfileForm = () => {
             height="590px"
             isProfile={true}
             isEdit={editMode}
-            certsArr={skillCertArr}
+            reduxMode={false}
           />
         </GridItem>
       </Grid>
