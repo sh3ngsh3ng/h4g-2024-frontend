@@ -1,35 +1,36 @@
-export const ADMIN_DASHBOARD_MODE_CREATE = "ADMIN_DASHBOARD_MODE_CREATE"
-export const ADMIN_DASHBOARD_MODE_READ = "ADMIN_DASHBOARD_MODE_READ"
-export const ADMIN_DASHBOARD_MODE_UPDATE = "ADMIN_DASHBOARD_MODE_UPDATE"
+export const ADMIN_DASHBOARD_MODE_CREATE = "ADMIN_DASHBOARD_MODE_CREATE";
+export const ADMIN_DASHBOARD_MODE_READ = "ADMIN_DASHBOARD_MODE_READ";
+export const ADMIN_DASHBOARD_MODE_UPDATE = "ADMIN_DASHBOARD_MODE_UPDATE";
 // events
 export const EVENT_FORM_TEMPLATE = {
-    name: "",
-    organization: "",
-    skills: [],
-    interest: [],
-    description: "",
-    isCompleted: false,
-    maxHoursGiven: 10,
-    startDate: "",
-    endDate: "",
-    images: []
-}
+  name: "",
+  organization: "",
+  skills: [],
+  interest: [],
+  description: "",
+  isCompleted: false,
+  maxHoursGiven: 10,
+  startDate: "",
+  endDate: "",
+  images: [],
+};
 
 export const NEW_EVENT = {
-    "name": "Fun O",
-    "organization": "ACJC",
-    "maxHoursGiven": 40,
-    "startDate": "2000-12-12",
-    "endDate": "2001-10-10",
-    "description": "A year long fund raising event that consist of many events, join in for a time of your life, no skills needed, all you need is to click join",
-    "interest": [],
-    "skills": [],
-    "isCompleted": "true"
-}
+  name: "Fun O",
+  organization: "ACJC",
+  maxHoursGiven: 40,
+  startDate: "2000-12-12",
+  endDate: "2001-10-10",
+  description:
+    "A year long fund raising event that consist of many events, join in for a time of your life, no skills needed, all you need is to click join",
+  interest: [],
+  skills: [],
+  isCompleted: "true",
+};
 
-// list of 
-export const INTERESTS_LIST = ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"]
-export const SKILLS_LIST = ["Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5"]
+// list of
+export const INTERESTS_LIST = ["Mentoring", "Children", "Elderly", "Fundraising", "Outdoor"];
+export const SKILLS_LIST = ["First Aid", "Marketing", "Driving", "Teaching", "Leadership"];
 
 export const EVENT_ATTENDANCE_REQUEST = "EVENT_ATTENDANCE_REQUEST";
 export const EVENT_ATTENDANCE_SUCCESS = "EVENT_ATTENDANCE_SUCCESS";
