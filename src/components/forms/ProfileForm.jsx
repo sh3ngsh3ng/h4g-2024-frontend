@@ -30,6 +30,7 @@ import {
   tertiaryRed,
   white,
 } from "../constants/color";
+import CloudinaryUploadWidget from "../utilities/CloudinaryUploadWidget";
 
 export const ProfileForm = () => {
   const [user, setUser] = useState({
@@ -43,7 +44,7 @@ export const ProfileForm = () => {
     school: "",
     immigrationStatus: "",
     canDrive: false,
-    ownVehicle: false,
+    ownVehicle: false
   });
 
   const config = {
@@ -59,6 +60,7 @@ export const ProfileForm = () => {
 
   const [skillsArr, setSkills] = useState([]);
   const [interestArr, setInterest] = useState([]);
+  const [skillCertArr, setSkillCert] = useState([])
   const [editMode, setEditMode] = useState(false);
 
   const handleInputChange = (e) => {
@@ -114,6 +116,8 @@ export const ProfileForm = () => {
       setSkills([...result.data.skills]);
 
       setInterest([...result.data.interest]);
+
+      setSkillCert([...result.data.skillCert])
     } catch (e) {
       console.log(e);
     }
@@ -144,6 +148,8 @@ export const ProfileForm = () => {
             editMode={editMode}
             skillsArr={skillsArr}
           />
+
+          <CloudinaryUploadWidget actionFn={setSkillCert} imgArr={skillCertArr} />
         </GridItem>
       </Grid>
 
