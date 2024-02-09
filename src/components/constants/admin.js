@@ -11,7 +11,8 @@ export const EVENT_FORM_TEMPLATE = {
     isCompleted: false,
     maxHoursGiven: 10,
     startDate: "",
-    endDate: ""
+    endDate: "",
+    images: []
 }
 
 export const NEW_EVENT = {
@@ -44,3 +45,8 @@ export const GENERATE_EVENT_QR_REQUEST = "GENERATE_EVENT_QR_REQUEST";
 export const GENERATE_EVENT_QR_SUCCESS = "GENERATE_EVENT_QR_SUCCESS";
 export const GENERATE_EVENT_QR_FAIL = "GENERATE_EVENT_QR_FAIL";
 export const GENERATE_EVENT_QR_RESET = "GENERATE_EVENT_QR_RESET";
+
+export const EVENT_COMPLETE_REQUEST = "EVENT_COMPLETE_REQUEST";
+export const EVENT_COMPLETE_SUCCESS = "EVENT_COMPLETE_SUCCESS";
+export const EVENT_COMPLETE_FAIL = "EVENT_COMPLETE_FAIL";
+export const EVENT_COMPLETE_RESET = "EVENT_COMPLETE_RESET";

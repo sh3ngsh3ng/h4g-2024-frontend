@@ -7,7 +7,7 @@ import {
   userRegisterReducers,
   userEventsReducers,
 } from "../components/reducers/userReducer";
-import { adminDashboardReducers, adminEventsReducers, eventAttendanceReducers, generateEventQrReducers, markEventAttendanceReducers } from "../components/reducers/adminReducer";
+import { adminDashboardReducers, adminEventsReducers, completeEventReducers, eventAttendanceReducers, generateEventQrReducers, markEventAttendanceReducers } from "../components/reducers/adminReducer";
 import { eventsReducers } from "../components/reducers/eventsReducer";
 
 export const store = configureStore({
@@ -23,5 +23,6 @@ export const store = configureStore({
     eventAttendance: eventAttendanceReducers,
     markEventAttendance: markEventAttendanceReducers,
     generateEventQr: generateEventQrReducers,
+    eventComplete: completeEventReducers,
   },
 });

@@ -1,78 +1,80 @@
-import { auth } from "../../firebase/firebase"
-import Navbar from "../../components/navbar/Navbar"
+import { auth } from "../../firebase/firebase";
+import Navbar from "../../components/navbar/Navbar";
 import {
-    Box,
-    Stack,
-    Button,
-    Tabs,
-    TabList,
-    Tab,
-    Flex,
-    MenuButton,
-    Menu,
-    MenuItem,
-    MenuList,
-    MenuGroup,
-    SimpleGrid,
-} from "@chakra-ui/react"
-import { ArrowDownIcon, ChevronDownIcon } from "@chakra-ui/icons"
-import EventCard from "../../components/utilities/EventCard"
-import PastEventCard from "../../components/utilities/PastEventCard"
-import { useEffect } from "react"
-import { retrieveAllEvents } from "../../components/actions/eventsAction"
-import { USER_DASHBOARD_READ_DETAILS } from "../../components/constants/user"
-import { useDispatch, useSelector } from "react-redux"
-import { changeUserDashboard } from "../../components/actions/userActions"
-import EventDetails from "../../components/utilities/EventDetails"
-import ProfilePage from "../profile-page/ProfilePage"
-import ProfileForm from "../../components/forms/ProfileForm"
+  Box,
+  Stack,
+  Button,
+  Tabs,
+  TabList,
+  Tab,
+  Flex,
+  MenuButton,
+  Menu,
+  MenuItem,
+  MenuList,
+  MenuGroup,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import { ArrowDownIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import EventCard from "../../components/utilities/EventCard";
+import PastEventCard from "../../components/utilities/PastEventCard";
+import { useEffect } from "react";
+import { retrieveAllEvents } from "../../components/actions/eventsAction";
+import { USER_DASHBOARD_READ_DETAILS } from "../../components/constants/user";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUserDashboard } from "../../components/actions/userActions";
+import EventDetails from "../../components/utilities/EventDetails";
+import ProfilePage from "../profile-page/ProfilePage";
+import ProfileForm from "../../components/forms/ProfileForm";
+import { paleRed } from "../../components/constants/color";
 
 export default function UserPage() {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        // retrieve all events on user page loaded (move to login)
-        dispatch(retrieveAllEvents())
-    }, [])
+  useEffect(() => {
+    // retrieve all events on user page loaded (move to login)
+    dispatch(retrieveAllEvents());
+  }, []);
 
-    // go to view event
-    const goToEventDetailsPage = () => {
-        dispatch(changeUserDashboard(USER_DASHBOARD_READ_DETAILS))
-    }
+  // go to view event
+  const goToEventDetailsPage = () => {
+    dispatch(changeUserDashboard(USER_DASHBOARD_READ_DETAILS));
+  };
 
-    const userDashboardMode = useSelector((state) => state.userDashboard.mode)
-    const allEvents = useSelector((state) => state.events.allEvents)
+  const userDashboardMode = useSelector((state) => state.userDashboard.mode);
+  const allEvents = useSelector((state) => state.events.allEvents);
 
-    const renderDashboard = () => {
-        if (userDashboardMode == "USER_DASHBOARD_READ_CURRENT") {
-            const currentEvents = allEvents?.filter((event) => !event.isCompleted)
+  const renderDashboard = () => {
+    if (userDashboardMode == "USER_DASHBOARD_READ_CURRENT") {
+      const currentEvents = allEvents?.filter((event) => !event.isCompleted);
+      return (
+        <Box backgroundColor={paleRed} borderRadius={8}>
+        <SimpleGrid columns={[1, 2, 3]} justifyItems="center">
+          {currentEvents?.map((event) => {
             return (
-                <SimpleGrid columns={[1, 2, 3]} justifyItems="center">
-                    {
-                        currentEvents?.map((event) => {
-                            return (
-                                <EventCard data={event} type="user" action={goToEventDetailsPage} />
-                            )
-                        })
-                    }
-                </SimpleGrid>
-            )
-        } else if (userDashboardMode == "USER_DASHBOARD_READ_PAST") {
-            const pastEvents = allEvents?.filter((event) => event.isCompleted)
-            console.log("opastevehts: ", pastEvents)
-            return (
-                pastEvents?.map((event) => {
-                    return (
-                        <PastEventCard event={event} />
-                    )
-                })
-            )
-        } else if (userDashboardMode == "USER_DASHBOARD_READ_DETAILS") {
-            return <EventDetails />
-        } else if (userDashboardMode == "USER_PROFILE") {
-            return <ProfilePage />
-        }
+              <EventCard
+                data={event}
+                type="user"
+                action={goToEventDetailsPage}
+              />
+            );
+          })}
+        </SimpleGrid>
+        </Box>
+      );
+    } else if (userDashboardMode == "USER_DASHBOARD_READ_PAST") {
+      const pastEvents = allEvents?.filter((event) => event.isCompleted);
+      console.log("opastevehts: ", pastEvents);
+      return pastEvents?.map((event) => {
+        return <PastEventCard event={event} />;
+      });
+    } else if (userDashboardMode == "USER_DASHBOARD_READ_DETAILS") {
+      return <EventDetails />;
+    } else if (userDashboardMode == "USER_PROFILE") {
+      return <ProfileForm />;
     }
+  };
+
     const renderUserActionButtons = () => {
         if (userDashboardMode !== "USER_DASHBOARD_READ_DETAILS") {
             return (
@@ -137,5 +139,5 @@ export default function UserPage() {
                 {renderDashboard()}
             </Box>
         </>
-    )
-}
+    );
+  }

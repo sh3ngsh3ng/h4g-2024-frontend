@@ -122,7 +122,7 @@ export default function AuthPage() {
 
       {/* Phone design */}
       <Show below="lg">
-        <Box height="50%" pt={20} width="80%" m="auto">
+        <Box height="50%" width="80%" m="auto">
           <Center mb={8}>
             {" "}
             <AuthTab changeForm={setFormMode} />

@@ -34,7 +34,9 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.4",
     "styled-components": "^6.1.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@cloudinary/react": "1.11.2",
+    "@cloudinary/url-gen": "1.9.2"
   },
   "scripts": {
     "start": "react-scripts start",

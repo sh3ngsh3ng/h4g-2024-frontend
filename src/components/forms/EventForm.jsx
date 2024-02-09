@@ -15,36 +15,54 @@ import {
     Flex
 } from "@chakra-ui/react"
 import { useSelector, useDispatch } from "react-redux";
-import { clearForm, onEditingForm } from "../actions/adminActions";
+import { adminAddImage, clearForm, onEditingForm } from "../actions/adminActions";
 import { useDropzone } from 'react-dropzone';
 import { useCallback } from "react";
 import ReactQuill from "react-quill";
 import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
 import { Form } from "react-router-dom";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+import CloudinaryUploadWidget from "../utilities/CloudinaryUploadWidget";
 
 export default function EventsForm({ type, data }) {
     const dispatch = useDispatch()
     var formToEdit = useSelector(state => state.adminEvents.formToEdit)
 
-    const onDrop = useCallback(acceptedFiles => {
-        if (acceptedFiles.length === 0) {
-            alert("Only images")
-        } else {
-            console.log("display image")
-        }
-    }, [])
+    // const onDrop = useCallback(acceptedFiles => {
+    //     if (acceptedFiles.length === 0) {
+    //         alert("Only images")
+    //     } else {
+    //         console.log("display image: ", acceptedFiles)
+    //         acceptedFiles.forEach(file => {
+    //             // Access file object properties like name, size, etc.
+    //             console.log("File name:", file.name)
+    //             console.log("File size:", file.size)
+    //             console.log("File type:", file.type)
+    //             reader.readAsDataURL(file) // Read file as a data URL
+    //         })
+    //     }
+    // }, [])
 
-    const accept = {
-        'image/jpeg': ['.jpeg', '.png']
-    }
+    // const reader = new FileReader()
+    // reader.onload = () => {
+    //     // Use reader.result to access file content
+    //     const fileContent = reader.result
+    //     console.log("File content:", fileContent)
+    //     dispatch(adminAddImage(fileContent))
+    // }
 
-    const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept })
+    // const accept = {
+    //     'image/jpeg': ['.jpeg', '.png']
+    // }
 
-    const files = acceptedFiles.map(file => (
-        <li key={file.name}>
-            {file.name} - {file.size} bytes
-        </li>
-    )); // temp to show uploaded images
+    // const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept })
+
+    // const files = acceptedFiles.map(file => (
+    //     <li key={file.name}>
+    //         {file.name} - {file.size} bytes
+    //     </li>
+    // )); // temp to show uploaded images
 
     const onInputChange = (event) => {
         dispatch(onEditingForm({ field: event.target.name, value: event.target.value }))
@@ -68,6 +86,12 @@ export default function EventsForm({ type, data }) {
 
     return (
         <>
+            <CloudinaryUploadWidget />
+                {/* <AdvancedImage
+                    style={{ maxWidth: "100%" }}
+                    cldImg={ }
+                    plugins={[response(), placeholder()]}
+                /> */}
             <Box borderWidth="3px" borderRadius="lg" width="55%">
                 <Heading size="md" padding="10px">
                     Event Details
@@ -160,7 +184,7 @@ export default function EventsForm({ type, data }) {
             <Box borderWidth="3px" borderRadius="lg" width="55%" marginTop={5}>
                 <ReactQuill value={formToEdit?.description} onChange={text => onDescriptionChange(text)} />
             </Box>
-            <div {...getRootProps({ className: 'drop-zone' })}>
+            {/*<div {...getRootProps({ className: 'drop-zone' })}>
                 <input {...getInputProps()} />
                 {
                     isDragActive ?
@@ -168,7 +192,7 @@ export default function EventsForm({ type, data }) {
                         <p>Drag 'n' drop some files here, or click to select files</p>
                 }
             </div>
-            <ul>{files}</ul>
+            <ul>{files}</ul> */}
         </>
     )
 }
