@@ -20,6 +20,7 @@ import { AdminRoutes } from "./components/utilities/AdminRoute";
 import TestingPage from "./pages/landing-page/TestingPage";
 import AttendancePage from "./pages/admin-page/AttendancePage";
 import MarkAttendancePage from "./pages/user-page/MarkAttendancePage";
+import DummyChartPage from "./pages/admin-page/DummyChartPage";
 
 // Charts Set Up defaults
 defaults.maintainAspectRatio = false;
@@ -64,6 +65,10 @@ function App() {
             <Route
               path="/event/:slug/markAttendance/:token"
               element={<MarkAttendancePage />}
+            ></Route>
+            <Route
+              path="/analysis"
+              element={<DummyChartPage />}
             ></Route>
           </Routes>
         </div>
