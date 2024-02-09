@@ -45,7 +45,6 @@ const getYear = (date) => {
 
 export const EventCard = ({ data, type, action }) => {
   const dispatch = useDispatch();
-  console.log(data.startDate);
   const startMonth = getMonth(data.startDate);
   const startDay = getDay(data.startDate);
   const startYear = getYear(data.startDate);

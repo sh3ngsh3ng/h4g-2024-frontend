@@ -1,3 +1,4 @@
+import { displayError, displaySuccess } from "../../services/alertServices";
 import {
   EVENT_ATTENDANCE_FAIL,
   EVENT_ATTENDANCE_REQUEST,
@@ -14,6 +15,7 @@ import {
   EVENT_COMPLETE_FAIL,
   EVENT_COMPLETE_REQUEST,
   EVENT_COMPLETE_SUCCESS,
+  ADMIN_DASHBOARD_MODE_READ,
 } from "../constants/admin";
 import axios from "axios";
 
@@ -191,10 +193,17 @@ export const adminCreateEvent = (newEvent) => async (dispatch) => {
     };
 
     const { data } = await axios.post("http://localhost:8000/api/create", newEvent, config)
+
     dispatch({
       type: "NEW_EVENT_CREATED",
       payload: data["event"]
     })
+
+    dispatch({
+      type: ADMIN_DASHBOARD_MODE_READ
+    })
+
+    displaySuccess("Event Successfully Created!")
 
   } catch (e) {
     console.error(e)
@@ -215,46 +224,53 @@ export const adminUpdateEvent = (newEvent) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(`http://localhost:8000/api/update/${newEvent.formToEdit.slug}`, newEvent, config)
+    const { data } = await axios.put(`/api/update/${newEvent.slug}`, newEvent, config)
 
     dispatch({
       type: "EVENT_UPDATED",
       payload: data["event"]
     })
 
+    dispatch({
+      type: ADMIN_DASHBOARD_MODE_READ
+    })
+
+    displaySuccess("Successfully updated event!")
+
   } catch (e) {
     console.error(e)
+    displayError(e)
   }
 }
 
-export const adminCompleteEvent= ({ slug }) => async (dispatch) => {
-    try {
-      dispatch({
-        type: EVENT_COMPLETE_REQUEST,
-      });
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
-  
-      const { data } = await axios.get(
-        `/api/event/${slug}/listAttendance/complete`,
-        config
-      );
-  
-      dispatch({
-        type: EVENT_COMPLETE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: EVENT_COMPLETE_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+export const adminCompleteEvent = ({ slug }) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EVENT_COMPLETE_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/event/${slug}/listAttendance/complete`,
+      config
+    );
+
+    dispatch({
+      type: EVENT_COMPLETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EVENT_COMPLETE_FAIL,
+      payload: error.response,
+    });
+  }
+};
 
 export const adminAddImage = (imageContent) => {
   return {
