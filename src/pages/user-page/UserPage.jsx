@@ -20,8 +20,12 @@ import EventCard from "../../components/utilities/EventCard"
 import PastEventCard from "../../components/utilities/PastEventCard"
 import { useEffect } from "react"
 import { retrieveAllEvents } from "../../components/actions/eventsAction"
+import { USER_DASHBOARD_READ_DETAILS } from "../../components/constants/user"
 import { useDispatch, useSelector } from "react-redux"
 import { changeUserDashboard } from "../../components/actions/userActions"
+import EventDetails from "../../components/utilities/EventDetails"
+import ProfilePage from "../profile-page/ProfilePage"
+import ProfileForm from "../../components/forms/ProfileForm"
 
 export default function UserPage() {
     const dispatch = useDispatch()
@@ -31,38 +35,9 @@ export default function UserPage() {
         dispatch(retrieveAllEvents())
     }, [])
 
-    const testEvents = [
-        {
-            name: "Help the Homeless",
-            organization: "Red Cross",
-            skills: ["communication", "leadership", "teamwork"],
-            month: "Feb",
-            day: "14",
-            description: "No one should have less"
-        },
-        {
-            name: "Help the Homemore",
-            organization: "Yellow Cross",
-            skills: ["leadership", "teamwork"],
-            month: "Mar",
-            day: "20",
-            description: "We want more"
-        },
-        {
-            name: "Help the Homeequal",
-            organization: "Green Cross",
-            skills: ["teamwork"],
-            month: "Dec",
-            day: "31",
-            description: "We want equality"
-        }
-    ]
-
-    const Aevent = {
-        name: "Event Name",
-        organization: "Organiser",
-        skills: ["Skill1", "Skill2", "Skill3"],
-        date: "10 December 2023"
+    // go to view event
+    const goToEventDetailsPage = () => {
+        dispatch(changeUserDashboard(USER_DASHBOARD_READ_DETAILS))
     }
 
     const userDashboardMode = useSelector((state) => state.userDashboard.mode)
@@ -76,7 +51,7 @@ export default function UserPage() {
                     {
                         currentEvents?.map((event) => {
                             return (
-                                <EventCard data={event} type="user" action={""} />
+                                <EventCard data={event} type="user" action={goToEventDetailsPage} />
                             )
                         })
                     }
@@ -92,16 +67,15 @@ export default function UserPage() {
                     )
                 })
             )
+        } else if (userDashboardMode == "USER_DASHBOARD_READ_DETAILS") {
+            return <EventDetails />
+        } else if (userDashboardMode == "USER_PROFILE") {
+            return <ProfileForm />
         }
     }
-
-    // Retrieve data from backend 
-    // 1) Volunteering events
-    // 2) User data - experience, volunteer hours, name, etc
-    return (
-        <>
-            <Box h="100%" w="100%" p={3}>
-                <Navbar />
+    const renderUserActionButtons = () => {
+        if (userDashboardMode !== "USER_DASHBOARD_READ_DETAILS") {
+            return (
                 <Tabs variant='enclosed'>
                     <Flex justifyContent="space-between" alignItems="center">
                         <TabList>
@@ -147,10 +121,20 @@ export default function UserPage() {
                         </Stack>
                     </Flex>
                 </Tabs>
+            )
+        } else {
+            return (
+                <Button onClick={() => dispatch(changeUserDashboard("USER_DASHBOARD_READ_CURRENT"))} colorScheme="blue">Back</Button>
+            )
+        }
+    }
 
+    return (
+        <>
+            <Box h="100%" w="100%" p={3}>
+                <Navbar />
+                {userDashboardMode !== "USER_PROFILE" ? renderUserActionButtons() : null}
                 {renderDashboard()}
-                {/*<PastEventCard 
-                    event = {Aevent}/>*/}
             </Box>
         </>
     )

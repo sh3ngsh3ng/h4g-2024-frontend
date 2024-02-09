@@ -11,7 +11,6 @@ import {
 export const PastEventCard = ({ event }) => {
     return (
         <>
-
             <Box height="55px" borderWidth="2px" borderRadius="lg">
                 <Flex justifyContent="space-between">
                     <Box>

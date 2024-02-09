@@ -6,6 +6,21 @@ export const eventsReducers = (state = { allEvents: [] }, action) => {
             return { loading: false, allEvents: action.payload }
         case "EVENTS_REQUEST_FAILED":
             return { loading: false, error: action.payload }
+        case "CREATE_NEW_EVENT":
+            return { loading: true, ...state }
+        case "NEW_EVENT_CREATED":
+            return { loading: false, allEvents: [...state.allEvents, action.payload] }
+        case "UPDATE_EVENT":
+            return { loading: true, ...state }
+        case "EVENT_UPDATED":
+            const updatedEventIndex = state.allEvents?.findIndex(e => e._id === action.payload._id)
+            if (updatedEventIndex !== -1) {
+                const updateAllEvents = [...state.allEvents]
+                updateAllEvents[updatedEventIndex] = action.payload
+                return { loading: false, ...state, allEvents: updateAllEvents }
+            } else {
+                return { ...state, loading: false }
+            }
         default:
             return state
     }
