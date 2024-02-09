@@ -55,12 +55,16 @@ function App() {
             <Route path="/test" element={<TestingPage />}></Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/user" element={<UserPage />}></Route>
+              <Route path="/profile" element={<ProfilePage />}></Route>
             </Route>
             <Route element={<AdminRoutes />}>
               <Route path="/admin" element={<AdminPage />}></Route>
             </Route>
             <Route path="/admin/event/:slug/attendance" element={<AttendancePage />}></Route>
-            <Route path="/event/:slug/markAttendance/:token" element={<MarkAttendancePage />}></Route>
+            <Route
+              path="/event/:slug/markAttendance/:token"
+              element={<MarkAttendancePage />}
+            ></Route>
           </Routes>
         </div>
       </Box>
