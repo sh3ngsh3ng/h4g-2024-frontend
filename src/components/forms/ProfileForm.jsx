@@ -100,6 +100,7 @@ export const ProfileForm = () => {
       ...user,
       ["skills"]: skillsArr,
       ["interest"]: interestArr,
+      ["skillCert"]: skillCertArr
     };
     console.log("edited user: ", editedUser);
     let result = await axios.put("/api/userUpdate", editedUser, config);
@@ -150,6 +151,17 @@ export const ProfileForm = () => {
           />
 
           <CloudinaryUploadWidget actionFn={setSkillCert} imgArr={skillCertArr} />
+          {
+            skillCertArr.map((cert, idx) => {
+              return (
+                <>
+                  <span>{idx + 1}</span>
+                  <img src={cert} />
+                </>
+
+              )
+            })
+          }
         </GridItem>
       </Grid>
 

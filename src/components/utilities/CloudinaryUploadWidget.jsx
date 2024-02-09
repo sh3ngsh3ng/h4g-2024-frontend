@@ -48,7 +48,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
   }, [loaded]);
 
   useEffect(() => {
-    if (images) {
+    if (images && reduxMode) {
       console.log(images[images.length - 1]);
       setDisplay(images[images.length - 1]);
     }
