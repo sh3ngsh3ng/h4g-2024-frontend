@@ -7,11 +7,11 @@ export const eventsReducers = (state = { allEvents: [] }, action) => {
         case "EVENTS_REQUEST_FAILED":
             return { loading: false, error: action.payload }
         case "CREATE_NEW_EVENT":
-            return { loading: true, ...state }
+            return { ...state, loading: true }
         case "NEW_EVENT_CREATED":
             return { loading: false, allEvents: [...state.allEvents, action.payload] }
         case "UPDATE_EVENT":
-            return { loading: true, ...state }
+            return { ...state, loading: true }
         case "EVENT_UPDATED":
             const updatedEventIndex = state.allEvents?.findIndex(e => e._id === action.payload._id)
             if (updatedEventIndex !== -1) {
