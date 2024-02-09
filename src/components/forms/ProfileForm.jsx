@@ -44,7 +44,7 @@ export const ProfileForm = () => {
     school: "",
     immigrationStatus: "",
     canDrive: false,
-    ownVehicle: false
+    ownVehicle: false,
   });
 
   const config = {
@@ -60,7 +60,7 @@ export const ProfileForm = () => {
 
   const [skillsArr, setSkills] = useState([]);
   const [interestArr, setInterest] = useState([]);
-  const [skillCertArr, setSkillCert] = useState([])
+  const [skillCertArr, setSkillCert] = useState([]);
   const [editMode, setEditMode] = useState(false);
 
   const handleInputChange = (e) => {
@@ -111,14 +111,15 @@ export const ProfileForm = () => {
     try {
       let result = await axios.get("/api/user", config);
       setUser({
-        ...result.data,
+        ...result.data.user,
       });
+      console.log(result.data);
 
-      setSkills([...result.data.skills]);
+      setSkills([...result.data.user.skills]);
 
-      setInterest([...result.data.interest]);
+      setInterest([...result.data.user.interest]);
 
-      setSkillCert([...result.data.skillCert])
+      setSkillCert([...result.data.certs]);
     } catch (e) {
       console.log(e);
     }
@@ -135,7 +136,7 @@ export const ProfileForm = () => {
           />
         </GridItem>
 
-        <GridItem colSpan={2}>
+        <GridItem colSpan={2} mr={3}>
           <ProfileInterest
             INTERESTS_LIST={INTERESTS_LIST}
             handleCheckBox={handleCheckBox}
@@ -149,19 +150,17 @@ export const ProfileForm = () => {
             editMode={editMode}
             skillsArr={skillsArr}
           />
+        </GridItem>
 
-          <CloudinaryUploadWidget actionFn={setSkillCert} imgArr={skillCertArr} disabledMode={editMode} />
-          {
-            skillCertArr.map((cert, idx) => {
-              return (
-                <>
-                  <span>{idx + 1}</span>
-                  <img src={cert} />
-                </>
-
-              )
-            })
-          }
+        <GridItem colSpan={3}>
+          <CloudinaryUploadWidget
+            actionFn={setSkillCert}
+            imgArr={skillCertArr}
+            height="590px"
+            isProfile={true}
+            isEdit={editMode}
+            certsArr={skillCertArr}
+          />
         </GridItem>
       </Grid>
 
