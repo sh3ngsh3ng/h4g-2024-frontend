@@ -15,7 +15,11 @@ import CertHelper from "./CertHelper";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
+<<<<<<< HEAD
 function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, isEdit }) {
+=======
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, disabledMode }) {
+>>>>>>> e0d271166f177a92b0dcfe3cac0b48a15996fadf
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
 
@@ -49,14 +53,14 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
   }, [loaded]);
 
   useEffect(() => {
-    if (images) {
-      console.log(images);
+    if (images && reduxMode) {
+      console.log(images[images.length - 1]);
       setDisplay(images[images.length - 1]);
     }
   }, [images]);
 
   const initializeCloudinaryWidget = () => {
-    if (loaded) {
+    if (disabledMode && loaded) {
       var myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error, result) => {

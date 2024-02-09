@@ -100,6 +100,7 @@ export const ProfileForm = () => {
       ...user,
       ["skills"]: skillsArr,
       ["interest"]: interestArr,
+      ["skillCert"]: skillCertArr
     };
     console.log("edited user: ", editedUser);
     let result = await axios.put("/api/userUpdate", editedUser, config);
