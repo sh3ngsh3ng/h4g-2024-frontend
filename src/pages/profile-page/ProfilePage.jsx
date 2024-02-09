@@ -8,7 +8,6 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   return (
     <Box width="100%" height="100%" p={3}>
-      <Navbar />
       {/* <Button
         onClick={() =>
           dispatch(changeUserDashboard("USER_DASHBOARD_READ_CURRENT"))
