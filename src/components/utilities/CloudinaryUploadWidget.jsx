@@ -10,11 +10,12 @@ import {
 } from "../constants/color";
 import { Button } from "@chakra-ui/button";
 import { AbsoluteCenter, Box, Center } from "@chakra-ui/layout";
+import CertHelper from "./CertHelper";
 
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, isEdit }) {
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
 
@@ -49,7 +50,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
 
   useEffect(() => {
     if (images) {
-      console.log(images[images.length - 1]);
+      console.log(images);
       setDisplay(images[images.length - 1]);
     }
   }, [images]);
@@ -92,7 +93,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
     <Box
       backgroundColor={white}
       borderRadius={8}
-      height="230px"
+      height={height ? height : "230px"}
       width="95%"
       p={3}
     >
@@ -111,11 +112,13 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode }) {
           }}
           height="36px"
           onClick={initializeCloudinaryWidget}
+          disabled={!isEdit}
         >
           Upload
         </Button>
       </CloudinaryScriptContext.Provider>
-      <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>
+      {!isProfile && <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>}
+      {isProfile && images.map(image => (<CertHelper url={image.split("/")[7]} isVerified={false}/>))}
     </Box>
   );
 }

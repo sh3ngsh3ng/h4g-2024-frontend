@@ -11,7 +11,7 @@ export default function ProfileInterest({
   interestArr,
 }) {
   return (
-    <Box backgroundColor={white} borderRadius={8} height="260px">
+    <Box backgroundColor={white} borderRadius={8} height="270px">
     <FormControl isDisabled={!editMode}>
       <Heading size="md" padding="10px">
         Interest
