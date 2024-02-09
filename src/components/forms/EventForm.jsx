@@ -2,11 +2,14 @@ import "./EventForm.css"
 import 'react-quill/dist/quill.snow.css';
 import { Checkbox, CheckboxGroup, FormControl, HStack, Input, Radio, RadioGroup, VStack } from "@chakra-ui/react"
 import { useSelector, useDispatch } from "react-redux";
-import { clearForm, onEditingForm } from "../actions/adminActions";
+import { adminAddImage, clearForm, onEditingForm } from "../actions/adminActions";
 import { useDropzone } from 'react-dropzone';
 import { useCallback } from "react";
 import ReactQuill from "react-quill";
 import { INTERESTS_LIST, SKILLS_LIST } from "../constants/admin";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+import CloudinaryUploadWidget from "../utilities/CloudinaryUploadWidget";
 
 export default function EventsForm({ type, data }) {
     const dispatch = useDispatch()
@@ -16,9 +19,24 @@ export default function EventsForm({ type, data }) {
         if (acceptedFiles.length === 0) {
             alert("Only images")
         } else {
-            console.log("display image")
+            console.log("display image: ", acceptedFiles)
+            acceptedFiles.forEach(file => {
+                // Access file object properties like name, size, etc.
+                console.log("File name:", file.name)
+                console.log("File size:", file.size)
+                console.log("File type:", file.type)
+                reader.readAsDataURL(file) // Read file as a data URL
+            })
         }
     }, [])
+
+    const reader = new FileReader()
+    reader.onload = () => {
+        // Use reader.result to access file content
+        const fileContent = reader.result
+        console.log("File content:", fileContent)
+        dispatch(adminAddImage(fileContent))
+    }
 
     const accept = {
         'image/jpeg': ['.jpeg', '.png']
@@ -54,6 +72,12 @@ export default function EventsForm({ type, data }) {
 
     return (
         <>
+            <CloudinaryUploadWidget />
+            {/* <AdvancedImage
+                style={{ maxWidth: "100%" }}
+                cldImg={ }
+                plugins={[response(), placeholder()]}
+            /> */}
             <FormControl>
                 <Input
                     placeholder="Name"

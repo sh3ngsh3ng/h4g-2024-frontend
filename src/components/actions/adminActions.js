@@ -222,3 +222,10 @@ export const adminUpdateEvent = (newEvent) => async (dispatch) => {
     console.error(e)
   }
 }
+
+export const adminAddImage = (imageContent) => {
+  return {
+    type: "ADD_IMAGE_EVENT",
+    payload: imageContent
+  }
+}
