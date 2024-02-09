@@ -2,8 +2,12 @@ import "./Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Grid, GridItem } from "@chakra-ui/layout";
+import { useDispatch } from "react-redux";
+import { changeUserDashboard } from "../actions/userActions";
 
 export default function Navbar() {
+  const dispatch = useDispatch()
+
   return (
     <nav className="navbar">
       <div className="container-fluid d-flex justify-content-between">
@@ -23,10 +27,10 @@ export default function Navbar() {
         </div>
         <Box display="flex">
           <div id="profile-icon">
-            <a href="/profile">My Profile</a>
+            <a onClick={() => dispatch(changeUserDashboard("USER_PROFILE"))}>My Profile</a>
           </div>
           <div id="logout" >
-            <img onClick={() => window.confirm("test")} src="/images/logout.png" alt="logout" id="logout-icon"/>
+            <img onClick={() => window.confirm("test")} src="/images/logout.png" alt="logout" id="logout-icon" />
           </div>
         </Box>
       </div>
