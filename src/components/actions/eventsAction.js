@@ -19,3 +19,14 @@ export const retrieveAllEvents = () => async (dispatch) => {
         console.error(e)
     }
 }
+
+export const searchEvents = (searchInput) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "SEARCH_EVENT",
+            payload: searchInput
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}

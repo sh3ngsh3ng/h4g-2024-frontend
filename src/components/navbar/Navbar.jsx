@@ -4,9 +4,15 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Grid, GridItem } from "@chakra-ui/layout";
 import { useDispatch } from "react-redux";
 import { changeUserDashboard } from "../actions/userActions";
+import { searchEvents } from "../actions/eventsAction";
 
 export default function Navbar() {
   const dispatch = useDispatch()
+
+  const renderSearchItems = (e) => {
+    const searchInput = e.target.value
+    dispatch(searchEvents(searchInput))
+  }
 
   return (
     <nav className="navbar">
@@ -23,6 +29,7 @@ export default function Navbar() {
             type="text"
             className="form-control"
             placeholder="Type search here"
+            onChange={renderSearchItems}
           />
         </div>
         <Box display="flex">
