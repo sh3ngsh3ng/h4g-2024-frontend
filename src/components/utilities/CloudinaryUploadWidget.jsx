@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from "react";
+import { adminAddImage } from "../actions/adminActions";
+import { useDispatch } from "react-redux";
 
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
 function CloudinaryUploadWidget() {
     const [loaded, setLoaded] = useState(false);
+    const dispatch = useDispatch()
     const [uwConfig] = useState({
         cloudName: "dkvfivjmh",
         uploadPreset: "n5kxxw69",
@@ -37,7 +40,9 @@ function CloudinaryUploadWidget() {
                     if (!error && result && result.event === "success") {
                         console.log("Done! Here is the image info: ", result.info);
                         // setPublicId(result.info.public_id);
-                        console.log(result.info.public_id)
+                        // console.log(result.info.public_id)
+                        // console.log(result.info.secure_url)
+                        dispatch(adminAddImage(result.info.secure_url))
                     }
                 }
             );
