@@ -10,6 +10,7 @@ export default function ProfileInterest({
   editMode,
   interestArr,
 }) {
+  console.log("INTEREST => ", interestArr);
   return (
     <Box backgroundColor={white} borderRadius={8} height="270px">
     <FormControl isDisabled={!editMode}>
@@ -35,7 +36,7 @@ export default function ProfileInterest({
               <Checkbox
                 name="interest"
                 key={interest}
-                onChange={(e) => handleCheckBox(e)}
+                onChange={(e) => handleCheckBox(e, interest)}
                 isChecked={interestArr.includes(interest)}
               >
                 {interest}

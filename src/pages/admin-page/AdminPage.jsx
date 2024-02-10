@@ -36,6 +36,7 @@ import {
   tertiaryRed,
 } from "../../components/constants/color";
 import Loading from "../../components/utilities/Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminPage() {
   const dispatch = useDispatch();
@@ -43,6 +44,9 @@ export default function AdminPage() {
   const adminDashboardMode = useSelector((state) => state.adminDashboard.mode);
   const allEvents = useSelector((state) => state.events.allEvents);
   const loading = useSelector((state) => state.events.loading)
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     // retrieve all events on admin page loaded (move to login)
     dispatch(retrieveAllEvents());
@@ -77,6 +81,10 @@ export default function AdminPage() {
     dispatch(changeAdminDashboard(ADMIN_DASHBOARD_MODE_UPDATE));
   };
 
+  const handleAttendance = (slug) => {
+    navigate(`/admin/event/${slug}/attendance`)
+  }
+
   const renderDashboard = () => {
     if (adminDashboardMode == ADMIN_DASHBOARD_MODE_READ) {
       return (
@@ -88,6 +96,8 @@ export default function AdminPage() {
                   data={event}
                   type="admin"
                   action={goToEditEventForm}
+                  isAdmin={true}
+                  handleAttendance={handleAttendance}
                 />
               );
             })}
@@ -97,7 +107,8 @@ export default function AdminPage() {
     } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_CREATE) {
       // dispatch(clearForm())
       // dispatch(setEditForm(EVENT_FORM_TEMPLATE))
-      return loading ? <Loading /> : <EventsForm />;
+      // return loading ? <Loading /> : <EventsForm />;
+      return <EventsForm />;
     } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
       return <EventsForm type="edit" />;
     }
