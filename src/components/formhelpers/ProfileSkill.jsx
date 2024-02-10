@@ -24,7 +24,7 @@ export default function ProfileSkill({SKILLS_LIST, editMode, handleCheckBox, ski
                 <Checkbox
                   name="skills"
                   key={skills}
-                  onChange={(e) => handleCheckBox(e)}
+                  onChange={(e) => handleCheckBox(e, skills)}
                   isChecked={skillsArr.includes(skills)}
                 >
                   {skills}

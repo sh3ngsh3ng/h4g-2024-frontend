@@ -51,6 +51,7 @@ export default function LoginForm({event, token}) {
     }
 
     if (user) {
+      console.log(user);
         navigate("/user");
     }
   

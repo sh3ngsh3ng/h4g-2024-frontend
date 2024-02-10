@@ -43,7 +43,7 @@ const getYear = (date) => {
   return date.split("-")[0];
 };
 
-export const EventCard = ({ data, type, action }) => {
+export const EventCard = ({ data, type, action, isAdmin, handleAttendance }) => {
   const dispatch = useDispatch();
   const startMonth = getMonth(data.startDate);
   const startDay = getDay(data.startDate);
@@ -69,6 +69,14 @@ export const EventCard = ({ data, type, action }) => {
           </Box>
           <Box padding="10px">
             {type == "admin" ? (
+              <Flex>
+              <Button
+              mr={2}
+              colorScheme="red"
+              onClick={() => handleAttendance(data.slug)}
+            >
+              View
+            </Button>
               <Button
                 colorScheme="red"
                 onClick={() => {
@@ -78,6 +86,7 @@ export const EventCard = ({ data, type, action }) => {
               >
                 Edit
               </Button>
+              </Flex>
             ) : (
               <Button
                 colorScheme="red"

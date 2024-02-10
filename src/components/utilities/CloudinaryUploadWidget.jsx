@@ -16,7 +16,8 @@ import CertHelper from "./CertHelper";
 const CloudinaryScriptContext = createContext();
 
 
-function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile }) {
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, skillCertArr }) {
+  console.log("SKILL CERT ARR, =>", skillCertArr);
 
 
   const [loaded, setLoaded] = useState(false);
@@ -52,9 +53,11 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
   }, [loaded]);
 
   useEffect(() => {
-    if (images && reduxMode) {
+    if (!isProfile && images && reduxMode) {
       console.log(images[images.length - 1]);
       setDisplay(images[images.length - 1]);
+      console.log(images);
+      // skillCertArr.append({cert: images[images.length - 1], isVerified: false})
     }
   }, [images]);
 
@@ -65,12 +68,14 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
+            console.log("ISPROFILE => ",isProfile)
+            console.log("ISREDUX => ", reduxMode);
             if (reduxMode) {
               dispatch(actionFn(result.info.secure_url))
             } else {
               actionFn([
                 ...imgArr,
-                result.info.secure_url
+                {cert: result.info.secure_url, isVerified: false}
               ])
             }
 
@@ -116,7 +121,10 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         </Button>
       </CloudinaryScriptContext.Provider>
       {!isProfile && <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>}
-      {isProfile && imgArr?.map(cert => (<CertHelper fullUrl={cert.cert} url={cert.cert.split("/")[7]} isVerified={cert.isVerified} />))}
+      {skillCertArr && skillCertArr.length > 0  && skillCertArr?.map(cert => (
+        <CertHelper fullUrl={cert.cert} url={cert.cert.split("/")[cert.cert.split("/").length - 1]} isVerified={cert.isVerified} />
+      ))}
+      {/* {isProfile && images && images.map(cert => (<CertHelper fullUrl={cert} url={cert.split("/")[7]} isVerified={false} />))} */}
     </Box>
   );
 }

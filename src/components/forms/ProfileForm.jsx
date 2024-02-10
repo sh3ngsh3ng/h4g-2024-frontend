@@ -79,8 +79,9 @@ export const ProfileForm = () => {
     }
   };
 
-  const handleCheckBox = (e) => {
-    const { name, checked, value } = e.target;
+  const handleCheckBox = (e, value) => {
+    const { name, checked  } = e.target;
+    console.log("CHECK BOX => ", name, value, checked);
     if (checked) {
       if (name === "skills") {
         setSkills([...skillsArr, value]);
@@ -163,6 +164,7 @@ export const ProfileForm = () => {
             isProfile={true}
             isEdit={editMode}
             reduxMode={false}
+            skillCertArr={skillCertArr}
           />
         </GridItem>
       </Grid>
