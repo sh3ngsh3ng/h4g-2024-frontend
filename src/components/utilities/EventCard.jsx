@@ -53,7 +53,7 @@ export const EventCard = ({ data, type, action, isAdmin, handleAttendance }) => 
   const startYear = getYear(data.startDate);
   const uid = useSelector((state) => state.userFirebaseRegister.uid)
 
-  const hasJoined = data.volunteers.includes(uid)
+  const hasJoined = data && data.volunteers && data.volunteers.includes(uid)
   console.log("hasJoined:  ", hasJoined)
   return (
     <>

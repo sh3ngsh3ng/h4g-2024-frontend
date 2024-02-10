@@ -11,12 +11,14 @@ import {
 import { Button } from "@chakra-ui/button";
 import { AbsoluteCenter, Box, Center } from "@chakra-ui/layout";
 import CertHelper from "./CertHelper";
+import DisplayCertHelper from "./DisplayCertHelper";
+import MyDivider from "./MyDivider";
 
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
 
-function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, skillCertArr }) {
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, skillCertArr, volunteerCerts }) {
   console.log("SKILL CERT ARR, =>", skillCertArr);
 
 
@@ -121,10 +123,13 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         </Button>
       </CloudinaryScriptContext.Provider>
       {!isProfile && <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>}
+      {volunteerCerts && <Box fontWeight={600}>Skill Cert Uploaded</Box>}
       {skillCertArr && skillCertArr.length > 0  && skillCertArr?.map(cert => (
         <CertHelper fullUrl={cert.cert} url={cert.cert.split("/")[cert.cert.split("/").length - 1]} isVerified={cert.isVerified} />
       ))}
-      {/* {isProfile && images && images.map(cert => (<CertHelper fullUrl={cert} url={cert.split("/")[7]} isVerified={false} />))} */}
+      <MyDivider/>
+      {volunteerCerts && <Box fontWeight={600}>Volunteer Cert Received</Box>}
+      {volunteerCerts && volunteerCerts.map(cert => (<DisplayCertHelper cert={cert} />))}
     </Box>
   );
 }

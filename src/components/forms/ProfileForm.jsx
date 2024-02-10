@@ -63,6 +63,7 @@ export const ProfileForm = () => {
   const [interestArr, setInterest] = useState([]);
   const [skillCertArr, setSkillCert] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [volunteerCerts, setVolunteerCerts] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -124,6 +125,8 @@ export const ProfileForm = () => {
       setInterest([...result.data.user.interest]);
 
       setSkillCert(result.data.certs);
+
+      setVolunteerCerts([...result.data.user.volunteerCert])
     } catch (e) {
       console.log(e);
     }
@@ -165,6 +168,7 @@ export const ProfileForm = () => {
             isEdit={editMode}
             reduxMode={false}
             skillCertArr={skillCertArr}
+            volunteerCerts={volunteerCerts}
           />
         </GridItem>
       </Grid>
