@@ -1,4 +1,4 @@
-export const eventsReducers = (state = { allEvents: [] }, action) => {
+export const eventsReducers = (state = { allEvents: [], oldEvents: [] }, action) => {
     switch (action.type) {
         case "EVENTS_REQUEST_PENDING":
             return { loading: true }
@@ -21,6 +21,9 @@ export const eventsReducers = (state = { allEvents: [] }, action) => {
             } else {
                 return { ...state, loading: false }
             }
+        case "SEARCH_EVENT":
+            const searchedEvents = state.allEvents.filter((event) => event.description.toUpperCase().indexOf(action.payload.toUpperCase()) !== -1)
+        // return { ...state, oldEvents: allEvents, allEvents: searchedEvents, }
         default:
             return state
     }

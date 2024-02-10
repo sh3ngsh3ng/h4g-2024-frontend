@@ -16,8 +16,8 @@ import CertHelper from "./CertHelper";
 const CloudinaryScriptContext = createContext();
 
 
-function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile, isEdit, certsArr }) {
-    console.log(certsArr);
+function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile }) {
+
 
   const [loaded, setLoaded] = useState(false);
   const [display, setDisplay] = useState("");
@@ -65,10 +65,6 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
-            // setPublicId(result.info.public_id);
-            // console.log(result.info.public_id)
-            // console.log(result.info.secure_url)
-            // dispatch(adminAddImage(result.info.secure_url));
             if (reduxMode) {
               dispatch(actionFn(result.info.secure_url))
             } else {
@@ -120,7 +116,7 @@ function CloudinaryUploadWidget({ actionFn, imgArr, reduxMode, height, isProfile
         </Button>
       </CloudinaryScriptContext.Provider>
       {!isProfile && <Box height="200px" mt={5}><Center>{display && <img src={display} style={{ height: "150px" }} />}</Center></Box>}
-      {isProfile && certsArr.map(cert => (<CertHelper url={cert.cert.split("/")[7]} isVerified={cert.isVerified}/>))}
+      {isProfile && imgArr?.map(cert => (<CertHelper fullUrl={cert.cert} url={cert.cert.split("/")[7]} isVerified={cert.isVerified} />))}
     </Box>
   );
 }

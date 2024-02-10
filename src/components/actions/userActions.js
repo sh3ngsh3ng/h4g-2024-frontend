@@ -20,6 +20,7 @@ import {
 
 import { auth } from "../../firebase/firebase";
 import firebase from "firebase/compat/app";
+import { displayError, displaySuccess } from "../../services/alertServices";
 
 export const loginUser = () => async (dispatch) => {
   try {
@@ -156,44 +157,46 @@ export const registerUserWithEmailAndPassword = (email, password) => async (disp
       type: USER_FIREBASE_REGISTER_FAIL,
       payload: error.response,
     });
+
   }
 };
 
 export const registerUser =
   ({ firstName, lastName, age, gender, phoneNumber, emergencyContact }) =>
-  async (dispatch) => {
-    try {
-      // in future might want to reset this
-      // dispatch({ type: USER_LOGOUT_RESET });
+    async (dispatch) => {
+      try {
+        // in future might want to reset this
+        // dispatch({ type: USER_LOGOUT_RESET });
 
-      dispatch({
-        type: USER_REGISTER_REQUEST,
-      });
+        dispatch({
+          type: USER_REGISTER_REQUEST,
+        });
 
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("@user"),
+          },
+        };
 
-      const { data } = await axios.post(
-        "/api/register",
-        { firstName, lastName, age, gender, phoneNumber, emergencyContact },
-        config
-      );
+        const { data } = await axios.post(
+          "/api/register",
+          { firstName, lastName, age, gender, phoneNumber, emergencyContact },
+          config
+        );
 
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: USER_REGISTER_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+        dispatch({
+          type: USER_REGISTER_SUCCESS,
+          payload: data,
+        });
+
+      } catch (error) {
+        dispatch({
+          type: USER_REGISTER_FAIL,
+          payload: error.response,
+        });
+      }
+    };
 
 // cg version
 // export const registerUserWithEmailAndPassword = (email, password) => async (dispatch) => {
@@ -260,31 +263,31 @@ export const changeUserDashboard = (mode) => async (dispatch) => {
 
 export const userMarkAttendance =
   ({ slug, token }) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_REQUEST,
-      });
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@user"),
-        },
-      };
+    async (dispatch) => {
+      try {
+        dispatch({
+          type: MARK_EVENT_ATTENDANCE_REQUEST,
+        });
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("@user"),
+          },
+        };
 
-      const { data } = await axios.get(`/api/event/${slug}/markAttendance/${token}`, config);
+        const { data } = await axios.get(`/api/event/${slug}/markAttendance/${token}`, config);
 
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: MARK_EVENT_ATTENDANCE_FAIL,
-        payload: error.response,
-      });
-    }
-  };
+        dispatch({
+          type: MARK_EVENT_ATTENDANCE_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: MARK_EVENT_ATTENDANCE_FAIL,
+          payload: error.response,
+        });
+      }
+    };
 
 export const setViewEvent = (eventToView) => {
   try {

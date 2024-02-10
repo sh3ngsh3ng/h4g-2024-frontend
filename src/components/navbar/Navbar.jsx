@@ -4,9 +4,24 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Grid, GridItem } from "@chakra-ui/layout";
 import { useDispatch } from "react-redux";
 import { changeUserDashboard } from "../actions/userActions";
+import { searchEvents } from "../actions/eventsAction";
+import { displaySuccess } from "../../services/alertServices";
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const renderSearchItems = (e) => {
+    const searchInput = e.target.value
+    dispatch(searchEvents(searchInput))
+  }
+
+  const logout = () => {
+    localStorage.removeItem("@user")
+    displaySuccess("Logout success!")
+    navigate("/signup")
+  }
 
   return (
     <nav className="navbar">
@@ -23,6 +38,7 @@ export default function Navbar() {
             type="text"
             className="form-control"
             placeholder="Type search here"
+            onChange={renderSearchItems}
           />
         </div>
         <Box display="flex">
@@ -30,7 +46,7 @@ export default function Navbar() {
             <a onClick={() => dispatch(changeUserDashboard("USER_PROFILE"))}>My Profile</a>
           </div>
           <div id="logout" >
-            <img onClick={() => window.confirm("test")} src="/images/logout.png" alt="logout" id="logout-icon" />
+            <img onClick={() => logout()} src="/images/logout.png" alt="logout" id="logout-icon" />
           </div>
         </Box>
       </div>

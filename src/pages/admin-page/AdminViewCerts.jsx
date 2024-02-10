@@ -20,7 +20,7 @@ export default function AdminViewCerts() {
 
   const onVerify = async (certId) => {
     try {
-      let result = await axios.post("/api/certs/verify", {certId}, config);
+      let result = await axios.post("/api/certs/verify", { certId }, config);
 
       retrieveCert();
     } catch (e) {
@@ -42,7 +42,7 @@ export default function AdminViewCerts() {
     <Box width="100%" height="100%" p={3}>
       <Navbar />
 
-      {certs && certs.map((cert) => (<AdminCertHelper cert={cert} onVerify={onVerify}/>))}
+      {certs && certs.map((cert) => (<AdminCertHelper cert={cert} onVerify={onVerify} />))}
     </Box>
   );
 }
