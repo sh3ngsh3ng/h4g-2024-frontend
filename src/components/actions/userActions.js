@@ -21,6 +21,7 @@ import {
 import { auth } from "../../firebase/firebase";
 import firebase from "firebase/compat/app";
 import { displayError, displaySuccess } from "../../services/alertServices";
+import { retrieveAllEvents } from "./eventsAction";
 
 export const loginUser = () => async (dispatch) => {
   try {
@@ -299,3 +300,26 @@ export const setViewEvent = (eventToView) => {
     console.error(e);
   }
 };
+
+
+export const userJoinEvent = (slug) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@user"),
+      },
+    };
+
+    const response = await axios.post(`/api/joinEvent/${slug}`, {}, config)
+
+    if (response.data.success) {
+      displaySuccess("You have signed up successfully!")
+      dispatch(retrieveAllEvents())
+    }
+
+  } catch (e) {
+    displayError(e.message)
+    console.log(e)
+  }
+}
