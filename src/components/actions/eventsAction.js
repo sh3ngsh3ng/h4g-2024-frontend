@@ -4,7 +4,7 @@ export const retrieveAllEvents = () => async (dispatch) => {
         dispatch({
             type: "EVENTS_REQUEST_PENDING"
         })
-        const response = await axios.get("http://localhost:8000/api/list")
+        const response = await axios.get("/api/list")
         const allEvents = response.data
         if (allEvents.length > 0) {
             dispatch({

@@ -1,9 +1,12 @@
 import { Box, Heading, Text, Flex, Button, Stack, Tag } from "@chakra-ui/react";
 import stock from "../../static/Images/event-image/stock.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setEditForm } from "../actions/adminActions";
 import { setViewEvent } from "../actions/userActions";
 import { white } from "../constants/color";
+import { auth } from "../../firebase/firebase";
+import { displayError } from "../../services/alertServices";
+import { retrieveAllEvents } from "../actions/eventsAction";
 
 const getMonth = (date) => {
   const month = date.split("-")[1];
@@ -48,6 +51,10 @@ export const EventCard = ({ data, type, action, isAdmin, handleAttendance }) => 
   const startMonth = getMonth(data.startDate);
   const startDay = getDay(data.startDate);
   const startYear = getYear(data.startDate);
+  const uid = useSelector((state) => state.userFirebaseRegister.uid)
+
+  const hasJoined = data.volunteers.includes(uid)
+  console.log("hasJoined:  ", hasJoined)
   return (
     <>
       <Box
@@ -70,33 +77,38 @@ export const EventCard = ({ data, type, action, isAdmin, handleAttendance }) => 
           <Box padding="10px">
             {type == "admin" ? (
               <Flex>
-              <Button
-              mr={2}
-              colorScheme="red"
-              onClick={() => handleAttendance(data.slug)}
-            >
-              View
-            </Button>
-              <Button
-                colorScheme="red"
-                onClick={() => {
-                  action();
-                  dispatch(setEditForm(data));
-                }}
-              >
-                Edit
-              </Button>
+                <Button
+                  mr={2}
+                  colorScheme="red"
+                  onClick={() => handleAttendance(data.slug)}
+                >
+                  View
+                </Button>
+                <Button
+                  colorScheme="red"
+                  onClick={() => {
+                    action();
+                    dispatch(setEditForm(data));
+                  }}
+                >
+                  Edit
+                </Button>
               </Flex>
             ) : (
-              <Button
-                colorScheme="red"
-                onClick={() => {
-                  action();
-                  dispatch(setViewEvent(data));
-                }}
-              >
-                Join
-              </Button>
+              hasJoined ?
+                <Button colorScheme="green"
+                  onClick={() => displayError("You have already joined this event!")}
+                >
+                  Joined
+                </Button>
+                :
+                <Button colorScheme="red"
+                  onClick={() => {
+                    action(data.slug)
+                  }}
+                >
+                  Join
+                </Button>
             )}
           </Box>
         </Flex>
