@@ -50,7 +50,7 @@ export default function LoginForm({event, token}) {
       navigate(`/event/${event}/markAttendance/${token}`)
     }
 
-    if (user) {
+    else if (user) {
       console.log(user);
         navigate("/user");
     }
