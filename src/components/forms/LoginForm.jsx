@@ -50,7 +50,7 @@ export default function LoginForm({event, token}) {
       navigate(`/event/${event}/markAttendance/${token}`)
     }
 
-    if (user) {
+    else if (user) {
       console.log(user);
         navigate("/user");
     }
@@ -117,7 +117,7 @@ export default function LoginForm({event, token}) {
         </Button>
       </FormControl>
 
-      <MyDivider />
+      {/* <MyDivider />
 
       <Button
         backgroundColor={white}
@@ -136,7 +136,7 @@ export default function LoginForm({event, token}) {
         onClick={handleLoginWithGoogle}
       >
         Log In With Google
-      </Button>
+      </Button> */}
     </>
   );
 }

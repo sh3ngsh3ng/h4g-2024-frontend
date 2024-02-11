@@ -117,6 +117,24 @@ export default function AdminPage() {
   const renderAdminActionButtons = () => {
     if (adminDashboardMode == ADMIN_DASHBOARD_MODE_READ) {
       return (
+        <Box>
+        <Button
+          backgroundColor={paleRed}
+          borderColor={primaryRed}
+          color={primaryRed}
+          variant="outline"
+          sx={{
+            ":hover": {
+              backgroundColor: palestRed,
+              ":focus": { backgroundColor: tertiaryRed },
+            },
+          }}
+          mr={2}
+          height="36px"
+          onClick={() => navigate("/admin/certs")}
+        >
+          Verify Volunteers Cert
+        </Button>
         <Button
           backgroundColor={paleRed}
           borderColor={primaryRed}
@@ -134,6 +152,7 @@ export default function AdminPage() {
         >
           Create Event
         </Button>
+        </Box>
       );
     } else if (adminDashboardMode == ADMIN_DASHBOARD_MODE_UPDATE) {
       return (

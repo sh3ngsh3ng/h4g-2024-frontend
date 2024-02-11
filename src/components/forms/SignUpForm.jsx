@@ -135,7 +135,7 @@ export default function SignUpForm() {
             Continue
           </Button>
 
-          <MyDivider />
+          {/* <MyDivider />
 
           <Button
             backgroundColor={white}
@@ -154,7 +154,7 @@ export default function SignUpForm() {
             onClick={onContinueWithGoogle}
           >
             Sign Up With Google
-          </Button>
+          </Button> */}
         </>
       )}
 

@@ -42,6 +42,12 @@ export default function Navbar() {
           />
         </div>
         <Box display="flex">
+        <div id="profile-icon">
+            <a href="/admin">Admin</a>
+          </div>
+        <div id="profile-icon">
+            <a href="/analysis">Analysis</a>
+          </div>
           <div id="profile-icon">
             <a onClick={() => dispatch(changeUserDashboard("USER_PROFILE"))}>My Profile</a>
           </div>
